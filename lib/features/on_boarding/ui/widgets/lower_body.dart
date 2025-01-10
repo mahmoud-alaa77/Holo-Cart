@@ -9,14 +9,15 @@ class LowerBody extends StatelessWidget {
   final Color buttonColor;
   final Color buttonBackgroundColor;
   final void Function()? onTap;
-  final bool isLast ;
+  final bool isLast;
   const LowerBody(
       {super.key,
       required this.title,
       required this.subTitle,
       required this.buttonColor,
       required this.buttonBackgroundColor,
-      this.onTap, required this.isLast});
+      this.onTap,
+      required this.isLast});
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +32,13 @@ class LowerBody extends StatelessWidget {
           margin: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
           padding: EdgeInsetsDirectional.all(12.r),
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(.2),
+              color: Colors.black.withValues(alpha: .2),
               borderRadius: BorderRadius.circular(16.r)),
           child: Column(
             children: [
               Text(
                 title,
-                style: AppTextStyles.font26W900,
+                style: AppTextStyles.font24W900,
               ),
               verticalSpace(4),
               Text(
@@ -61,8 +62,14 @@ class LowerBody extends StatelessWidget {
                     height: 65.h,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: buttonColor),
-                    child:  Center(
-                      child:isLast ? const Icon(Icons.done,color:Colors.green,size: 35,) : const Icon(Icons.arrow_forward_ios_outlined),
+                    child: Center(
+                      child: isLast
+                          ? const Icon(
+                              Icons.done,
+                              color: Colors.green,
+                              size: 35,
+                            )
+                          : const Icon(Icons.arrow_forward_ios_outlined),
                     ),
                   )),
             )),
