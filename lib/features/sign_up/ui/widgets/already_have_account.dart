@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/routing/routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
@@ -13,20 +13,20 @@ class AlreadyHaveAccount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have account?",style: AppTextStyles.font13W400.copyWith(color:Theme.of(context).brightness ==
+          "Already have an account?",style: AppTextStyles.font13W400.copyWith(color:Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? AppColors.customBlackColor
                                   : AppColors.customWhiteColor), 
         ),
         GestureDetector(onTap: () {
-          context.push("/signup");
+          context.go(Routes.login);
         },
           child: Text(
-            " Sign Up ",
+             " login ",
             style: AppTextStyles.font13W500.copyWith(color: AppColors.customBlueColor),
           ),
         )
       ],
-    );
+    );;
   }
 }
