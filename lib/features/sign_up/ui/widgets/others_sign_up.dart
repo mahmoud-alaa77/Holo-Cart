@@ -3,10 +3,8 @@ import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
-class OthersLogin extends StatelessWidget {
-  const OthersLogin({
-    super.key,
-  });
+class OthersSignUp extends StatelessWidget {
+  const OthersSignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class OthersLogin extends StatelessWidget {
         ),
         horizontalSpace(6),
         Text(
-          'other login',
+          'Other Sign Up',
           style: AppTextStyles.font13W400.copyWith(
               color: Theme.of(context).brightness == Brightness.dark
                   ? AppColors.customBlackColor

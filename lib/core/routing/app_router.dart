@@ -4,6 +4,7 @@ import 'package:holo_cart/core/routing/routes.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
+import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 
 final router = GoRouter(
@@ -42,6 +43,10 @@ final router = GoRouter(
     GoRoute(
       path: Routes.mainAuth,
       builder: (context, state) => const LoginORSignupORGuestScreen(),
+    ),
+     GoRoute(
+      path: Routes.signUp,
+      builder: (context, state) => const SignUpScreen(),
     ),
   ],
 );
