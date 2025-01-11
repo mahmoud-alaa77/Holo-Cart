@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Holo Cart',
         theme: ThemeData(
-          brightness: Brightness.dark,
-          useMaterial3: true,
-        ),
+            brightness: Brightness.dark,
+            useMaterial3: true,
+            fontFamily: "Cairo"),
         home: const OnBoardingScreen(),
       ),
     );
