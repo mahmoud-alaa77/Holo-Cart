@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
+import 'package:holo_cart/features/on_boarding/ui/widgets/custom_indicator.dart';
 import 'package:holo_cart/features/on_boarding/ui/widgets/on_boarding_body.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -14,6 +15,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   PageController? controller = PageController();
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
     return SafeArea(
         child: Scaffold(
       //backgroundColor: onBoardingScreenColor(index),
@@ -96,6 +99,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
             ],
           ),
+          Positioned(
+              top: screenHeight / 1.66,
+              right: screenWidth / 2.5,
+              child: Row(
+                children: [
+                  CustomIndicator(active: index == 0),
+                  CustomIndicator(active: index == 1),
+                  CustomIndicator(active: index == 2),
+                  CustomIndicator(active: index == 3),
+                ],
+              )),
         ],
       ),
     ));
@@ -113,6 +127,3 @@ Color onBoardingScreenColor(int index) {
     return AppColors.customPurpleColor;
   }
 }
-
-
-
