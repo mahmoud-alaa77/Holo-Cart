@@ -36,7 +36,7 @@ class OnBoardingBody extends StatelessWidget {
               outerColor: outerColor,
               innerColor: innerColor),
         ),
-        verticalSpace(32),
+        verticalSpace(12),
         LowerBody(
           isLast: isLast,
           title: title,

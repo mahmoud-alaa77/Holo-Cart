@@ -31,7 +31,7 @@ class LowerBody extends StatelessWidget {
           margin: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
           padding: EdgeInsetsDirectional.all(12.r),
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(.2),
+              color: Colors.black.withValues(alpha: .2),
               borderRadius: BorderRadius.circular(16.r)),
           child: Column(
             children: [
