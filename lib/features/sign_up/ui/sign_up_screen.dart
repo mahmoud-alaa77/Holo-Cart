@@ -3,18 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
-
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
-import 'package:holo_cart/features/login/ui/widgets/email_and_password.dart';
-import 'package:holo_cart/features/login/ui/widgets/login_face_google.dart';
-import 'package:holo_cart/features/login/ui/widgets/not_have_account.dart';
-import 'package:holo_cart/features/login/ui/widgets/other_login.dart';
 
+import 'package:holo_cart/features/sign_up/ui/widgets/already_have_account.dart';
+import 'package:holo_cart/features/sign_up/ui/widgets/others_sign_up.dart';
+import 'package:holo_cart/features/sign_up/ui/widgets/sign_up_face_google.dart';
+import 'package:holo_cart/features/sign_up/ui/widgets/text_fields_sign_up.dart';
 
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +87,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 130.h,
+            top: 45.h,
             child: Container(
               width: screenWidth,
               height: screenHeight,
@@ -107,34 +105,23 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const BackItem(),
                     Center(
-                      child: Text("Hello in ,Login \nPage.",
+                      child: Text("Hello in ,Sign Up \nPage.",
                           textAlign: TextAlign.center,
                           style: AppTextStyles.font28W500.copyWith(
                             color: AppColors.customBlackColor,
                           )),
                     ),
-                    const EmailAndPassword(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("Forget Password?",
-                            textAlign: TextAlign.end,
-                            style: AppTextStyles.font13W400.copyWith(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.customBlackColor
-                                    : AppColors.customWhiteColor)),
-                      ],
-                    ),
+                    const TextFieldsSignUp(),
+                  
                     verticalSpace(22),
-                    ButtonItem(text: "Login", onPressed: () {}),
+                    ButtonItem(text: "Sign Up", onPressed: () {}),
                     SizedBox(
                       height: 26.h,
                     ),
-                    const OthersLogin(),
-                    const LoginWithFaceOrGoogle(),
+                    const OthersSignUp(),
+                    const SignUpWithFaceOrGoogle(),
                     verticalSpace(20),
-                    const NotHaveAccount(),
+                    const AlreadyHaveAccount(),
                   ],
                 ),
               ),
