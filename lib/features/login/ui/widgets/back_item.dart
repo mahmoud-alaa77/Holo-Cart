@@ -14,8 +14,11 @@ class BackItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: IconButton(
-          onPressed: () {},
-          icon:const Icon(
+          onPressed: () {
+            // Navigate back to the previous screen
+            Navigator.pop(context);
+          },
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.primaryOrangeColor,
           )),
