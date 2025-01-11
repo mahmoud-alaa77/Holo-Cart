@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/features/on_boarding/ui/widgets/custom_indicator.dart';
 import 'package:holo_cart/features/on_boarding/ui/widgets/lower_body.dart';
 import 'package:holo_cart/features/on_boarding/ui/widgets/upper_body.dart';
 
@@ -36,7 +37,7 @@ class OnBoardingBody extends StatelessWidget {
               outerColor: outerColor,
               innerColor: innerColor),
         ),
-        verticalSpace(32),
+        verticalSpace(12),
         LowerBody(
           isLast: isLast,
           title: title,
