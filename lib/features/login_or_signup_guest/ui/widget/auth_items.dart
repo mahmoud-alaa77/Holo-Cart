@@ -20,7 +20,7 @@ class AuthItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: -330.h,
+      bottom: -300.h,
       child: Container(
         width: screenWidth,
         height: screenHeight,

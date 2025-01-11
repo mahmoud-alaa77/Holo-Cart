@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:holo_cart/core/utilites/routes.dart';
+import 'package:holo_cart/core/routing/app_router.dart';
 
 void main() {
   runApp(const MyApp());
