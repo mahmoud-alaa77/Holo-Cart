@@ -100,29 +100,31 @@ class SignUpScreen extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const BackItem(),
-                    Center(
-                      child: Text("Hello in ,Sign Up \nPage.",
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.font28W500.copyWith(
-                            color: AppColors.customBlackColor,
-                          )),
-                    ),
-                    const TextFieldsSignUp(),
-                  
-                    verticalSpace(22),
-                    ButtonItem(text: "Sign Up", onPressed: () {}),
-                    SizedBox(
-                      height: 26.h,
-                    ),
-                    const OthersSignUp(),
-                    const SignUpWithFaceOrGoogle(),
-                    verticalSpace(20),
-                    const AlreadyHaveAccount(),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const BackItem(),
+                      Center(
+                        child: Text("Hello in ,Sign Up \nPage.",
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.font28W500.copyWith(
+                              color: AppColors.customBlackColor,
+                            )),
+                      ),
+                      const TextFieldsSignUp(),
+                    
+                      verticalSpace(22),
+                      ButtonItem(text: "Sign Up", onPressed: () {}),
+                      SizedBox(
+                        height: 26.h,
+                      ),
+                      const OthersSignUp(),
+                      const SignUpWithFaceOrGoogle(),
+                      verticalSpace(20),
+                      const AlreadyHaveAccount(),
+                    ],
+                  ),
                 ),
               ),
             ),
