@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
@@ -44,9 +45,15 @@ final router = GoRouter(
       path: Routes.mainAuth,
       builder: (context, state) => const LoginORSignupORGuestScreen(),
     ),
-     GoRoute(
+    //signup route
+    GoRoute(
       path: Routes.signUp,
       builder: (context, state) => const SignUpScreen(),
+    ),
+    // Home Route
+    GoRoute(
+      path: Routes.main,
+      builder: (context, state) => const MainScreen(),
     ),
   ],
 );
