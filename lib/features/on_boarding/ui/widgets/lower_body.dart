@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class LowerBody extends StatelessWidget {
@@ -9,14 +10,15 @@ class LowerBody extends StatelessWidget {
   final Color buttonColor;
   final Color buttonBackgroundColor;
   final void Function()? onTap;
-  final bool isLast ;
+  final bool isLast;
   const LowerBody(
       {super.key,
       required this.title,
       required this.subTitle,
       required this.buttonColor,
       required this.buttonBackgroundColor,
-      this.onTap, required this.isLast});
+      this.onTap,
+      required this.isLast});
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,14 @@ class LowerBody extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: AppTextStyles.font26W900,
+                style: AppTextStyles.font26W900
+                    .copyWith(color: AppColors.customWhiteColor),
               ),
               verticalSpace(4),
               Text(
                 subTitle,
-                style: AppTextStyles.font15W400,
+                style: AppTextStyles.font15W400
+                    .copyWith(color: AppColors.customWhiteColor),
               ),
             ],
           ),
@@ -61,8 +65,17 @@ class LowerBody extends StatelessWidget {
                     height: 65.h,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: buttonColor),
-                    child:  Center(
-                      child:isLast ? const Icon(Icons.done,color:Colors.green,size: 35,) : const Icon(Icons.arrow_forward_ios_outlined),
+                    child: Center(
+                      child: isLast
+                          ? const Icon(
+                              Icons.done,
+                              color: Colors.green,
+                              size: 35,
+                            )
+                          : const Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Colors.white,
+                            ),
                     ),
                   )),
             )),
