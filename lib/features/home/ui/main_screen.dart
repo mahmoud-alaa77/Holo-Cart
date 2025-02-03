@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
 
 class MainScreen extends StatefulWidget {
@@ -22,12 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> bodies = [
     const HomeScreenBody(),
-    Center(
-      child: Text(
-        'Categories Screen',
-        style: AppTextStyles.font24W900,
-      ),
-    ),
+    const CategoriesScreenBody(),
     Center(
       child: Text(
         'Favorites Screen',
@@ -51,8 +47,16 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: bodies[selectedIndex],
-          bottomNavigationBar: _buildBottomNavigationBar()),
+        body: Stack(
+          children: [
+            bodies[selectedIndex],
+            Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: _buildBottomNavigationBar())
+          ],
+        ),
+        //bottomNavigationBar: _buildBottomNavigationBar()
+      ),
     );
   }
 
@@ -73,69 +77,75 @@ class _MainScreenState extends State<MainScreen> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           onTap: _onItemTapped,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home_sharp),
-                label: '',
-                activeIcon: Icon(Icons.home_filled)),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.category_outlined),
-                label: '',
-                activeIcon: Icon(Icons.category_rounded)),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
-                label: '',
-                activeIcon: Icon(Icons.favorite)),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket_outlined),
-                label: '',
-                activeIcon: Icon(Icons.shopping_basket_sharp)),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline_rounded),
-                label: '',
-                activeIcon: Icon(Icons.person)),
-          ],
+          items: List.generate(5, (index) {
+            return BottomNavigationBarItem(
+              icon: Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (selectedIndex == index)
+                    Container(
+                      width: 40.r,
+                      height: 40.r,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primaryOrangeColor
+                                .withValues(alpha: .5),
+                            blurRadius: 12.r,
+                            spreadRadius: 5.r,
+                          ),
+                        ],
+                      ),
+                    ),
+                  Icon(_getIcon(index, isActive: false)),
+                ],
+              ),
+              activeIcon: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 40.r,
+                    height: 40.r,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.primaryOrangeColor
+                              .withValues(alpha: .45),
+                          blurRadius: 16.r,
+                          spreadRadius: 6.r,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(_getIcon(index, isActive: true)),
+                ],
+              ),
+              label: '',
+            );
+          }),
         ),
       ),
     );
   }
+
+  IconData _getIcon(int index, {required bool isActive}) {
+    switch (index) {
+      case 0:
+        return isActive ? Icons.home_filled : Icons.home_sharp;
+      case 1:
+        return isActive ? Icons.category_rounded : Icons.category_outlined;
+      case 2:
+        return isActive ? Icons.favorite : Icons.favorite_border;
+      case 3:
+        return isActive
+            ? Icons.shopping_basket_sharp
+            : Icons.shopping_basket_outlined;
+      case 4:
+        return isActive ? Icons.person : Icons.person_outline_rounded;
+      default:
+        return Icons.help_outline;
+    }
+  }
 }
-
-
-/*
-ClipRRect(
-          borderRadius: BorderRadius.circular(16.r),
-          child: BottomNavigationBar(
-            selectedItemColor: AppColors.primaryOrangeColor,
-            currentIndex: selectedIndex,
-            onTap: _onItemTapped,
-            elevation: 0,
-            backgroundColor: Colors.black,
-            selectedFontSize: 14.sp,
-            unselectedFontSize: 12.sp,
-            iconSize: 25.r,
-            type: BottomNavigationBarType.shifting,
-            unselectedItemColor: AppColors.customWhiteColor,
-            showUnselectedLabels: true,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_filled),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.newspaper),
-                label: 'News',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorite',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-            ],
-          ),
-        ),*/
-
-
