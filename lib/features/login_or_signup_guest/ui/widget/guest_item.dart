@@ -14,7 +14,7 @@ class GuestItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8, bottom: 10),
       child: GestureDetector(
         onTap: () {
-          GoRouter.of(context).push(Routes.main);
+          GoRouter.of(context).go(Routes.main);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
