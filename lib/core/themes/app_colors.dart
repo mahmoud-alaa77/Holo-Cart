@@ -10,6 +10,6 @@ class AppColors {
   static const Color customLightGrayColor = Color(0xFF9E9292);
 
   static const Color customBlueColor = Color(0xFF009DFF);
-  
+  static const Color customLightBlakColor = Color(0xFF26282A);
   static const Color customWhiteColor = Color(0xFFFFFFFF);
 }
