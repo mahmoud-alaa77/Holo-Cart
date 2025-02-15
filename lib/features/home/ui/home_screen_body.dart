@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/features/categories/ui/widgets/category_cart_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/offers_widgets.dart';
 
@@ -98,7 +99,7 @@ class HomeScreenBody extends StatelessWidget {
           ),
           verticalSpace(8.h),
           Container(
-            height: 1000.h,
+            //height: 1000.h,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadiusDirectional.only(
@@ -126,6 +127,68 @@ class HomeScreenBody extends StatelessWidget {
                     ],
                   ),
                 ),
+                verticalSpace(8),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: categories.length - 12,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: .75,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2),
+                  itemBuilder: (context, index) {
+                    return CategoryCartItem(
+                      categoryName: categories[index],
+                    );
+                  },
+                ),
+                verticalSpace(8),
+                // ListView.builder(
+                //   itemCount: 12,
+                //   scrollDirection: Axis.horizontal,
+                //   itemBuilder: (context, index) {
+                //     return const CategoryCartItem(
+                //       categoryName: "Category",
+                //     );
+                //   },
+                // ),
+                Padding(
+                  padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Popular ",
+                        style: AppTextStyles.font22W900,
+                      ),
+                      const Spacer(),
+                      TextButton(
+                        child: Text(
+                          "see all",
+                          style: AppTextStyles.font13W400,
+                        ),
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
+                ),
+                verticalSpace(8),
+                // GridView.builder(
+                //   shrinkWrap: true,
+                //   physics: const NeverScrollableScrollPhysics(),
+                //   itemCount: categories.length - 12,
+                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 2,
+                //       childAspectRatio: .75,
+                //       crossAxisSpacing: 2,
+                //       mainAxisSpacing: 2),
+                //   itemBuilder: (context, index) {
+                //     return CategoryCartItem(
+                //       categoryName: categories[index],
+                //     );
+                //   },
+                // ),
+                verticalSpace(70)
               ],
             ),
           )
