@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
-import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
@@ -72,7 +72,7 @@ class AuthItems extends StatelessWidget {
               }),
               verticalSpace(12),
               ButtonItem(text: "Sign up", onPressed: () {
-                GoRouter.of(context).push(Routes.signUp);
+                GoRouter.of(context).push(AppRoutes.signUp);
               }),
              const GuestItem(),
             ],

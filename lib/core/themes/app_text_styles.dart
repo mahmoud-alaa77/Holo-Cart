@@ -69,6 +69,10 @@ class AppTextStyles {
     fontSize: 24.sp,
     fontWeight: FontWeight.w800,
   );
+  // 500
+  
+  
+
 
 
 
