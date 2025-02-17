@@ -12,4 +12,10 @@ class AppColors {
   static const Color customBlueColor = Color(0xFF009DFF);
   
   static const Color customWhiteColor = Color(0xFFFFFFFF);
+  
+  
+  
+  static const Color customLightColor = Color(0xFFF4F4F4);
+
+  
 }

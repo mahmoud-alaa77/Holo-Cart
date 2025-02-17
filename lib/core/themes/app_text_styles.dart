@@ -57,8 +57,22 @@ class AppTextStyles {
     fontSize: 24.0.sp,
     fontWeight: FontWeight.w900,
   );
-  // static TextStyle font15W400 = TextStyle(
-  //   fontSize: 15.0.sp,
-  //   fontWeight: FontWeight.w400,
-  // );
+  static TextStyle font14W600 = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+  );
+  static TextStyle font12W700 = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle font24W800 = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w800,
+  );
+
+
+
+
+
+
 }
