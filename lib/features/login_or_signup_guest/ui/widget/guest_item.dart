@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 
 class GuestItem extends StatelessWidget {
@@ -14,7 +14,7 @@ class GuestItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8, bottom: 10),
       child: GestureDetector(
         onTap: () {
-          GoRouter.of(context).go(Routes.main);
+          GoRouter.of(context).go(AppRoutes.main);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
