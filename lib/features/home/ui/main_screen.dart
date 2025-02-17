@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
+import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
 
 class MainScreen extends StatefulWidget {
@@ -24,12 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> bodies = [
     const HomeScreenBody(),
     const CategoriesScreenBody(),
-    Center(
-      child: Text(
-        'Favorites Screen',
-        style: AppTextStyles.font24W900,
-      ),
-    ),
+   const FavouriteScreenBody(),
     Center(
       child: Text(
         'Cart Screen',
