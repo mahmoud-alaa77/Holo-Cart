@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
@@ -19,7 +19,7 @@ class AlreadyHaveAccount extends StatelessWidget {
                                   : AppColors.customWhiteColor), 
         ),
         GestureDetector(onTap: () {
-          context.go(Routes.login);
+          context.go(AppRoutes.login);
         },
           child: Text(
              " login ",

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
+import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 
@@ -12,12 +13,12 @@ final router = GoRouter(
   routes: [
     // Splash Route
     GoRoute(
-      path: Routes.splash,
+      path: AppRoutes.splash,
       builder: (context, state) => const SplashScreen(),
     ),
     // Onboarding Route with Custom Slide Transition
     GoRoute(
-      path: Routes.onBoarding,
+      path: AppRoutes.onBoarding,
       name: "on_boarding",
       pageBuilder: (context, state) {
         return CustomTransitionPage(
@@ -37,23 +38,27 @@ final router = GoRouter(
     ),
     // Login Route
     GoRoute(
-      path: Routes.login,
+      path: AppRoutes.login,
       builder: (context, state) => const LoginScreen(),
     ),
     // Main Auth Route
     GoRoute(
-      path: Routes.mainAuth,
+      path: AppRoutes.mainAuth,
       builder: (context, state) => const LoginORSignupORGuestScreen(),
     ),
     //signup route
     GoRoute(
-      path: Routes.signUp,
+      path: AppRoutes.signUp,
       builder: (context, state) => const SignUpScreen(),
     ),
     // Home Route
     GoRoute(
-      path: Routes.main,
+      path: AppRoutes.main,
       builder: (context, state) => const MainScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.productDetails,
+      builder: (context, state) => const ProductDetailsPage(),
     ),
   ],
 );

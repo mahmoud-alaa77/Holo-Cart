@@ -4,10 +4,12 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 
 class ButtonItem extends StatelessWidget {
   const ButtonItem({
-    super.key, required this.text, required this.onPressed,
+    super.key, required this.text, required this.onPressed, this.color, this.radius,
   });
   final String text;
   final void Function() onPressed;
+  final Color? color;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,8 @@ class ButtonItem extends StatelessWidget {
       width: double.infinity,
       height: 55,
       decoration: BoxDecoration(
-          color: AppColors.customBlackColor,
-          borderRadius: BorderRadius.circular(15)),
+          color: color?? AppColors.customBlackColor,
+          borderRadius: BorderRadius.circular(radius??15)),
       child: MaterialButton(
         onPressed: onPressed,
         child: Text(

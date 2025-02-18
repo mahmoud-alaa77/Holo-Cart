@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class FavouritCartItem extends StatelessWidget {
@@ -11,7 +13,9 @@ class FavouritCartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.push(AppRoutes.productDetails);
+      },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
         decoration: BoxDecoration(
@@ -20,9 +24,9 @@ class FavouritCartItem extends StatelessWidget {
           boxShadow:[
       BoxShadow(
         color: Colors.black.withGreen(DateTime.august), 
-        blurRadius: 3.r, // مقدار التمويه
+        blurRadius: 3.r, 
        
-        offset: Offset(0, 3), // وضع الظل لأسفل فقط
+        offset: Offset(0, 3), 
       ),
     ],
         ),
@@ -39,7 +43,8 @@ class FavouritCartItem extends StatelessWidget {
                     ),
                     child: Image.asset(
                       "assets/images/phone.png",
-                      width: double.infinity,
+                      
+                      
                       fit: BoxFit.fill,
                     ),
                   ),
