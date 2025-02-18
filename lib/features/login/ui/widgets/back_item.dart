@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 
 class BackItem extends StatelessWidget {
@@ -18,7 +18,7 @@ class BackItem extends StatelessWidget {
       child: IconButton(
           onPressed: () {
             // Navigate back to the previous screen
-            GoRouter.of(context).go(Routes.mainAuth);
+            GoRouter.of(context).go(AppRoutes.mainAuth);
           },
           icon: const Icon(
             Icons.arrow_back,

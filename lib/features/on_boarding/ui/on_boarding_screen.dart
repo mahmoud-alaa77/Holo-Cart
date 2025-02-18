@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/routing/routes.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/features/on_boarding/ui/widgets/custom_indicator.dart';
 import 'package:holo_cart/features/on_boarding/ui/widgets/on_boarding_body.dart';
@@ -99,7 +99,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 buttonColor: Colors.white,
                 isLast: true,
                 onTap: () {
-                  GoRouter.of(context).go(Routes.mainAuth);
+                  GoRouter.of(context).go(AppRoutes.mainAuth);
                 },
               ),
             ],

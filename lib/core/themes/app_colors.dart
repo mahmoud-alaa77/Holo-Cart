@@ -16,6 +16,23 @@ class AppColors {
   
   
   static const Color customLightColor = Color(0xFFF4F4F4);
+  
+  
+   static const Color customDarkWhiteColor = Color(0xFFEEEEEE);
+
+  static const Color customRedColor = Color(0xFFFF5500);
+  
+
+
+   
+
+
+ 
+
+  
+
+  
+
 
   
 }
