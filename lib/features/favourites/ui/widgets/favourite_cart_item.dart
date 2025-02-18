@@ -24,9 +24,9 @@ class FavouritCartItem extends StatelessWidget {
           boxShadow:[
       BoxShadow(
         color: Colors.black.withGreen(DateTime.august), 
-        blurRadius: 3.r, // مقدار التمويه
+        blurRadius: 3.r, 
        
-        offset: Offset(0, 3), // وضع الظل لأسفل فقط
+        offset: Offset(0, 3), 
       ),
     ],
         ),
@@ -43,7 +43,8 @@ class FavouritCartItem extends StatelessWidget {
                     ),
                     child: Image.asset(
                       "assets/images/phone.png",
-                      width: double.infinity,
+                      
+                      
                       fit: BoxFit.fill,
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:holo_cart/core/themes/app_colors.dart';
+import 'package:holo_cart/features/product_details/ui/widgets/information_product_details.dart';
 import 'package:holo_cart/features/product_details/ui/widgets/phote_product_details.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -8,15 +9,13 @@ class ProductDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.customDarkWhiteColor,
-      body: Column(
-        children: [
-          PhotoProductDetails()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [PhotoProductDetails(), InformationProductDetails()],
+        ),
       ),
     );
   }
 }
-
-
