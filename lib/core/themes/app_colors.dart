@@ -12,33 +12,13 @@ class AppColors {
   static const Color customBlueColor = Color(0xFF009DFF);
   static const Color customLightBlakColor = Color(0xFF26282A);
   static const Color customWhiteColor = Color(0xFFFFFFFF);
-<<<<<<< HEAD
-  
-  
-  
+
   static const Color customLightColor = Color(0xFFF4F4F4);
-  
-  
-   static const Color customDarkWhiteColor = Color(0xFFEEEEEE);
+
+  static const Color customDarkWhiteColor = Color(0xFFEEEEEE);
 
   static const Color customRedColor = Color(0xFFFF5500);
-  
-
-
-   
-
-
- 
-
-  
-
-  
-
-
-  
-=======
 
   static const Color lightBackgroundColor = Color(0xFFF7F7F7);
   static const Color darkBackgroundColor = Color(0xFF1E201E);
->>>>>>> features/light_dark_mode
 }
