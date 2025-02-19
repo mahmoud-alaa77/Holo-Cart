@@ -4,7 +4,7 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 class AppTheme {
   static final ThemeData lightMode = ThemeData(
     primaryColor: AppColors.primaryOrangeColor,
-    scaffoldBackgroundColor: AppColors.customPurpleColor,
+    scaffoldBackgroundColor: AppColors.lightBackgroundColor,
     fontFamily: "Cairo",
     disabledColor: Colors.amberAccent,
     brightness: Brightness.light,
@@ -18,7 +18,7 @@ class AppTheme {
 
   static final ThemeData darkMode = ThemeData(
     primaryColor: AppColors.primaryOrangeColor,
-    scaffoldBackgroundColor: AppColors.customBlackColor.withOpacity(.7),
+    scaffoldBackgroundColor: AppColors.darkBackgroundColor,
     fontFamily: "Cairo",
     brightness: Brightness.dark,
     // textTheme: TextTheme(

@@ -6,7 +6,8 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 class CategoryCartItem extends StatelessWidget {
   final String categoryName;
   const CategoryCartItem({
-    super.key, required this.categoryName,
+    super.key,
+    required this.categoryName,
   });
 
   @override
@@ -18,7 +19,9 @@ class CategoryCartItem extends StatelessWidget {
               EdgeInsetsDirectional.symmetric(horizontal: 6.h, vertical: 4.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.r),
-            color: Colors.white,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : Colors.white,
             boxShadow: [
               BoxShadow(
                   color: Colors.black.withValues(alpha: .5), blurRadius: 1.r),
