@@ -40,6 +40,9 @@ dependencies:
   animated_splash_screen: ^1.3.0
   carousel_slider: ^5.0.0
   readmore: ^3.0.0
+  flutter_bloc: ^9.0.0
+  shared_preferences: ^2.5.2
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
