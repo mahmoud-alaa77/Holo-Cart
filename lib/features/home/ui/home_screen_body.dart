@@ -21,7 +21,7 @@ class HomeScreenBody extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.customLightBlakColor
+                    ? AppColors.customBlackColor.withValues(alpha: .5)
                     : Colors.white,
                 borderRadius: BorderRadiusDirectional.only(
                   bottomEnd: Radius.circular(24.r),
@@ -100,7 +100,8 @@ class HomeScreenBody extends StatelessWidget {
                       TextButton(
                         child: Text(
                           "see all",
-                          style: AppTextStyles.font13W400,
+                          style: AppTextStyles.font13W400
+                              .copyWith(color: AppColors.primaryOrangeColor),
                         ),
                         onPressed: () {},
                       )
@@ -128,100 +129,101 @@ class HomeScreenBody extends StatelessWidget {
           ),
           verticalSpace(8.h),
           Container(
-            //height: 1000.h,
+            height: 1000.h,
             decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.customLightBlakColor
+                    ? AppColors.customBlackColor.withValues(alpha: .5)
                     : Colors.white,
                 borderRadius: BorderRadiusDirectional.only(
                   topEnd: Radius.circular(24.r),
                   topStart: Radius.circular(24.r),
-             )),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Best sellers",
-                        style: AppTextStyles.font22W900,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        child: Text(
-                          "see all",
-                          style: AppTextStyles.font13W400,
-                        ),
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                ),
-                verticalSpace(8),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: categories.length - 12,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: .75,
-                      crossAxisSpacing: 2,
-                      mainAxisSpacing: 2),
-                  itemBuilder: (context, index) {
-                    return CategoryCartItem(
-                      categoryName: categories[index],
-                    );
-                  },
-                ),
-                verticalSpace(8),
-                // ListView.builder(
-                //   itemCount: 12,
-                //   scrollDirection: Axis.horizontal,
-                //   itemBuilder: (context, index) {
-                //     return const CategoryCartItem(
-                //       categoryName: "Category",
-                //     );
-                //   },
-                // ),
-                Padding(
-                  padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Popular ",
-                        style: AppTextStyles.font22W900,
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        child: Text(
-                          "see all",
-                          style: AppTextStyles.font13W400,
-                        ),
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                ),
-                verticalSpace(8),
-                // GridView.builder(
-                //   shrinkWrap: true,
-                //   physics: const NeverScrollableScrollPhysics(),
-                //   itemCount: categories.length - 12,
-                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 2,
-                //       childAspectRatio: .75,
-                //       crossAxisSpacing: 2,
-                //       mainAxisSpacing: 2),
-                //   itemBuilder: (context, index) {
-                //     return CategoryCartItem(
-                //       categoryName: categories[index],
-                //     );
-                //   },
-                // ),
-                verticalSpace(70)
-              ],
-            ),
+                )),
+            // child:
+            //  Column(
+            //   children: [
+            //     Padding(
+            //       padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             "Best sellers",
+            //             style: AppTextStyles.font22W900,
+            //           ),
+            //           const Spacer(),
+            //           TextButton(
+            //             child: Text(
+            //               "see all",
+            //               style: AppTextStyles.font13W400,
+            //             ),
+            //             onPressed: () {},
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //     verticalSpace(8),
+            //     GridView.builder(
+            //       shrinkWrap: true,
+            //       physics: const NeverScrollableScrollPhysics(),
+            //       itemCount: categories.length - 12,
+            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //           crossAxisCount: 2,
+            //           childAspectRatio: .75,
+            //           crossAxisSpacing: 2,
+            //           mainAxisSpacing: 2),
+            //       itemBuilder: (context, index) {
+            //         return CategoryCartItem(
+            //           categoryName: categories[index],
+            //         );
+            //       },
+            //     ),
+            //     verticalSpace(8),
+            //     // ListView.builder(
+            //     //   itemCount: 12,
+            //     //   scrollDirection: Axis.horizontal,
+            //     //   itemBuilder: (context, index) {
+            //     //     return const CategoryCartItem(
+            //     //       categoryName: "Category",
+            //     //     );
+            //     //   },
+            //     // ),
+            //     Padding(
+            //       padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             "Popular ",
+            //             style: AppTextStyles.font22W900,
+            //           ),
+            //           const Spacer(),
+            //           TextButton(
+            //             child: Text(
+            //               "see all",
+            //               style: AppTextStyles.font13W400,
+            //             ),
+            //             onPressed: () {},
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //     verticalSpace(8),
+            //     // GridView.builder(
+            //     //   shrinkWrap: true,
+            //     //   physics: const NeverScrollableScrollPhysics(),
+            //     //   itemCount: categories.length - 12,
+            //     //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //     //       crossAxisCount: 2,
+            //     //       childAspectRatio: .75,
+            //     //       crossAxisSpacing: 2,
+            //     //       mainAxisSpacing: 2),
+            //     //   itemBuilder: (context, index) {
+            //     //     return CategoryCartItem(
+            //     //       categoryName: categories[index],
+            //     //     );
+            //     //   },
+            //     // ),
+            //     verticalSpace(70)
+            //   ],
+            // ),
           )
         ],
       ),
