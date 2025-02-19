@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< HEAD
 import 'package:holo_cart/core/routing/router.dart';
-=======
-import 'package:holo_cart/core/routing/app_router.dart';
 import 'package:holo_cart/core/themes/app_themes.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
->>>>>>> features/light_dark_mode
 
 void main() {
   runApp(const MyApp());
