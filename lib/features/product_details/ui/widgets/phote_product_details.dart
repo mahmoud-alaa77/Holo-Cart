@@ -14,7 +14,9 @@ class PhotoProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.customWhiteColor,
+          color:Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.customBlackColor.withValues(alpha: .5)
+                    : AppColors.customWhiteColor,
           borderRadius: BorderRadius.horizontal(
               left: Radius.circular(25.r), right: Radius.circular(25.r))),
       child: Column(
@@ -30,7 +32,7 @@ class PhotoProductDetails extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_new_rounded,
-                    color: AppColors.customBlackColor,
+                   
                     size: 26.sp,
                   ),
                 ),

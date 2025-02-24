@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
-import 'package:holo_cart/features/categories/ui/widgets/category_cart_item.dart';
 import 'package:holo_cart/features/dark_and_light_mode/app_states.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
 import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';

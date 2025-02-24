@@ -10,7 +10,7 @@ class ProductDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: AppColors.customDarkWhiteColor,
+      
       body: SingleChildScrollView(
         child: Column(
           children: [PhotoProductDetails(), InformationProductDetails()],
