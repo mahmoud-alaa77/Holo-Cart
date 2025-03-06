@@ -18,7 +18,9 @@ class InformationProductDetails extends StatelessWidget {
       padding: EdgeInsets.only(top: 5.h),
       child: Container(
         decoration: BoxDecoration(
-            color: AppColors.customWhiteColor,
+            color:Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.customBlackColor.withValues(alpha: .5)
+                    :AppColors.customWhiteColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(25.r),
               topRight: Radius.circular(25.r),

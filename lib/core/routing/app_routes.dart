@@ -5,7 +5,6 @@ class AppRoutes {
   static const String mainAuth = '/main_auth';
   static const String signUp = '/sign_up';
   static const String main = '/';
- 
    static const String productDetails = '/product_details';
 
 }

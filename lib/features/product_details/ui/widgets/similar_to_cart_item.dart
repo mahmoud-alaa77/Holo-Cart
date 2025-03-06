@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
+import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class  SimilarToCartItem extends StatelessWidget {
@@ -20,7 +21,9 @@ class  SimilarToCartItem extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 6.w,),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
-          color: const Color.fromARGB(255, 241, 239, 239),
+          color:Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.customBlackColor.withValues(alpha: .5)
+                    : const Color.fromARGB(255, 241, 239, 239),
           boxShadow:[
       BoxShadow(
         color: Colors.black.withGreen(DateTime.august), 
@@ -66,7 +69,7 @@ class  SimilarToCartItem extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                horizontalSpace(40),
+                horizontalSpace(48),
                 IconButton(onPressed: () {
                   
                 },icon: Icon(

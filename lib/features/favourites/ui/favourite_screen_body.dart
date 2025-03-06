@@ -12,7 +12,7 @@ class FavouriteScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      
       child: Padding(
         padding: EdgeInsets.only(top: 30.h, left: 15.w, right: 15.w),
         child: SingleChildScrollView(
