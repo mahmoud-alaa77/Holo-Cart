@@ -22,16 +22,16 @@ class FavouriteScreenBody extends StatelessWidget {
               verticalSpace(30),
               GridView.builder(
                 shrinkWrap: true,
-                physics:const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 5.w,
                   mainAxisSpacing: 10.h,
-                  childAspectRatio: 0.6, 
+                  childAspectRatio: 0.6,
                 ),
                 itemCount: 15,
                 itemBuilder: (context, index) {
-                  return FavouritCartItem();
+                  return const FavouritCartItem();
                 },
               ),
             ],
@@ -41,4 +41,3 @@ class FavouriteScreenBody extends StatelessWidget {
     );
   }
 }
-
