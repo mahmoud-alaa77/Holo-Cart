@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> bodies = [
     const HomeScreenBody(),
     const CategoriesScreenBody(),
-   const FavouriteScreenBody(),
+    const FavouriteScreenBody(),
     Center(
       child: Text(
         'Cart Screen',
@@ -80,8 +80,8 @@ class _MainScreenState extends State<MainScreen> {
                 children: [
                   if (selectedIndex == index)
                     Container(
-                      width: 40.r,
-                      height: 40.r,
+                      width: 38.r,
+                      height: 38.r,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         boxShadow: [
@@ -94,28 +94,34 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                     ),
-                  Icon(_getIcon(index, isActive: false)),
+                  Image.asset(
+                    _getIcon(index, isActive: false),
+                    width: 30.w,
+                  ),
                 ],
               ),
               activeIcon: Stack(
                 alignment: Alignment.center,
                 children: [
                   Container(
-                    width: 40.r,
-                    height: 40.r,
+                    width: 35.r,
+                    height: 35.r,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.primaryOrangeColor
-                              .withValues(alpha: .45),
+                              .withValues(alpha: .29),
                           blurRadius: 16.r,
                           spreadRadius: 6.r,
                         ),
                       ],
                     ),
                   ),
-                  Icon(_getIcon(index, isActive: true)),
+                  Image.asset(
+                    _getIcon(index, isActive: true),
+                    width: 40.w,
+                  ),
                 ],
               ),
               label: '',
@@ -126,20 +132,29 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  IconData _getIcon(int index, {required bool isActive}) {
+  _getIcon(int index, {required bool isActive}) {
     switch (index) {
       case 0:
-        return isActive ? Icons.home_filled : Icons.home_sharp;
+        return isActive
+            ? "assets/icons/active_home.png"
+            : "assets/icons/home.png";
       case 1:
-        return isActive ? Icons.category_rounded : Icons.category_outlined;
+        return isActive
+            ? "assets/icons/active_category.png"
+            : "assets/icons/category.png";
       case 2:
-        return isActive ? Icons.favorite : Icons.favorite_border;
+        return isActive
+            ? "assets/icons/active_fav.png"
+            : "assets/icons/favourite.png";
       case 3:
         return isActive
-            ? Icons.shopping_basket_sharp
-            : Icons.shopping_basket_outlined;
+            ? "assets/icons/active_cart.png"
+            : "assets/icons/cart.png";
+
       case 4:
-        return isActive ? Icons.person : Icons.person_outline_rounded;
+        return isActive
+            ? "assets/icons/active_profile.png"
+            : "assets/icons/profile.png";
       default:
         return Icons.help_outline;
     }
