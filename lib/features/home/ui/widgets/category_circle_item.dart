@@ -40,7 +40,7 @@ class CategoryCircleItem extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      "assets/images/category.jpg",
+                      "assets/images/product.png",
                       fit: BoxFit.fill,
                     )),
               ),
