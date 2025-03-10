@@ -5,6 +5,7 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
+import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -32,12 +33,7 @@ class _MainScreenState extends State<MainScreen> {
         style: AppTextStyles.font24W900,
       ),
     ),
-    Center(
-      child: Text(
-        'Profile Screen',
-        style: AppTextStyles.font24W900,
-      ),
-    ),
+    const ProfileScreenBody(),
   ];
   @override
   Widget build(BuildContext context) {
