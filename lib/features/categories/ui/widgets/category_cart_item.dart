@@ -24,7 +24,7 @@ class CategoryCartItem extends StatelessWidget {
                 : Colors.white,
             boxShadow: [
               BoxShadow(
-                  color: Colors.black.withValues(alpha: .5), blurRadius: 1.r),
+                  color: Colors.black.withValues(alpha: .25), blurRadius: 1.r),
             ],
           ),
           child: Column(
@@ -32,7 +32,7 @@ class CategoryCartItem extends StatelessWidget {
               Expanded(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(16.r),
-                    child: Image.asset("assets/images/category.jpg",
+                    child: Image.asset("assets/images/product.png",
                         height: 120.h,
                         width: double.infinity,
                         fit: BoxFit.fill)),
