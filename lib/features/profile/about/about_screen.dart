@@ -14,27 +14,36 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "About Holo Cart",
+            style: AppTextStyles.font20W700,
+          ),
+          centerTitle: true,
+        ),
         body: Padding(
           padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verticalSpace(24),
-              Row(
-                children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
-                  Text(
-                    "About Holo Cart",
-                    style: AppTextStyles.font20W700,
-                  ),
-                ],
-              ),
               verticalSpace(16),
               Text(
                 aboutText,
                 style: AppTextStyles.font16W500
                     .copyWith(color: AppColors.customLightGrayColor),
               ),
+              verticalSpace(48),
+              Text(
+                "If you need help or you have any questions, feel free to contact me by email.",
+                style: AppTextStyles.font16W500
+                    .copyWith(color: AppColors.customLightGrayColor),
+              ),
+              verticalSpace(30),
+              Text(
+                "hello@mydomain.com",
+                style: AppTextStyles.font18W600,
+              )
             ],
           ),
         ),
