@@ -2,23 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AddressScreen(),
-    );
-  }
-}
 
 class AddressScreen extends StatefulWidget {
+  const AddressScreen({super.key});
+
   @override
   _AddressScreenState createState() => _AddressScreenState();
 }
@@ -98,6 +86,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 },
               ),
             ),
+            
             ButtonItem(
               text: 'ADD NEW ADDRESS',
               onPressed: () {},
