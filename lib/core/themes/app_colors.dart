@@ -21,4 +21,5 @@ class AppColors {
 
   static const Color lightBackgroundColor = Color(0xFFF7F7F7);
   static const Color darkBackgroundColor = Color(0xFF1E201E);
+  
 }
