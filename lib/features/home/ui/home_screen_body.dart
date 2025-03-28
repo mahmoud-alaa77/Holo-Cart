@@ -11,6 +11,7 @@ import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/custom_home_divider_container.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_section.dart';
 import 'package:holo_cart/features/home/ui/widgets/offers_widgets.dart';
+import 'package:holo_cart/features/search/ui/search_screen.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
@@ -31,12 +32,19 @@ class HomeScreenBody extends StatelessWidget {
                       width: 130.w,
                     ),
                     const Spacer(),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.search,
-                          size: 30.r,
-                        )),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const SearchScreen();
+                          },
+                        ));
+                      },
+                      child: Icon(
+                        Icons.search,
+                        size: 30.r,
+                      ),
+                    ),
                     BlocBuilder<AppModeCubit, AppModeState>(
                       builder: (context, state) {
                         final isLightMode = state is AppModeLight;
