@@ -9,7 +9,7 @@ class AuthTextfield extends StatelessWidget {
      this.icon,
     this.obscureText,
     this.controller, 
-    this.validator,this.suffixIcon,  
+    this.validator,this.suffixIcon, this.fillColor,  
   });
 
   final String hintText;
@@ -18,6 +18,7 @@ class AuthTextfield extends StatelessWidget {
   final TextEditingController? controller; 
   final String? Function(String?)? validator; 
   final Widget? suffixIcon;
+  final Color? fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class AuthTextfield extends StatelessWidget {
       validator: validator,
 
       decoration: InputDecoration(
-        fillColor: const Color.fromARGB(255, 255, 255, 255),
+        fillColor: fillColor??const Color.fromARGB(255, 255, 255, 255),
         filled: true,
         suffixIcon:suffixIcon,
         hintText: hintText,
