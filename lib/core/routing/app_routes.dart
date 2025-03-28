@@ -7,4 +7,6 @@ class AppRoutes {
   static const String main = '/';
   static const String productDetails = '/product_details';
   static const String search = '/search';
+  static const String profilePayment = '/profile_payment';
+  static const String cardNumber = '/card_number';
 }

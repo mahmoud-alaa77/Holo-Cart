@@ -7,6 +7,8 @@ import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_s
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
 import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
 import 'package:holo_cart/features/search/ui/search_screen.dart';
+import 'package:holo_cart/features/profile/payment/add_card_screen.dart';
+import 'package:holo_cart/features/profile/payment/payment_screen.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 
@@ -28,7 +30,7 @@ final router = GoRouter(
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
-                begin: const Offset(1, 0), // Slide in from the right
+                begin: const Offset(1, 0),
                 end: Offset.zero,
               ).animate(animation),
               child: child,
@@ -66,6 +68,20 @@ final router = GoRouter(
     GoRoute(
       path: AppRoutes.search,
       builder: (context, state) => const SearchScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.profilePayment,
+      builder: (context, state) => const PaymentScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.cardNumber,
+      builder: (context, state) {
+        final controllers = (state.extra is List<TextEditingController>)
+            ? state.extra as List<TextEditingController>
+            : <TextEditingController>[];
+
+        return AddCardScreen(controller: controllers);
+      },
     ),
   ],
 );
