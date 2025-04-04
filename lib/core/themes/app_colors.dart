@@ -13,7 +13,7 @@ class AppColors {
   static const Color customLightBlakColor = Color(0xFF26282A);
   static const Color customWhiteColor = Color(0xFFFFFFFF);
 
-  static const Color customLightColor = Color(0xFFF4F4F4);
+  static const Color customLightColor = Color.fromARGB(255, 240, 239, 239);
 
   static const Color customDarkWhiteColor = Color(0xFFEEEEEE);
 
