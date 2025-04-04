@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
+import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
+import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
@@ -29,7 +31,7 @@ final router = GoRouter(
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
-                begin: const Offset(1, 0), 
+                begin: const Offset(1, 0),
                 end: Offset.zero,
               ).animate(animation),
               child: child,
@@ -58,25 +60,32 @@ final router = GoRouter(
       path: AppRoutes.main,
       builder: (context, state) => const MainScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.productDetails,
       builder: (context, state) => const ProductDetailsPage(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.profilePayment,
       builder: (context, state) => const PaymentScreen(),
     ),
-  GoRoute(
-  path: AppRoutes.cardNumber,
-  builder: (context, state) {
-    final controllers = (state.extra is List<TextEditingController>)
-    ? state.extra as List<TextEditingController>
-    : <TextEditingController>[];
-    
-return AddCardScreen(controller: controllers);
-  },
-),
+    GoRoute(
+      path: AppRoutes.cardNumber,
+      builder: (context, state) {
+        final controllers = (state.extra is List<TextEditingController>)
+            ? state.extra as List<TextEditingController>
+            : <TextEditingController>[];
 
-
+        return AddCardScreen(controller: controllers);
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.cartScreen,
+      builder: (context, state) => const CartScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.emptycartScreen,
+      builder: (context, state) => const CartEmptyScreen(),
+    ),
+  
   ],
 );
