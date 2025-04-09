@@ -5,12 +5,11 @@ class AppRoutes {
   static const String mainAuth = '/main_auth';
   static const String signUp = '/sign_up';
   static const String main = '/';
-   static const String productDetails = '/product_details';
-   static const String profilePayment = '/profile_payment';
-   static const String cardNumber = '/card_number';
-    static const String cartScreen= '/card';
-        static const String emptycartScreen= '/card_empty';
-
-
-
+  static const String productDetails = '/product_details';
+  static const String profilePayment = '/profile_payment';
+  static const String cardNumber = '/card_number';
+  static const String cartScreen = '/card';
+  static const String emptycartScreen = '/card_empty';
+  static const String checkout = '/checkout';
+  static const String address = '/address';
 }

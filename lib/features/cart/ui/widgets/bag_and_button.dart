@@ -23,7 +23,7 @@ class BagAndButton extends StatelessWidget {
               text: "Explore products",radius: 30.sp,
               color: AppColors.primaryOrangeColor,
               onPressed: () {
-                GoRouter.of(context).go(AppRoutes.cartScreen);
+                GoRouter.of(context).push(AppRoutes.cartScreen);
               }),
         )
       ],
