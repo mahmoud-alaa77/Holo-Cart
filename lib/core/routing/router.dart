@@ -4,6 +4,8 @@ import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
+import 'package:holo_cart/features/checkout/ui/done_screen.dart';
+import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
@@ -96,6 +98,16 @@ final router = GoRouter(
       path: AppRoutes.address,
       builder: (context, state) => const AddressScreen(),
     ),
+     GoRoute(
+      path: AppRoutes.proccessingOrder,
+      builder: (context, state) => const ProccessingOrderScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.done,
+      builder: (context, state) => const DoneScreen(),
+    ),
+
+
 
   
   ],

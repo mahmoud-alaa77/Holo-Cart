@@ -56,7 +56,7 @@ class CheckoutScreen extends StatelessWidget {
                   ButtonItem(
                     text: "Place Order",
                     onPressed: () {
-                      GoRouter.of(context).push(AppRoutes.checkout);
+                      GoRouter.of(context).push(AppRoutes.proccessingOrder);
                     },
                     color: AppColors.customRedColor,
                     radius: 30,
