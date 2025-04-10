@@ -12,4 +12,6 @@ class AppRoutes {
   static const String emptycartScreen = '/card_empty';
   static const String checkout = '/checkout';
   static const String address = '/address';
+  static const String proccessingOrder = '/proccessing_order';
+  static const String done = '/done';
 }

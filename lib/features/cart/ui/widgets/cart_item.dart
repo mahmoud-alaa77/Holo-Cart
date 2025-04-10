@@ -53,6 +53,7 @@ class CartItem extends StatelessWidget {
                     "blue",
                     style: AppTextStyles.font12W700,
                   ),
+
                   horizontalSpace(50),
                   Container(
                     height: 22.h,
@@ -61,6 +62,7 @@ class CartItem extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
+                    
                     
                     child: Center(
                       child: Text(
