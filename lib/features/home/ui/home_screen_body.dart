@@ -6,6 +6,7 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/dark_and_light_mode/app_states.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
+import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/ui/widgets/all_products_section/all_products_sectiom.dart';
 import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/custom_home_divider_container.dart';
@@ -107,20 +108,35 @@ class HomeScreenBody extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 100.h,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    return CategoryCircleItem(
-                      index: index,
-                      title: categories[index],
+              BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+                builder: (context, state) {
+                  if (state is GetCategoriesSuccess) {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: 100.h,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categories.length,
+                        itemBuilder: (context, index) {
+                          return CategoryCircleItem(
+                            index: index,
+                            title: categories[index],
+                          );
+                        },
+                      ),
                     );
-                  },
-                ),
+                  } else if (state is GetCategoriesError) {
+                    return Center(
+                      child: Text(state.errorMessage),
+                    );
+                  } else {
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: AppColors.customRedColor,
+                    ));
+                  }
+                },
               ),
               const CustomHomeDividerContainer(),
             ],

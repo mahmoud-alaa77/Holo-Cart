@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
-import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
-import 'package:holo_cart/features/cart/ui/cart_screen.dart';
-import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
-import 'package:holo_cart/features/checkout/ui/done_screen.dart';
-import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
+import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
@@ -62,7 +60,10 @@ final router = GoRouter(
     // Home Route
     GoRoute(
       path: AppRoutes.main,
-      builder: (context, state) => const MainScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<GetCategoriesCubit>()..getCategories(),
+        child: const MainScreen(),
+      ),
     ),
     GoRoute(
       path: AppRoutes.productDetails,
