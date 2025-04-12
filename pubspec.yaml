@@ -46,6 +46,12 @@ dependencies:
   animated_rating_bar: ^0.0.8
   flutter_credit_card: ^4.1.0
   flutter_svg: ^2.0.17
+  dio: ^5.8.0+1
+  retrofit: ^4.4.2
+  retrofit_generator: ^9.1.9
+  pretty_dio_logger: ^1.4.0
+  json_annotation: ^4.9.0
+  dartz: ^0.10.1
 
 
 dev_dependencies:
@@ -58,6 +64,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  json_serializable: ^6.9.4
+  build_runner: ^2.4.15
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

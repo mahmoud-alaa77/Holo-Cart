@@ -6,6 +6,7 @@ import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/profile/about/about_screen.dart';
 import 'package:holo_cart/features/profile/address/address_screen.dart';
+import 'package:holo_cart/features/profile/payment/payment_screen.dart';
 import 'package:holo_cart/features/profile/ui/widgets/edit_profile_container.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_image.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_list_button.dart';
@@ -43,7 +44,10 @@ class ProfileScreenBody extends StatelessWidget {
             ProfileListButton(
               title: "Payment",
               onPressed: () {
-                context.push(AppRoutes.profilePayment);
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const PaymentScreen();
+                }));
               },
             ),
             ProfileListButton(
