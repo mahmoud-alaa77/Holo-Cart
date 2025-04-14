@@ -23,7 +23,7 @@ class AppTextStyles {
     fontSize: 16.0.sp,
     fontWeight: FontWeight.w500,
   );
-   static TextStyle font18W500 = TextStyle(
+  static TextStyle font18W500 = TextStyle(
     fontSize: 18.0.sp,
     fontWeight: FontWeight.w500,
   );
@@ -69,40 +69,49 @@ class AppTextStyles {
     fontSize: 24.sp,
     fontWeight: FontWeight.w800,
   );
-  
+
   static TextStyle font22W700 = TextStyle(
     fontSize: 22.sp,
     fontWeight: FontWeight.w700,
   );
- 
+
   static TextStyle font20W700 = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.w700,
   );
-  // 24 600 
+  // 24 600
   static TextStyle font24W600 = TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeight.w600,
   );
   // 12 400
-  static TextStyle font12W400 = TextStyle(  
+  static TextStyle font12W400 = TextStyle(
     fontSize: 12.sp,
-    fontWeight: FontWeight.w400,  
+    fontWeight: FontWeight.w400,
   );
-  
+
   static TextStyle font18W600 = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
   );
+  static TextStyle font16W400 = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle font24W500 = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle font16W600 = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+  );
   
-  
-
-  
-
-
-
-
-
+   static TextStyle font15W600 = TextStyle(
+    fontSize: 15.sp,
+    fontWeight: FontWeight.w600,
+  );
 
 
 }

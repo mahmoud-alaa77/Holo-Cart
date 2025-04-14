@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/custom_rating_widget.dart';
-import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_product_item.dart';
 
 class AllProductsSection extends StatelessWidget {
   const AllProductsSection({super.key});
