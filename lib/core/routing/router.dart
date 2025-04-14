@@ -3,6 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
+import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
+import 'package:holo_cart/features/cart/ui/cart_screen.dart';
+import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
+import 'package:holo_cart/features/checkout/ui/done_screen.dart';
+import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
@@ -87,29 +92,25 @@ final router = GoRouter(
       path: AppRoutes.cartScreen,
       builder: (context, state) => const CartScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.emptycartScreen,
       builder: (context, state) => const CartEmptyScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.checkout,
       builder: (context, state) => const CheckoutScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.address,
       builder: (context, state) => const AddressScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.proccessingOrder,
       builder: (context, state) => const ProccessingOrderScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.done,
       builder: (context, state) => const DoneScreen(),
     ),
-
-
-
-  
   ],
 );
