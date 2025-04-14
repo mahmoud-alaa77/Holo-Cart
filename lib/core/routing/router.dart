@@ -10,6 +10,7 @@ import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
+import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
@@ -50,7 +51,11 @@ final router = GoRouter(
     // Login Route
     GoRoute(
       path: AppRoutes.login,
-      builder: (context, state) => const LoginScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<LoginCubit>(),
+        // Pass the LoginCubit to the LoginScreen
+        child: const LoginScreen(),
+      ),
     ),
     // Main Auth Route
     GoRoute(

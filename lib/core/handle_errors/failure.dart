@@ -28,6 +28,7 @@ class ServerFailure extends Failure {
         return ServerFailure("No Internet Connection");
       case DioExceptionType.unknown:
         return ServerFailure("Connection Error");
+        
 
       // ignore: unreachable_switch_default
       default:

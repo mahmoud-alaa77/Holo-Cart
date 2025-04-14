@@ -52,6 +52,8 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   json_annotation: ^4.9.0
   dartz: ^0.10.1
+  meta: ^1.15.0
+  bloc: ^9.0.0
 
 
 dev_dependencies:
