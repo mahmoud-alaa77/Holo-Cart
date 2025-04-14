@@ -9,7 +9,7 @@ import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
 import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
-import 'package:holo_cart/features/search/ui/search_screen.dart';
+import 'package:holo_cart/features/profile/address/address_screen.dart';
 import 'package:holo_cart/features/profile/payment/add_card_screen.dart';
 import 'package:holo_cart/features/profile/payment/payment_screen.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
@@ -69,12 +69,6 @@ final router = GoRouter(
       path: AppRoutes.productDetails,
       builder: (context, state) => const ProductDetailsPage(),
     ),
-
-    // serach Route
-    GoRoute(
-      path: AppRoutes.search,
-      builder: (context, state) => const SearchScreen(),
-    ),
     GoRoute(
       path: AppRoutes.profilePayment,
       builder: (context, state) => const PaymentScreen(),
@@ -89,5 +83,33 @@ final router = GoRouter(
         return AddCardScreen(controller: controllers);
       },
     ),
+    GoRoute(
+      path: AppRoutes.cartScreen,
+      builder: (context, state) => const CartScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.emptycartScreen,
+      builder: (context, state) => const CartEmptyScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.checkout,
+      builder: (context, state) => const CheckoutScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.address,
+      builder: (context, state) => const AddressScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.proccessingOrder,
+      builder: (context, state) => const ProccessingOrderScreen(),
+    ),
+     GoRoute(
+      path: AppRoutes.done,
+      builder: (context, state) => const DoneScreen(),
+    ),
+
+
+
+  
   ],
 );
