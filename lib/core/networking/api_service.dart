@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
-import 'package:holo_cart/features/login/data/models/login_request_body.dart';
 import 'package:holo_cart/features/login/data/models/login_response.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -11,11 +10,13 @@ part 'api_service.g.dart';
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
-
   @GET(ApiConstants.getAllCategories)
   Future<CategoryModel> getCategories();
-  @POST(ApiConstants.login)
-  Future<LoginRespose> login(@Body() LoginRequestBody loginRequest);
 
-  
+  @POST(ApiConstants.login)
+  @FormUrlEncoded()
+  Future<LoginRespose> login(
+    @Field("Identifier") String identifier,
+    @Field("Password") String password,
+  );
 }

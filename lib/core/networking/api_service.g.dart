@@ -47,14 +47,18 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<LoginRespose> login(LoginRequestBody loginRequest) async {
+  Future<LoginRespose> login(String identifier, String password) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(loginRequest.toJson());
+    final _data = {'Identifier': identifier, 'Password': password};
     final _options = _setStreamType<LoginRespose>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(
+        method: 'POST',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'application/x-www-form-urlencoded',
+      )
           .compose(
             _dio.options,
             'Authentication/SignIn',

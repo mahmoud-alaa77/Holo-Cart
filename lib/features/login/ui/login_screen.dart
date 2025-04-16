@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/features/login/data/models/login_request_body.dart';
+import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
 import 'package:holo_cart/features/login/ui/widgets/email_and_password.dart';
+import 'package:holo_cart/features/login/ui/widgets/login__bloc_listener.dart';
+import 'package:holo_cart/features/login/ui/widgets/login_backround.dart';
 import 'package:holo_cart/features/login/ui/widgets/login_face_google.dart';
 import 'package:holo_cart/features/login/ui/widgets/not_have_account.dart';
 import 'package:holo_cart/features/login/ui/widgets/other_login.dart';
@@ -40,56 +45,10 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
+         const LoginBackround(),
+         
           Positioned(
-            left: screenWidth * 0,
-            top: screenHeight * 0,
-            child: Image.asset(
-              "assets/images/Rectangle3.png",
-              height: screenHeight * 0.15,
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            left: screenWidth * 0.23,
-            top: screenHeight * 0.0,
-            child: Image.asset(
-              "assets/images/Rectangle13.png",
-              height: screenHeight * 0.2,
-              width: screenWidth * 0.55,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            right: screenWidth * 0,
-            top: screenHeight * 0,
-            child: Image.asset(
-              "assets/images/Rectangle6.png",
-              height: screenHeight * 0.15,
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            left: 0,
-            top: screenHeight * 0.16,
-            child: Image.asset(
-              "assets/images/Rectangle1.png",
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            right: screenWidth * 0,
-            top: screenHeight * 0.16,
-            child: Image.asset(
-              "assets/images/Rectangle4.png",
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            top: 130.h,
+            top: 80.h,
             child: Container(
               width: screenWidth,
               height: screenHeight,
@@ -126,8 +85,12 @@ class LoginScreen extends StatelessWidget {
                                     : AppColors.customWhiteColor)),
                       ],
                     ),
+                    
                     verticalSpace(22),
-                    ButtonItem(text: "Login", onPressed: () {}),
+                    ButtonItem(text: "Login", onPressed: () {
+                      validateThenDoLogin(context);
+                    }),
+                   const LoginBlocListner(),
                     SizedBox(
                       height: 26.h,
                     ),
@@ -143,5 +106,15 @@ class LoginScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+void validateThenDoLogin(BuildContext context) {
+  if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+    context.read<LoginCubit>().emitStateLogin(
+          LoginRequestBody(
+            identifier: context.read<LoginCubit>().userNameController.text,
+            password: context.read<LoginCubit>().passwordController.text,
+          ),
+        );
   }
 }
