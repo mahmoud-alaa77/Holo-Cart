@@ -13,17 +13,20 @@ class AlreadyHaveAccount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Already have an account?",style: AppTextStyles.font13W400.copyWith(color:Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? AppColors.customBlackColor
-                                  : AppColors.customWhiteColor), 
+          "Already have an account?",
+          style: AppTextStyles.font13W400.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.customBlackColor
+                  : AppColors.customWhiteColor),
         ),
-        GestureDetector(onTap: () {
-          context.go(AppRoutes.login);
-        },
+        GestureDetector(
+          onTap: () {
+            context.go(AppRoutes.login);
+          },
           child: Text(
-             " login ",
-            style: AppTextStyles.font13W500.copyWith(color: AppColors.customBlueColor),
+            " login ",
+            style: AppTextStyles.font13W500
+                .copyWith(color: AppColors.customBlueColor),
           ),
         )
       ],

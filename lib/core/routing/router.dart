@@ -18,6 +18,7 @@ import 'package:holo_cart/features/product_details/ui/product_details_page.dart'
 import 'package:holo_cart/features/profile/address/address_screen.dart';
 import 'package:holo_cart/features/profile/payment/add_card_screen.dart';
 import 'package:holo_cart/features/profile/payment/payment_screen.dart';
+import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 
@@ -66,7 +67,7 @@ final router = GoRouter(
     GoRoute(
       path: AppRoutes.signUp,
       builder: (context, state) => BlocProvider(
-        create: (context) => getIt<LoginCubit>(),
+        create: (context) => getIt<SignUpCubit>(),
         child: const SignUpScreen(),
       ),
     ),

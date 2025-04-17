@@ -8,13 +8,13 @@ class PasswordVaildation extends StatelessWidget {
       {super.key,
       required this.hasLowerCase,
       required this.hasUpperCase,
-      required this.hasNumber,
+     
       required this.hasSpecialCharacters,
       required this.minLenght});
 
   final bool hasLowerCase;
   final bool hasUpperCase;
-  final bool hasNumber;
+  
   final bool hasSpecialCharacters;
   final bool minLenght;
 
@@ -32,10 +32,7 @@ class PasswordVaildation extends StatelessWidget {
         ),
         buildValidationRow(
             'At least 1 special character', hasSpecialCharacters),
-        const SizedBox(
-          height: 3,
-        ),
-        buildValidationRow('At least 1 number', hasNumber),
+        
         const SizedBox(
           height: 3,
         ),
@@ -59,7 +56,7 @@ Widget buildValidationRow(String text, bool hasValidated) {
         text,
         style: AppTextStyles.font14W500.copyWith(
           decoration: hasValidated ? TextDecoration.lineThrough : null,
-          decorationColor: Colors.green,
+          decorationColor: Colors.black,
           decorationThickness: 2,
           color: hasValidated ? AppColors.customLightGrayColor : AppColors.customWhiteColor,
         ),
