@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginBackround extends StatelessWidget {
-  const LoginBackround({super.key});
+class AuthBackround extends StatelessWidget {
+  const AuthBackround({super.key});
 
   @override
   Widget build(BuildContext context) {

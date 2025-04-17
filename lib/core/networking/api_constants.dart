@@ -4,4 +4,5 @@ class ApiConstants {
 
   static const String getAllCategories = "Category/GetAll";
   static const String login = "Authentication/SignIn";
+  static const String signUp = "/User/Create";
 }
