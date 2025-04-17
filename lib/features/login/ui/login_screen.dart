@@ -11,7 +11,7 @@ import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
 import 'package:holo_cart/features/login/ui/widgets/email_and_password.dart';
 import 'package:holo_cart/features/login/ui/widgets/login__bloc_listener.dart';
-import 'package:holo_cart/features/login/ui/widgets/login_backround.dart';
+import 'package:holo_cart/core/widgets/auth_backround.dart';
 import 'package:holo_cart/features/login/ui/widgets/login_face_google.dart';
 import 'package:holo_cart/features/login/ui/widgets/not_have_account.dart';
 import 'package:holo_cart/features/login/ui/widgets/other_login.dart';
@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-         const LoginBackround(),
+         const AuthBackround(),
          
           Positioned(
             top: 80.h,

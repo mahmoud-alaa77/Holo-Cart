@@ -65,7 +65,10 @@ final router = GoRouter(
     //signup route
     GoRoute(
       path: AppRoutes.signUp,
-      builder: (context, state) => const SignUpScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<LoginCubit>(),
+        child: const SignUpScreen(),
+      ),
     ),
     // Home Route
     GoRoute(

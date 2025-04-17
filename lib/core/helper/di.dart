@@ -6,6 +6,8 @@ import 'package:holo_cart/features/home/data/repo/home_repo.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/login/data/repo/login_repo.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
+import 'package:holo_cart/features/sign_up/data/repo/sign_up_repo.dart';
+import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -24,4 +26,8 @@ Future<void> setupGetIt() async {
   //Login
   getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+  //SignUp
+  getIt.registerLazySingleton<SignUpRepo>(() => SignUpRepo(getIt()));
+  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
+   
 }

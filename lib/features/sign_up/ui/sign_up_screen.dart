@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/auth_backround.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
+import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
 import 'package:holo_cart/features/sign_up/ui/widgets/already_have_account.dart';
 import 'package:holo_cart/features/sign_up/ui/widgets/others_sign_up.dart';
+import 'package:holo_cart/features/sign_up/ui/widgets/sign_up_bloc_listener.dart';
 import 'package:holo_cart/features/sign_up/ui/widgets/sign_up_face_google.dart';
 import 'package:holo_cart/features/sign_up/ui/widgets/text_fields_sign_up.dart';
 
@@ -38,54 +42,7 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            left: screenWidth * 0,
-            top: screenHeight * 0,
-            child: Image.asset(
-              "assets/images/Rectangle3.png",
-              height: screenHeight * 0.15,
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            left: screenWidth * 0.23,
-            top: screenHeight * 0.0,
-            child: Image.asset(
-              "assets/images/Rectangle13.png",
-              height: screenHeight * 0.2,
-              width: screenWidth * 0.55,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            right: screenWidth * 0,
-            top: screenHeight * 0,
-            child: Image.asset(
-              "assets/images/Rectangle6.png",
-              height: screenHeight * 0.15,
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            left: 0,
-            top: screenHeight * 0.16,
-            child: Image.asset(
-              "assets/images/Rectangle1.png",
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Positioned(
-            right: screenWidth * 0,
-            top: screenHeight * 0.16,
-            child: Image.asset(
-              "assets/images/Rectangle4.png",
-              width: screenWidth * 0.2,
-              fit: BoxFit.fill,
-            ),
-          ),
+          const AuthBackround(),
           Positioned(
             top: 45.h,
             child: Container(
@@ -115,14 +72,21 @@ class SignUpScreen extends StatelessWidget {
                       const TextFieldsSignUp(),
                     
                       verticalSpace(22),
-                      ButtonItem(text: "Sign Up", onPressed: () {}),
+                      ButtonItem(text: "Sign Up", onPressed: () {
+
+                        validateThenDoSignUp(context);
+                        
+                      }),
                       SizedBox(
                         height: 26.h,
                       ),
+                   
                       const OthersSignUp(),
                       const SignUpWithFaceOrGoogle(),
                       verticalSpace(20),
                       const AlreadyHaveAccount(),
+                       const  SignupBlocListener(),
+                       verticalSpace(20),
                     ],
                   ),
                 ),
@@ -134,3 +98,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
+void validateThenDoSignUp(BuildContext context) {
+  if (context.read<SignUpCubit>().formKey.currentState!.validate()) {
+    context.read<SignUpCubit>().emitStates;
+  }}

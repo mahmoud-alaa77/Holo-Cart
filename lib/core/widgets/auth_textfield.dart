@@ -9,7 +9,7 @@ class AuthTextfield extends StatelessWidget {
      this.icon,
     this.obscureText,
     this.controller, 
-    this.validator,this.suffixIcon, this.fillColor,  
+    this.validator,this.suffixIcon, this.fillColor, this.keyboardType,  
   });
 
   final String hintText;
@@ -19,10 +19,13 @@ class AuthTextfield extends StatelessWidget {
   final String? Function(String?)? validator; 
   final Widget? suffixIcon;
   final Color? fillColor;
+  final TextInputType? keyboardType;
+
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       controller: controller, 
       obscureText: obscureText ?? false,
       validator: validator,
