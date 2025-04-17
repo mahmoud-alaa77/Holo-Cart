@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
@@ -57,7 +58,7 @@ class SignupBlocListener extends StatelessWidget {
                 disabledForegroundColor: Colors.grey.withOpacity(0.38),
               ),
               onPressed: () {
-                context.go("/");
+                context.pushReplacement(AppRoutes.main);
               },
               child: const Text('Continue'),
             ),
@@ -68,7 +69,7 @@ class SignupBlocListener extends StatelessWidget {
   }
 
   void setupErrorState(BuildContext context,  String errorMessage) {
-  context.pop();
+  
   showDialog(
     context: context,
     builder: (context) => AlertDialog(

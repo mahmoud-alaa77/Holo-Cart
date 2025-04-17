@@ -12,11 +12,11 @@ class SignUpCubit extends Cubit<SignUpState> {
   final SignUpRepo signUpRepo;
   TextEditingController userName = TextEditingController();
   TextEditingController fullName = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmationController =TextEditingController();
   TextEditingController emailController = TextEditingController();
-    TextEditingController phoneNumber = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
 
 
       

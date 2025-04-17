@@ -1,39 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
-
 
 class AuthTextfield extends StatelessWidget {
   const AuthTextfield({
     super.key,
     required this.hintText,
-     this.icon,
+    this.icon,
     this.obscureText,
-    this.controller, 
-    this.validator,this.suffixIcon, this.fillColor, this.keyboardType,  
+    this.controller,
+    this.validator,
+    this.suffixIcon,
+    this.fillColor,
+    this.keyboardType,
+    this.maxLength,
+    this.inputFormatters,
   });
 
   final String hintText;
   final Icon? icon;
   final bool? obscureText;
-  final TextEditingController? controller; 
-  final String? Function(String?)? validator; 
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final Color? fillColor;
   final TextInputType? keyboardType;
-
+  final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: keyboardType,
-      controller: controller, 
+      controller: controller,
       obscureText: obscureText ?? false,
       validator: validator,
-
+      maxLength: maxLength,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
-        fillColor: fillColor??const Color.fromARGB(255, 255, 255, 255),
+        counterText: "", // لإخفاء عداد الحروف
+        fillColor: fillColor ?? const Color.fromARGB(255, 255, 255, 255),
         filled: true,
-        suffixIcon:suffixIcon,
+        suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: const TextStyle(
           color: AppColors.customLightGrayColor,

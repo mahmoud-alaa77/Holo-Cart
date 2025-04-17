@@ -7,6 +7,7 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/auth_backround.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
+import 'package:holo_cart/features/sign_up/data/model/sign_up_request.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
 import 'package:holo_cart/features/sign_up/ui/widgets/already_have_account.dart';
@@ -70,23 +71,21 @@ class SignUpScreen extends StatelessWidget {
                             )),
                       ),
                       const TextFieldsSignUp(),
-                    
                       verticalSpace(22),
-                      ButtonItem(text: "Sign Up", onPressed: () {
-
-                        validateThenDoSignUp(context);
-                        
-                      }),
+                      ButtonItem(
+                          text: "Sign Up",
+                          onPressed: () {
+                            validateThenDoSignUp(context);
+                          }),
                       SizedBox(
                         height: 26.h,
                       ),
-                   
                       const OthersSignUp(),
                       const SignUpWithFaceOrGoogle(),
                       verticalSpace(20),
                       const AlreadyHaveAccount(),
-                       const  SignupBlocListener(),
-                       verticalSpace(20),
+                      const SignupBlocListener(),
+                      verticalSpace(20),
                     ],
                   ),
                 ),
@@ -98,7 +97,17 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
+
 void validateThenDoSignUp(BuildContext context) {
   if (context.read<SignUpCubit>().formKey.currentState!.validate()) {
-    context.read<SignUpCubit>().emitStates;
-  }}
+    context.read<SignUpCubit>().emitStates(SignUpRequestBody(
+          fullName: context.read<SignUpCubit>().fullName.text,
+          userName: context.read<SignUpCubit>().userName.text,
+          email: context.read<SignUpCubit>().emailController.text,
+          phoneNumber: context.read<SignUpCubit>().phoneNumber.text,
+          password: context.read<SignUpCubit>().passwordController.text,
+          confirmPassword:
+              context.read<SignUpCubit>().passwordConfirmationController.text,
+        ));
+  }
+}
