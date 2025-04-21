@@ -54,6 +54,7 @@ dependencies:
   dartz: ^0.10.1
   meta: ^1.15.0
   bloc: ^9.0.0
+  shimmer: ^3.0.0
 
 
 dev_dependencies:

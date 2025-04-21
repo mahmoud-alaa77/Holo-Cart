@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/dark_and_light_mode/app_states.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
@@ -117,11 +118,13 @@ class HomeScreenBody extends StatelessWidget {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         scrollDirection: Axis.horizontal,
-                        itemCount: categories.length,
+                        itemCount: state.categoryModel.data!.length,
                         itemBuilder: (context, index) {
                           return CategoryCircleItem(
                             index: index,
-                            title: categories[index],
+                            title: state.categoryModel.data![index].name!,
+                            image:
+                                state.categoryModel.data![index].categoryImage!,
                           );
                         },
                       ),
@@ -131,10 +134,32 @@ class HomeScreenBody extends StatelessWidget {
                       child: Text(state.errorMessage),
                     );
                   } else {
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: AppColors.customRedColor,
-                    ));
+                    return SizedBox(
+                      width: double.infinity,
+                      height: 100.h,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              CustomShimmerLoadingContainer(
+                                height: 50.h,
+                                width: 60.w,
+                                radius: 100.r,
+                              ),
+                              verticalSpace(6),
+                              CustomShimmerLoadingContainer(
+                                height: 10.h,
+                                width: 60.w,
+                                radius: 6.r,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    );
                   }
                 },
               ),
