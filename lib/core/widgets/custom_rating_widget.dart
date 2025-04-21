@@ -6,8 +6,10 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class CustomRatingWidget extends StatelessWidget {
+  final int numberOfRatings;
   const CustomRatingWidget({
     super.key,
+    required this.numberOfRatings,
   });
 
   @override
@@ -18,7 +20,7 @@ class CustomRatingWidget extends StatelessWidget {
         AnimatedRatingBar(
           activeFillColor: AppColors.customYellowColor,
           strokeColor: AppColors.customYellowColor,
-          initialRating: 3.5,
+          initialRating: 4,
           width: 80.w,
           height: 20.h,
           // width: MediaQuery.of(context).size.width,
@@ -28,7 +30,7 @@ class CustomRatingWidget extends StatelessWidget {
           },
         ),
         horizontalSpace(3),
-        Text("6.512",
+        Text("($numberOfRatings)",
             style: AppTextStyles.font13W500
                 .copyWith(color: AppColors.customLightGrayColor)),
       ],

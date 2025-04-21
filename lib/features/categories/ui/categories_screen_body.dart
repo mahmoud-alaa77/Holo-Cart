@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/categories/ui/widgets/category_cart_item.dart';
-import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';
+import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 
 import '../../../core/helper/spacing.dart';
 
@@ -11,9 +13,7 @@ class CategoriesScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      slivers: [
+    return CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
       SliverToBoxAdapter(
         child: Padding(
           padding: EdgeInsetsDirectional.symmetric(horizontal: 12.r),
@@ -32,19 +32,47 @@ class CategoriesScreenBody extends StatelessWidget {
                   ],
                 ),
               ),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: categories.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: .75,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2),
-                itemBuilder: (context, index) {
-                  return CategoryCartItem(
-                    categoryName: categories[index],
-                  );
+              BlocBuilder<GetCategoriesCubit, GetCategoriesState>(
+                builder: (context, state) {
+                  if (state is GetCategoriesSuccess) {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.categoryModel.data!.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: .75,
+                              crossAxisSpacing: 2,
+                              mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return CategoryCartItem(
+                          categoryName: state.categoryModel.data![index].name!,
+                        );
+                      },
+                    );
+                  } else if (state is GetCategoriesError) {
+                    return Center(child: Text(state.errorMessage));
+                  } else {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 8,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: .75,
+                              crossAxisSpacing: 2,
+                              mainAxisSpacing: 2),
+                      itemBuilder: (context, index) {
+                        return CustomShimmerLoadingContainer(
+                          height: 100,
+                          width: 20,
+                          radius: 16.r,
+                        );
+                      },
+                    );
+                  }
                 },
               ),
               verticalSpace(60.h)
