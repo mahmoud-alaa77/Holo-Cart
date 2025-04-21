@@ -7,10 +7,12 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 class CategoryCircleItem extends StatelessWidget {
   final int index;
   final String title;
+  final String image;
   const CategoryCircleItem({
     super.key,
     required this.index,
     required this.title,
+    required this.image,
   });
 
   @override
