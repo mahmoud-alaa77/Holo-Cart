@@ -9,6 +9,7 @@ import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
+import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
@@ -74,8 +75,15 @@ final router = GoRouter(
     // Home Route
     GoRoute(
       path: AppRoutes.main,
-      builder: (context, state) => BlocProvider(
-        create: (context) => getIt<GetCategoriesCubit>()..getCategories(),
+      builder: (context, state) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => getIt<GetCategoriesCubit>()..getCategories(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<GetAllProductsCubit>()..getAllProducts(),
+          ),
+        ],
         child: const MainScreen(),
       ),
     ),

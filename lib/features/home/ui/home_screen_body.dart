@@ -14,6 +14,7 @@ import 'package:holo_cart/features/home/ui/widgets/custom_home_divider_container
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_section.dart';
 import 'package:holo_cart/features/home/ui/widgets/offers_widgets.dart';
 import 'package:holo_cart/features/search/ui/search_screen.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
@@ -42,16 +43,23 @@ class HomeScreenBody extends StatelessWidget {
                           },
                         ));
                       },
-                      child: Icon(
-                        Icons.search,
-                        size: 30.r,
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.customLightColor,
+                        child: Icon(
+                          Icons.search,
+                          size: 30.r,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
+                        ),
                       ),
                     ),
+                    horizontalSpace(8),
                     BlocBuilder<AppModeCubit, AppModeState>(
                       builder: (context, state) {
                         final isLightMode = state is AppModeLight;
-                        return IconButton(
-                            onPressed: () {
+                        return GestureDetector(
+                            onTap: () {
                               final newThemeState = isLightMode
                                   ? ThemeState.dark
                                   : ThemeState.light;
@@ -59,32 +67,26 @@ class HomeScreenBody extends StatelessWidget {
                                   .read<AppModeCubit>()
                                   .changeAppMode(newThemeState);
                             },
-                            icon: Icon(
-                              isLightMode ? Icons.dark_mode : Icons.light_mode,
-                              size: 30.r,
-                              color: isLightMode
-                                  ? Colors.black
-                                  : AppColors.customYellowColor,
+                            child: Lottie.asset(
+                              isLightMode
+                                  ? "assets/images/dark.json"
+                                  : "assets/images/light.json",
+                              width: 43.r,
+                              // color: isLightMode
+                              //     ? Colors.black
+                              //     : AppColors.customYellowColor,
                             ));
                       },
                     ),
-                    Stack(children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.notifications_none,
-                          size: 30.r,
-                        ),
-                        onPressed: () {},
+                    horizontalSpace(8),
+                    GestureDetector(
+                      onTap: () {},
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.customLightColor,
+                        child: Lottie.asset("assets/images/notifcations.json",
+                            width: 45.w),
                       ),
-                      Positioned(
-                        right: 0,
-                        child: Image.asset(
-                          "assets/icons/red_point.png",
-                          width: 35.w,
-                          height: 35.h,
-                        ),
-                      )
-                    ]),
+                    )
                   ],
                 ),
               ),

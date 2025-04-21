@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
+import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/login/data/models/login_response.dart';
 import 'package:holo_cart/features/sign_up/data/model/sign_up_request.dart';
 import 'package:holo_cart/features/sign_up/data/model/sign_up_response.dart';
@@ -23,5 +24,7 @@ abstract class ApiService {
   );
   @POST(ApiConstants.signUp)
   Future<SignUpResponse> signUp(@Body() SignUpRequestBody signUpRequestBody);
-  
+
+  @GET(ApiConstants.getAllProducts)
+  Future<GetAllProductsModel> getAllProducts();
 }
