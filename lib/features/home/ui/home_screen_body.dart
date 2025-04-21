@@ -27,7 +27,8 @@ class HomeScreenBody extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 16.r),
+                padding: EdgeInsetsDirectional.symmetric(
+                    horizontal: 16.r, vertical: 8.r),
                 child: Row(
                   children: [
                     Image.asset(
@@ -48,9 +49,7 @@ class HomeScreenBody extends StatelessWidget {
                         child: Icon(
                           Icons.search,
                           size: 30.r,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.black
-                              : Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
