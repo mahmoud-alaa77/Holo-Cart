@@ -10,7 +10,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://b00mb0x2-44301.uks1.devtunnels.ms/Api/V1/';
+    baseUrl ??= 'http://holo.runasp.net/Api/V1/';
   }
 
   final Dio _dio;
