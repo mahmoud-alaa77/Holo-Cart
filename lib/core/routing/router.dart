@@ -8,6 +8,7 @@ import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
+import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
@@ -89,7 +90,12 @@ final router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.productDetails,
-      builder: (context, state) => const ProductDetailsPage(),
+      builder: (context, state) {
+        final data = state.extra as ProductData;
+        return ProductDetailsPage(
+          product: data,
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.profilePayment,
