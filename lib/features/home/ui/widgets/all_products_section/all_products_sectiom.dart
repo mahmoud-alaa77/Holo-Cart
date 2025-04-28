@@ -136,11 +136,20 @@ class ProductCartItem extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16.r),
                     topRight: Radius.circular(16.r)),
-                child: Image.asset(
-                  "assets/images/product.png",
+                child: Image.network(
+                  product.mainImageUrl.toString(),
                   height: 120.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return SizedBox(
+                      height: 120.h,
+                      width: double.infinity,
+                      child: const Center(
+                        child: Icon(Icons.error),
+                      ),
+                    );
+                  },
                 )),
             verticalSpace(6),
             Padding(

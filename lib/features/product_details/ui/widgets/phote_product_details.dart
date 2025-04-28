@@ -6,17 +6,19 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class PhotoProductDetails extends StatelessWidget {
+  final String? image;
   const PhotoProductDetails({
     super.key,
+    this.image,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color:Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.customBlackColor.withValues(alpha: .5)
-                    : AppColors.customWhiteColor,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? AppColors.customBlackColor.withValues(alpha: .5)
+              : AppColors.customWhiteColor,
           borderRadius: BorderRadius.horizontal(
               left: Radius.circular(25.r), right: Radius.circular(25.r))),
       child: Column(
@@ -32,37 +34,50 @@ class PhotoProductDetails extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios_new_rounded,
-                   
                     size: 26.sp,
                   ),
                 ),
-               const Spacer(
+                const Spacer(
                   flex: 2,
                 ),
                 Text(
                   "Product Detils",
                   style: AppTextStyles.font24W800,
                 ),
-             const   Spacer(
+                const Spacer(
                   flex: 3,
                 ),
               ],
             ),
-            
           ),
-         Padding(
-           padding:  EdgeInsets.only(right: 18.w),
-           child: const Row( crossAxisAlignment: CrossAxisAlignment.end,
-           mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-           
-              Icon(
-                Icons.language,size: 25,)
-           
-            ],),
-         ),
-          Image.asset("assets/images/iphone.png"
-              ,),
+          Stack(children: [
+            Image.network(
+              image!,
+              height: 300.h,
+              width: double.infinity,
+              fit: BoxFit.fill,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+            ),
+            Positioned(
+              top: 16.h,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.only(right: 18.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.language,
+                      size: 30.r,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ]),
         ],
       ),
     );
