@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
         "contianer"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#4B1556",
+        "titleBar.activeBackground": "#691D78",
+        "titleBar.activeForeground": "#FEFBFE"
+    }
 }
