@@ -60,9 +60,10 @@ class HomeScreenBody extends StatelessWidget {
                         return GestureDetector(
                             onTap: () {
                               final newThemeState = isLightMode
-                                  ? ThemeState.light
-                                  : ThemeState.dark;
-                              BlocProvider.of<AppModeCubit>(context)
+                                  ? ThemeState.dark
+                                  : ThemeState.light;
+                              context
+                                  .read<AppModeCubit>()
                                   .changeAppMode(newThemeState);
                             },
                             child: Lottie.asset(
