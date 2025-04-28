@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
+import 'package:holo_cart/features/home/data/models/get_all_discount_model.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
+import 'package:holo_cart/features/home/data/models/get_products_by_discount_model.dart';
 import 'package:holo_cart/features/login/data/models/login_response.dart';
 import 'package:holo_cart/features/sign_up/data/model/sign_up_request.dart';
 import 'package:holo_cart/features/sign_up/data/model/sign_up_response.dart';
@@ -27,4 +29,11 @@ abstract class ApiService {
 
   @GET(ApiConstants.getAllProducts)
   Future<GetAllProductsModel> getAllProducts();
+
+  @GET(ApiConstants.getAllDiscounts)
+  Future<GetAllDiscountsModel> getAllDiscounts();
+
+  @GET(ApiConstants.getProductsByDiscount)
+  Future<GetProductsByDiscountModel> getProductsByDiscount(
+      @Path("discountPercentage") String discountPercentage);
 }

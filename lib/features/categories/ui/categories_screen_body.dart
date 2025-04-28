@@ -48,6 +48,8 @@ class CategoriesScreenBody extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return CategoryCartItem(
                           categoryName: state.categoryModel.data![index].name!,
+                          image:
+                              state.categoryModel.data![index].categoryImage!,
                         );
                       },
                     );

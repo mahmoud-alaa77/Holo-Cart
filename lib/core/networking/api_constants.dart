@@ -6,4 +6,9 @@ class ApiConstants {
   static const String signUp = "/User/Create";
 
   static const String getAllProducts = "Product/Paginated";
+
+  static const String getAllDiscounts = "Discount/GetAll";
+
+  static const String getProductsByDiscount =
+      "Product/ProductsByDiscount?DiscountPercentage={discountPercentage}";
 }
