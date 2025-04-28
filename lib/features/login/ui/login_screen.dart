@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
@@ -73,17 +75,21 @@ class LoginScreen extends StatelessWidget {
                           )),
                     ),
                     const EmailAndPassword(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("Forget Password?",
-                            textAlign: TextAlign.end,
-                            style: AppTextStyles.font13W400.copyWith(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.customBlackColor
-                                    : AppColors.customWhiteColor)),
-                      ],
+                    GestureDetector(
+                      onTap: () =>GoRouter.of(context).push(AppRoutes.forgetPassword),
+
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text("Forget Password?",
+                              textAlign: TextAlign.end,
+                              style: AppTextStyles.font13W400.copyWith(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.customBlackColor
+                                      : AppColors.customWhiteColor)),
+                        ],
+                      ),
                     ),
                     
                     verticalSpace(22),
