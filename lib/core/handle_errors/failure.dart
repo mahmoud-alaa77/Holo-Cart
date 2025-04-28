@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 
 abstract class Failure {
   final String errorMessage;
-
+  
   Failure(this.errorMessage);
 }
 
 class ServerFailure extends Failure {
   ServerFailure(super.message);
-
+  
   factory ServerFailure.fromDioError(DioException dioError) {
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
@@ -20,6 +20,10 @@ class ServerFailure extends Failure {
       case DioExceptionType.badCertificate:
         return ServerFailure("Internal Server Error");
       case DioExceptionType.badResponse:
+        // التحقق من حالات إعادة التوجيه
+        if (dioError.response?.statusCode == 307 || dioError.response?.statusCode == 308) {
+          return ServerFailure("Redirect error - please try again");
+        }
         return ServerFailure.fromResponse(
             dioError.response!.statusCode, dioError.response!.data);
       case DioExceptionType.cancel:
@@ -27,15 +31,16 @@ class ServerFailure extends Failure {
       case DioExceptionType.connectionError:
         return ServerFailure("No Internet Connection");
       case DioExceptionType.unknown:
+        // تعديل: تحقق من وجود استجابة لإعادة التوجيه
+        if (dioError.response?.statusCode == 307 || dioError.response?.statusCode == 308) {
+          return ServerFailure("Redirect error - please try again");
+        }
         return ServerFailure("Connection Error");
-        
-
-      // ignore: unreachable_switch_default
       default:
         return ServerFailure("Opps There was an error, Please Try Again");
     }
   }
-
+  
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == 404) {
       return ServerFailure("Your request not found, please try Later");
