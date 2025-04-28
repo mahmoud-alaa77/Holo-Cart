@@ -16,14 +16,9 @@ import 'package:holo_cart/features/home/ui/widgets/offers_widgets.dart';
 import 'package:holo_cart/features/search/ui/search_screen.dart';
 import 'package:lottie/lottie.dart';
 
-class HomeScreenBody extends StatefulWidget {
+class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
 
-  @override
-  State<HomeScreenBody> createState() => _HomeScreenBodyState();
-}
-
-class _HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -64,7 +59,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         final isLightMode = state is AppModeLight;
                         return GestureDetector(
                             onTap: () {
-                              setState(() {});
                               final newThemeState = isLightMode
                                   ? ThemeState.light
                                   : ThemeState.dark;
