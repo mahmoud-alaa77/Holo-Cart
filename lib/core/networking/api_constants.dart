@@ -1,6 +1,6 @@
 class ApiConstants {
   static const String baseUrl =
-      "https://holo.runasp.net/Api/V1/"; // تأكد من استخدام HTTPS
+      "https://holo.runasp.net/Api/V1/"; 
 
   static const String getAllCategories = "Category/GetAll";
   static const String login = "Authentication/SignIn";
@@ -11,4 +11,7 @@ class ApiConstants {
 
   static const String getProductsByDiscount =
       "Product/ProductsByDiscount?DiscountPercentage={discountPercentage}";
+  static const String forgetPassword = "Authentication/SendResetPasswordCode";
+  static const String resetPassword = "Authentication/ResetPassword";
+
 }

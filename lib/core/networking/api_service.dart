@@ -40,4 +40,8 @@ abstract class ApiService {
   @GET(ApiConstants.getProductsByDiscount)
   Future<GetProductsByDiscountModel> getProductsByDiscount(
       @Path("discountPercentage") String discountPercentage);
+      
+  @POST(ApiConstants.forgetPassword)
+  @FormUrlEncoded()
+  Future<dynamic> sendResetPasswordCode(@Field("Email") String email);
 }
