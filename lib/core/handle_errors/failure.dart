@@ -36,9 +36,7 @@ class ServerFailure extends Failure {
           return ServerFailure("Redirect error - please try again");
         }
         return ServerFailure("Connection Error");
-      default:
-        return ServerFailure("Opps There was an error, Please Try Again");
-    }
+      }
   }
   
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
