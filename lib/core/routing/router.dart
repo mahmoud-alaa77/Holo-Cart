@@ -8,6 +8,7 @@ import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
+import 'package:holo_cart/features/forget_password/logic/cubit/forget_password_cubit.dart';
 import 'package:holo_cart/features/forget_password/ui/forget_password_screen.dart';
 import 'package:holo_cart/features/forget_password/ui/reset_password.dart';
 import 'package:holo_cart/features/forget_password/ui/verication_code_screen.dart';
@@ -61,7 +62,6 @@ final router = GoRouter(
       path: AppRoutes.login,
       builder: (context, state) => BlocProvider(
         create: (context) => getIt<LoginCubit>(),
-  
         child: const LoginScreen(),
       ),
     ),
@@ -149,13 +149,16 @@ final router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.forgetPassword,
-      builder: (context, state) => const ForgetPasswordScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<ForgetPasswordCubit>(),
+        child: const ForgetPasswordScreen(),
+      ),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.verificationCode,
       builder: (context, state) => const VericationCodeScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.resetPassword,
       builder: (context, state) => const ResetPassword(),
     ),
