@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' hide Headers; // إخفاء Headers بتاع Dio
+import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
@@ -43,5 +44,5 @@ abstract class ApiService {
       
   @POST(ApiConstants.forgetPassword)
   @FormUrlEncoded()
-  Future<dynamic> sendResetPasswordCode(@Field("Email") String email);
+  Future<ForgetPasswordRespnse> sendResetPasswordCode(@Field("Email") String email);
 }
