@@ -14,7 +14,9 @@ class ProductDetailsPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PhotoProductDetails(),
+            PhotoProductDetails(
+              image: product.mainImageUrl.toString(),
+            ),
             InformationProductDetails(
               product: product,
             )
