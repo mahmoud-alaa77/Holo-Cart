@@ -14,4 +14,7 @@ class AppRoutes {
   static const String address = '/address';
   static const String proccessingOrder = '/proccessing_order';
   static const String done = '/done';
+  static const String forgetPassword = '/forgot_password';
+  static const String verificationCode = '/verification_code';
+   static const String resetPassword = '/reset_password';
 }
