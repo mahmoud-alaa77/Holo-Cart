@@ -5,6 +5,7 @@ import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen.dart';
+import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
@@ -16,6 +17,7 @@ import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cub
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
+import 'package:holo_cart/features/home/ui/all_products_in_category_screen.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
@@ -61,7 +63,6 @@ final router = GoRouter(
       path: AppRoutes.login,
       builder: (context, state) => BlocProvider(
         create: (context) => getIt<LoginCubit>(),
-  
         child: const LoginScreen(),
       ),
     ),
@@ -94,7 +95,10 @@ final router = GoRouter(
           ),
           BlocProvider(
             create: (context) => getIt<GetProductsByDiscountCubit>()
-              ..getProductsByDiscount("20"),
+              ..getProductsByDiscount("10"),
+          ),
+          BlocProvider(
+            create: (context) => getIt<GetProductsInCategoryCubit>(),
           ),
         ],
         child: const MainScreen(),
@@ -151,13 +155,24 @@ final router = GoRouter(
       path: AppRoutes.forgetPassword,
       builder: (context, state) => const ForgetPasswordScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.verificationCode,
       builder: (context, state) => const VericationCodeScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: AppRoutes.resetPassword,
       builder: (context, state) => const ResetPassword(),
     ),
+    GoRoute(
+        path: AppRoutes.allProductsInCategory,
+        builder: (context, state) {
+          final id = state.extra as int;
+          return BlocProvider(
+            create: (context) => getIt<GetProductsInCategoryCubit>(),
+            child: AllProductsInCategoryScreen(
+              categoryId: id,
+            ),
+          );
+        }),
   ],
 );

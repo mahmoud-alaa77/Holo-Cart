@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:holo_cart/core/networking/api_service.dart';
 import 'package:holo_cart/core/networking/dio_factory.dart';
+import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/home/data/repo/home_repo.dart';
 import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
@@ -34,6 +35,11 @@ Future<void> setupGetIt() async {
 
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
   getIt.registerFactory<GetCategoriesCubit>(() => GetCategoriesCubit(getIt()));
+
+  // Home_products_in_category
+  getIt.registerFactory<GetProductsInCategoryCubit>(
+      () => GetProductsInCategoryCubit(getIt()));
+
   // Home_all_products
 
   getIt

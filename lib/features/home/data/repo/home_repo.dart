@@ -61,4 +61,17 @@ class HomeRepo {
       return left(ServerFailure(error.toString()));
     }
   }
+
+  Future<Either<Failure, GetAllProductsModel>> getAllProductsInCategory(
+      {required int id}) async {
+    try {
+      final response = await apiService.getProductsByCategory(id.toString());
+      return right(response);
+    } catch (error) {
+      if (error is DioException) {
+        return left(ServerFailure.fromDioError(error));
+      }
+      return left(ServerFailure(error.toString()));
+    }
+  }
 }

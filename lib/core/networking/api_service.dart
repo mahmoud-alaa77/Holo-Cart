@@ -40,4 +40,8 @@ abstract class ApiService {
   @GET(ApiConstants.getProductsByDiscount)
   Future<GetProductsByDiscountModel> getProductsByDiscount(
       @Path("discountPercentage") String discountPercentage);
+
+  @GET(ApiConstants.getProductsByCategory)
+  Future<GetAllProductsModel> getProductsByCategory(
+      @Path("categoryId") String categoryId);
 }

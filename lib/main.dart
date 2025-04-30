@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/di.dart';
+import 'package:holo_cart/core/helper/my_bloc_observer.dart';
 import 'package:holo_cart/core/routing/router.dart';
 import 'package:holo_cart/core/themes/app_themes.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
 
 void main() async {
   await setupGetIt();
-   EmailOTP.config();
+  EmailOTP.config();
+  Bloc.observer = SimpleBlocObserver();
 
   runApp(const MyApp());
 }

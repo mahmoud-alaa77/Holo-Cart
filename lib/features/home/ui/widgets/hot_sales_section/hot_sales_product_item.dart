@@ -45,18 +45,18 @@ class HotSalesProductItem extends StatelessWidget {
                 height: 120.h,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                      strokeWidth: 2,
-                    ),
-                  );
-                },
+                // loadingBuilder: (context, child, loadingProgress) {
+                //   if (loadingProgress == null) return child;
+                //   return Center(
+                //     child: CircularProgressIndicator(
+                //       value: loadingProgress.expectedTotalBytes != null
+                //           ? loadingProgress.cumulativeBytesLoaded /
+                //               loadingProgress.expectedTotalBytes!
+                //           : null,
+                //       strokeWidth: 2,
+                //     ),
+                //   );
+                // },
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(Icons.error);
                 },
