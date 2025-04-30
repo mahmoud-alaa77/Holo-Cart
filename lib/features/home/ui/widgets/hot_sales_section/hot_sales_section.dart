@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +5,6 @@ import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
-import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_product_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_values_list.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/time_box_widget.dart';

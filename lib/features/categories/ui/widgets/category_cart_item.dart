@@ -32,17 +32,24 @@ class CategoryCartItem extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ClipRRect(
+                child: Container(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.r),
-                    child: Image.network(
-                      image,
-                      height: 120.h,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.error);
-                      },
-                    )),
+                    color: Colors.grey.withValues(alpha: .1),
+                  ),
+                  padding: EdgeInsets.all(32.r),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: Image.network(
+                        image,
+                        height: 120.h,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error);
+                        },
+                      )),
+                ),
               ),
               verticalSpace(8),
               Text(
