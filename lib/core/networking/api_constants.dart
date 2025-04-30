@@ -12,6 +12,8 @@ class ApiConstants {
   static const String getProductsByDiscount =
       "Product/ProductsByDiscount?DiscountPercentage={discountPercentage}";
   static const String forgetPassword = "Authentication/SendResetPasswordCode";
+  static const String confirmVerification = "Authentication/ConfirmResetPasswordCode";
   static const String resetPassword = "Authentication/ResetPassword";
+
 
 }

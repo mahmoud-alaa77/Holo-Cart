@@ -5,7 +5,7 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/auth_backround.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/features/forget_password/data/models/forget_password_request.dart';
-import 'package:holo_cart/features/forget_password/logic/cubit/forget_password_cubit.dart';
+import 'package:holo_cart/features/forget_password/logic/forget_password/forget_password_cubit.dart';
 import 'package:holo_cart/features/forget_password/ui/widgets/bloc_listener_forget_password.dart';
 import 'package:holo_cart/features/forget_password/ui/widgets/forget_pass_textfields.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
