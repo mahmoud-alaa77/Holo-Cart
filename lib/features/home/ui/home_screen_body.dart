@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
+import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/dark_and_light_mode/app_states.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
+import 'package:holo_cart/features/home/ui/all_products_in_category_screen.dart';
 import 'package:holo_cart/features/home/ui/widgets/all_products_section/all_products_sectiom.dart';
 import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/custom_home_divider_container.dart';
@@ -123,6 +127,8 @@ class HomeScreenBody extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return CategoryCircleItem(
                             index: index,
+                            // TODO: remove this and get the category id from the api
+                            categoryId: 18,
                             title: state.categoryModel.data![index].name!,
                             image:
                                 state.categoryModel.data![index].categoryImage!,
@@ -150,7 +156,7 @@ class HomeScreenBody extends StatelessWidget {
                                 width: 60.w,
                                 radius: 100.r,
                               ),
-                              verticalSpace(6),
+                              verticalSpace(12),
                               CustomShimmerLoadingContainer(
                                 height: 10.h,
                                 width: 60.w,
