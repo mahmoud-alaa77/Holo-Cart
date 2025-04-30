@@ -18,7 +18,7 @@ class HotSalesProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsetsDirectional.symmetric(horizontal: 8.r, vertical: 4.r),
+      margin: EdgeInsetsDirectional.symmetric(horizontal: 12.r, vertical: 4.r),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.black
@@ -40,11 +40,26 @@ class HotSalesProductItem extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16.r),
                   topRight: Radius.circular(16.r)),
-              child: Image.asset(
-                "assets/images/product.png",
+              child: Image.network(
+                product.mainImageUrl.toString(),
                 height: 120.h,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                      strokeWidth: 2,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error);
+                },
               )),
           verticalSpace(6),
           Padding(
