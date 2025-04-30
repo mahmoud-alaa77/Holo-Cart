@@ -1,18 +1,20 @@
 import 'dart:async'; // عشان نستخدم Timer
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/helper/spacing.dart';
-import 'package:holo_cart/core/routing/app_routes.dart';
+
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/auth_backround.dart';
-import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/features/forget_password/data/models/forget_password_request.dart';
+import 'package:holo_cart/features/forget_password/logic/forget_password/forget_password_cubit.dart';
+import 'package:holo_cart/features/forget_password/ui/widgets/verify_otp.dart';
 import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
 
 class VericationCodeScreen extends StatefulWidget {
-  const VericationCodeScreen({super.key});
+  final String email;
+
+  const VericationCodeScreen({super.key, required this.email});
 
   @override
   State<VericationCodeScreen> createState() => _VericationCodeScreenState();
@@ -20,12 +22,12 @@ class VericationCodeScreen extends StatefulWidget {
 
 class _VericationCodeScreenState extends State<VericationCodeScreen> {
   late Timer _timer;
-  int _start = 60; // مدة التايمر 60 ثانية
+  int _start = 60;
 
   @override
   void initState() {
     super.initState();
-    startTimer(); // نبدأ التايمر أول ما تفتح الشاشة
+    startTimer(); 
   }
 
   void startTimer() {
@@ -42,7 +44,7 @@ class _VericationCodeScreenState extends State<VericationCodeScreen> {
 
   @override
   void dispose() {
-    _timer.cancel(); // نلغي التايمر لما نخرج من الشاشة عشان ما يصير مشاكل
+    _timer.cancel(); 
     super.dispose();
   }
 
@@ -52,7 +54,7 @@ class _VericationCodeScreenState extends State<VericationCodeScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true, 
+      resizeToAvoidBottomInset: true,
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -90,70 +92,33 @@ class _VericationCodeScreenState extends State<VericationCodeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const BackItem(),
-                    Column(
-                      children: [
-                        Image.asset("assets/images/reset.png",height: screenHeight*0.3, ),
-                        verticalSpace(5),
-                        Text(
-                          "Verification code",
-                          style: AppTextStyles.font36W500,
-                        ),
-                        Text(
-                          "Please confirm the security code received on your registered email.",
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.font14W500.copyWith(
-                            color: AppColors.customWhiteColor,
+                    VerifyOtp(screenHeight: screenHeight, start: _start),
+                    Align(
+                      alignment: Alignment.center,
+                      child: TextButton(
+                            onPressed: () {
+                              context
+                                  .read<ForgetPasswordCubit>()
+                                  .sendResetPasswordCode(
+                                    ForgetPasswordRequest(email: widget.email),
+                                  );
+                      
+                              ScaffoldMessenger.of(context).showSnackBar(
+                             const   SnackBar(
+                                  content: Text(
+                                      "Verification code has been resent to your email"),
+                                  backgroundColor: AppColors.customBlueColor,
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Send Again",
+                              style: AppTextStyles.font16W400.copyWith(
+                                color: AppColors.customBlueColor,
+                              ),
+                            ),
                           ),
-                        ),
-                        verticalSpace(15),
-                        
-                        // هنا بنعرض التايمر
-                        Text(
-                          '00:$_start ',
-                          style: AppTextStyles.font16W600
-                        ),
-              
-                        verticalSpace(4),
-                        OtpTextField(
-                          numberOfFields: 4,
-                          borderColor: Color.fromARGB(255, 167, 13, 13),
-                          focusedBorderColor: Color.fromARGB(255, 255, 255, 255),
-                          fillColor: Colors.white,
-                          filled: true,
-                          showFieldAsBox: true,
-                          borderWidth: 2.0,
-                          borderRadius: BorderRadius.circular(12),
-                          fieldWidth: 60,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          cursorColor: Colors.blue,
-                          enabledBorderColor: Colors.black,
-                          disabledBorderColor: Colors.grey,
-                          autoFocus: false,
-                          keyboardType: TextInputType.number,
-                          clearText: true,
-                          onCodeChanged: (String code) {},
-                          onSubmit: (String code) {},
-                        ),
-                        verticalSpace(20),
-                        ButtonItem(
-                          text: "Continue",
-                          onPressed: () {
-                            GoRouter.of(context).push(AppRoutes.resetPassword);
-                          },
-                        ),
-                        Text(
-                          "Did not receive the code?",
-                          style: AppTextStyles.font16W400
-                        ), 
-                        Text(
-                          "Send Again",
-                          style: AppTextStyles.font16W400.copyWith(
-                            color: AppColors.customBlueColor
-                          )
-                        ),
-                        
-                      ],
                     ),
                   ],
                 ),
@@ -165,3 +130,4 @@ class _VericationCodeScreenState extends State<VericationCodeScreen> {
     );
   }
 }
+

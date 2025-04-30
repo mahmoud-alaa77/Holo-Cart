@@ -5,7 +5,7 @@ import 'package:holo_cart/core/helper/app_regex.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/auth_textfield.dart';
-import 'package:holo_cart/features/forget_password/logic/cubit/forget_password_cubit.dart';
+import 'package:holo_cart/features/forget_password/logic/forget_password/forget_password_cubit.dart';
 
 import '../../../../core/themes/app_colors.dart';
 
