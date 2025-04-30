@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
+import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_product_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_values_list.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/time_box_widget.dart';
@@ -42,16 +45,52 @@ class HotSalesSection extends StatelessWidget {
         verticalSpace(16),
         const HotSalesValuesList(),
         verticalSpace(16),
-        SizedBox(
-          width: double.infinity,
-          height: 250.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 8,
-            itemBuilder: (context, index) {
-              return const HotSalesProductItem();
-            },
-          ),
+        BlocBuilder<GetProductsByDiscountCubit, GetProductsByDiscountState>(
+          builder: (context, state) {
+            if (state is GetProductsByDiscountError) {
+              return Center(child: Text(state.error));
+            } else if (state is GetProductsByDiscountSuccess) {
+              return SizedBox(
+                width: double.infinity,
+                height: 250.h,
+                child: state.getProductsByDiscountModel.products!.isEmpty
+                    ? Center(
+                        child: Text(
+                        "No products found",
+                        style: AppTextStyles.font20W700,
+                      ))
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            state.getProductsByDiscountModel.products!.length,
+                        itemBuilder: (context, index) {
+                          return HotSalesProductItem(
+                            discount: state.getProductsByDiscountModel
+                                .products![index].discountPercentage
+                                .toString(),
+                            product: state
+                                .getProductsByDiscountModel.products![index],
+                          );
+                        },
+                      ),
+              );
+            } else {
+              return SizedBox(
+                width: double.infinity,
+                height: 250.h,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return CustomShimmerLoadingContainer(
+                      width: MediaQuery.sizeOf(context).width / 2.2,
+                      height: 220.h,
+                    );
+                  },
+                ),
+              );
+            }
+          },
         )
       ],
     );

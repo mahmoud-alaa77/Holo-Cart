@@ -39,7 +39,7 @@ class LoginBlocListner extends StatelessWidget {
 }
 
 void setupErrorState(BuildContext context,   String errorMessage) {
-  context.pop();
+ 
   showDialog(
     context: context,
     builder: (context) => AlertDialog(

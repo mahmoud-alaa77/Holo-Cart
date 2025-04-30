@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:holo_cart/core/networking/api_service.dart';
 import 'package:holo_cart/core/networking/dio_factory.dart';
 import 'package:holo_cart/features/home/data/repo/home_repo.dart';
+import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
+import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/login/data/repo/login_repo.dart';
@@ -36,4 +38,9 @@ Future<void> setupGetIt() async {
 
   getIt
       .registerFactory<GetAllProductsCubit>(() => GetAllProductsCubit(getIt()));
+
+  // home discounts
+  getIt.registerFactory<DiscountsCubit>(() => DiscountsCubit(getIt()));
+  getIt.registerFactory<GetProductsByDiscountCubit>(
+      () => GetProductsByDiscountCubit(getIt()));
 }

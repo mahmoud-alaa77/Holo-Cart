@@ -4,16 +4,21 @@ import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/custom_rating_widget.dart';
+import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 
 class HotSalesProductItem extends StatelessWidget {
+  final ProductData product;
+  final String discount;
   const HotSalesProductItem({
     super.key,
+    required this.product,
+    required this.discount,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsetsDirectional.symmetric(horizontal: 8.r, vertical: 4.r),
+      margin: EdgeInsetsDirectional.symmetric(horizontal: 12.r, vertical: 4.r),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.black
@@ -35,17 +40,32 @@ class HotSalesProductItem extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16.r),
                   topRight: Radius.circular(16.r)),
-              child: Image.asset(
-                "assets/images/product.png",
+              child: Image.network(
+                product.mainImageUrl.toString(),
                 height: 120.h,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                      strokeWidth: 2,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error);
+                },
               )),
           verticalSpace(6),
           Padding(
             padding: EdgeInsetsDirectional.symmetric(horizontal: 6.r),
             child: Text(
-              "feature table",
+              product.name ?? "",
               style: AppTextStyles.font18W500,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -55,7 +75,7 @@ class HotSalesProductItem extends StatelessWidget {
           Padding(
             padding: EdgeInsetsDirectional.symmetric(horizontal: 6.r),
             child: Text(
-              "Table for Sofa and Bed, Durable Metal and Exquisite Wooden S...",
+              product.description ?? "",
               style: AppTextStyles.font14W500,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -66,20 +86,20 @@ class HotSalesProductItem extends StatelessWidget {
             children: [
               horizontalSpace(8),
               Text(
-                "9\$",
+                "${product.finalPrice}\$",
                 style: AppTextStyles.font16W500,
               ),
               horizontalSpace(8),
               Text(
-                "16\$",
-                style: AppTextStyles.font16W500
+                "${product.basePrice}\$",
+                style: AppTextStyles.font13W400
                     .copyWith(color: AppColors.customLightGrayColor)
                     .copyWith(decoration: TextDecoration.lineThrough),
               ),
               const Spacer(),
               Text(
-                "30% OFF",
-                style: AppTextStyles.font15W400
+                "$discount% OFF",
+                style: AppTextStyles.font12W400
                     .copyWith(color: AppColors.primaryOrangeColor),
               ),
               horizontalSpace(8)

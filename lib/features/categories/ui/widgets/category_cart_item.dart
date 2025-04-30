@@ -5,9 +5,11 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class CategoryCartItem extends StatelessWidget {
   final String categoryName;
+  final String image;
   const CategoryCartItem({
     super.key,
     required this.categoryName,
+    required this.image,
   });
 
   @override
@@ -30,12 +32,24 @@ class CategoryCartItem extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ClipRRect(
+                child: Container(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.r),
-                    child: Image.asset("assets/images/product.png",
+                    color: Colors.grey.withValues(alpha: .1),
+                  ),
+                  padding: EdgeInsets.all(32.r),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: Image.network(
+                        image,
                         height: 120.h,
                         width: double.infinity,
-                        fit: BoxFit.fill)),
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error);
+                        },
+                      )),
+                ),
               ),
               verticalSpace(8),
               Text(
