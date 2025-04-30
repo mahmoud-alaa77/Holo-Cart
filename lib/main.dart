@@ -1,4 +1,4 @@
-import 'package:email_otp/email_otp.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +9,7 @@ import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart
 
 void main() async {
   await setupGetIt();
-   EmailOTP.config();
+   
 
   runApp(const MyApp());
 }

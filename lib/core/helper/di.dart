@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:holo_cart/core/networking/api_service.dart';
 import 'package:holo_cart/core/networking/dio_factory.dart';
 import 'package:holo_cart/features/forget_password/data/repo/forget_password_repo.dart';
+import 'package:holo_cart/features/forget_password/logic/cubit/forget_password_cubit.dart';
 import 'package:holo_cart/features/home/data/repo/home_repo.dart';
 import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
@@ -31,7 +32,7 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
   //ForgetPassword
   getIt.registerLazySingleton<ForgetPasswordRepo>(() => ForgetPasswordRepo(getIt()));
-  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
+  getIt.registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(getIt()));
 
   //-------------- home ----------------
 // Home_categories
