@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class ProductColors extends StatefulWidget {
   final List<Color> colors;
-  const ProductColors({super.key, required this.colors});
+  final List<String> images;
+  const ProductColors({super.key, required this.colors, required this.images});
 
   @override
   _ProductColorsState createState() => _ProductColorsState();
@@ -57,6 +59,12 @@ class _ProductColorsState extends State<ProductColors> {
             ],
           ],
         ),
+        verticalSpace(10),
+        Image.network(widget.images[selectedColorIndex],
+            width: MediaQuery.of(context).size.width - 120.w,
+            height: 200.h,
+            fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) => Icon(Icons.error)),
       ],
     );
   }
