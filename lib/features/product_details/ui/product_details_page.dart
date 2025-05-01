@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/themes/app_colors.dart';
+import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
-
-import 'package:holo_cart/features/product_details/ui/widgets/information_product_details.dart';
-import 'package:holo_cart/features/product_details/ui/widgets/phote_product_details.dart';
+import 'package:holo_cart/features/product_details/ui/widgets/silimilar_to_list_view.dart';
+import 'package:readmore/readmore.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final ProductData product;
@@ -15,6 +21,9 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  int selectedColorIndex = 0;
+  String? selectedColorImage;
+
   @override
   void initState() {
     super.initState();
@@ -28,12 +37,254 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PhotoProductDetails(
-              image: widget.product.mainImageUrl.toString(),
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.customBlackColor.withOpacity(0.5)
+                    : AppColors.customWhiteColor,
+                borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(25.r),
+                  right: Radius.circular(25.r),
+                ),
+              ),
+              child: Column(
+                children: [
+                  verticalSpace(40),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.w),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.pop();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            size: 26.sp,
+                          ),
+                        ),
+                        const Spacer(flex: 2),
+                        Text("Product Details",
+                            style: AppTextStyles.font24W800),
+                        const Spacer(flex: 3),
+                      ],
+                    ),
+                  ),
+                  Stack(
+                    children: [
+                      Image.network(
+                        selectedColorImage ??
+                            widget.product.mainImageUrl.toString(),
+                        height: 300.h,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error);
+                        },
+                      ),
+                      Positioned(
+                        top: 16.h,
+                        right: 0,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 18.w),
+                          child: Icon(
+                            Icons.language,
+                            size: 30.r,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            InformationProductDetails(
-              product: widget.product,
-            )
+            Padding(
+              padding: EdgeInsets.only(top: 5.h),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.customBlackColor.withOpacity(0.5)
+                      : AppColors.customWhiteColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.r),
+                    topRight: Radius.circular(25.r),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15.0.w, right: 20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      verticalSpace(12),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(widget.product.name ?? "",
+                              style: AppTextStyles.font22W700),
+                          const Spacer(),
+                          const Icon(Icons.favorite_border_rounded,
+                              color: Colors.redAccent),
+                        ],
+                      ),
+                      verticalSpace(10),
+                      Row(
+                        children: [
+                          Text(
+                            "\$ ${widget.product.basePrice ?? ""}",
+                            style: AppTextStyles.font20W700.copyWith(
+                              color: AppColors.primaryOrangeColor,
+                            ),
+                          ),
+                          Text(
+                            " | Including taxes and duties",
+                            style: AppTextStyles.font12W400,
+                          ),
+                        ],
+                      ),
+                      verticalSpace(10),
+                      Row(
+                        children: [
+                          Text("Colors", style: AppTextStyles.font24W600),
+                          const Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(Icons.star,
+                                  color: Colors.amber, size: 20.sp),
+                              SizedBox(width: 4.w),
+                              Text(
+                                "4.8",
+                                style: AppTextStyles.font18W600,
+                              ),
+                              SizedBox(width: 4.w),
+                              Text(
+                                "(${widget.product.reviews?.length ?? 0})",
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      BlocBuilder<GetProductColorsCubit, GetProductColorsState>(
+                        builder: (context, state) {
+                          if (state is GetProductColorsSuccess) {
+                            final colors = state.getProductColorModel.data!
+                                .map((e) =>
+                                    Color(int.parse('0xFF${e.colorHex}')))
+                                .toList();
+
+                            final images = state.getProductColorModel.data!
+                                .map((e) => e.image!.imageUrl.toString())
+                                .toList();
+
+                            if (selectedColorImage == null &&
+                                images.isNotEmpty) {
+                              selectedColorImage = images[0];
+                            }
+
+                            return Row(
+                              children: colors.isEmpty
+                                  ? [
+                                      Text(
+                                        "No colors available",
+                                        style: AppTextStyles.font14W600
+                                            .copyWith(color: Colors.red),
+                                      ),
+                                    ]
+                                  : List.generate(colors.length, (index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedColorIndex = index;
+                                            selectedColorImage = images[index];
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 2.w),
+                                          width: 30.w,
+                                          height: 30.h,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: colors[index],
+                                            border: Border.all(
+                                              color: selectedColorIndex == index
+                                                  ? Colors.black.withAlpha(100)
+                                                  : Colors.transparent,
+                                              width: selectedColorIndex == index
+                                                  ? 3.w
+                                                  : 0,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                            );
+                          } else if (state is GetProductColorsFailure) {
+                            return Text(state.message.toString());
+                          } else {
+                            return SizedBox(
+                              height: 30.h,
+                              width: 130.w,
+                              child: ListView.builder(
+                                itemCount: 3,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return CustomShimmerLoadingContainer(
+                                    height: 24.h,
+                                    width: 24.w,
+                                  );
+                                },
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      verticalSpace(10),
+                      Text("Description", style: AppTextStyles.font24W600),
+                      verticalSpace(10),
+                      ReadMoreText(
+                        widget.product.description ?? "",
+                        trimLines: 3,
+                        colorClickableText: Colors.blue,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: 'Read more',
+                        trimExpandedText: ' Show less',
+                        style: AppTextStyles.font14W600.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.customWhiteColor
+                              : AppColors.customLightGrayColor,
+                        ),
+                        moreStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      verticalSpace(10),
+                      const SimilarTOListView(),
+                      verticalSpace(30),
+                      ButtonItem(
+                        onPressed: () {},
+                        text: "Add to cart",
+                        radius: 30,
+                      ),
+                      verticalSpace(10),
+                      ButtonItem(
+                        onPressed: () {},
+                        text: "Buy Now",
+                        color: AppColors.customRedColor,
+                        radius: 30,
+                      ),
+                      verticalSpace(33),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

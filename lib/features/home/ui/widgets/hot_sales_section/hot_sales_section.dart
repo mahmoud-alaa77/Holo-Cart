@@ -52,7 +52,7 @@ class HotSalesSection extends StatelessWidget {
             } else if (state is GetProductsByDiscountSuccess) {
               return SizedBox(
                 width: double.infinity,
-                height: 250.h,
+                height: 260.h,
                 child: state.getProductsByDiscountModel.products!.isEmpty
                     ? Center(
                         child: Text(
