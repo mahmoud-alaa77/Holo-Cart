@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/custom_rating_widget.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
+import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 
 import '../../../../../core/helper/spacing.dart';
 
@@ -19,7 +21,7 @@ class ProductCartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         context.push(AppRoutes.productDetails, extra: product);
       },
       child: Container(

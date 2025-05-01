@@ -10,6 +10,8 @@ import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/login/data/repo/login_repo.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
+import 'package:holo_cart/features/product_details/data/repo/product_details_repo.dart';
+import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/sign_up/data/repo/sign_up_repo.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
@@ -49,4 +51,10 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<DiscountsCubit>(() => DiscountsCubit(getIt()));
   getIt.registerFactory<GetProductsByDiscountCubit>(
       () => GetProductsByDiscountCubit(getIt()));
+
+  // product details
+  getIt.registerLazySingleton<ProductDetailsRepo>(
+      () => ProductDetailsRepo(apiService: getIt()));
+  getIt.registerFactory<GetProductColorsCubit>(
+      () => GetProductColorsCubit(productDetailsRepo: getIt()));
 }
