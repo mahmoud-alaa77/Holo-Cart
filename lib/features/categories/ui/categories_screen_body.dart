@@ -66,12 +66,11 @@ class CategoriesScreenBody extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: 8,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: .75,
-                              crossAxisSpacing: 2,
-                              mainAxisSpacing: 2),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: .75,
+                          crossAxisSpacing: 16.w,
+                          mainAxisSpacing: 24.h),
                       itemBuilder: (context, index) {
                         return CustomShimmerLoadingContainer(
                           height: 100,
