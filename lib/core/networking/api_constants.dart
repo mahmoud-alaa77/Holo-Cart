@@ -14,4 +14,6 @@ class ApiConstants {
 
   static const String getProductsByCategory =
       "Product/ProductsByCategory?CategoryId={categoryId}";
+
+  static const String getProductColors = "ProductColor/ProductId?id={id}";
 }
