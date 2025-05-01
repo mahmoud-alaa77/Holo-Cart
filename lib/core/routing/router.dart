@@ -9,6 +9,8 @@ import 'package:holo_cart/features/categories/logic/cubit/get_products_in_catego
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
+import 'package:holo_cart/features/forget_password/logic/forget_password/forget_password_cubit.dart';
+import 'package:holo_cart/features/forget_password/logic/verify/verification_code_cubit.dart';
 import 'package:holo_cart/features/forget_password/ui/forget_password_screen.dart';
 import 'package:holo_cart/features/forget_password/ui/reset_password.dart';
 import 'package:holo_cart/features/forget_password/ui/verication_code_screen.dart';
@@ -160,12 +162,26 @@ final router = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.forgetPassword,
-      builder: (context, state) => const ForgetPasswordScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<ForgetPasswordCubit>(),
+        child: const ForgetPasswordScreen(),
+      ),
     ),
-    GoRoute(
-      path: AppRoutes.verificationCode,
-      builder: (context, state) => const VericationCodeScreen(),
-    ),
+  GoRoute(
+  path: AppRoutes.verificationCode,
+  builder: (context, state) {
+    final email = state.extra as String;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
+        BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
+      ],
+      child: VerificationCodeScreen(email: email),
+    );
+  },
+),
+
+
     GoRoute(
       path: AppRoutes.resetPassword,
       builder: (context, state) => const ResetPassword(),

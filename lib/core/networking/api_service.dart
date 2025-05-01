@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers; // إخفاء Headers بتاع Dio
 import 'package:holo_cart/features/product_details/data/models/get_product_colors_model.dart';
+import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
@@ -48,4 +49,16 @@ abstract class ApiService {
 
   @GET(ApiConstants.getProductColors)
   Future<GetProductColorModel> getProductColors(@Path("id") String id);
+  // forget password
+
+  @POST(ApiConstants.forgetPassword)
+  @FormUrlEncoded()
+  Future<ForgetPasswordRespnse> sendResetPasswordCode(
+      @Field("Email") String email);
+  // verification code
+  @GET(ApiConstants.confirmVerification)
+  Future<ForgetPasswordRespnse> confirmResetPasswordCode(
+    @Query("Email") String? email,
+    @Query("Code") String ?code,
+  );
 }
