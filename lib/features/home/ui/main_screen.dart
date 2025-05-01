@@ -6,6 +6,7 @@ import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -34,93 +35,98 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            bodies[selectedIndex],
-            Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: _buildBottomNavigationBar())
+        body: bodies[selectedIndex],
+        bottomNavigationBar: SalomonBottomBar(
+          backgroundColor: AppColors.customBlackColor,
+          currentIndex: selectedIndex,
+          onTap: (i) => setState(() => selectedIndex = i),
+          items: [
+            SalomonBottomBarItem(
+              icon: Image.asset(
+                _getIcon(0, isActive: false),
+                width: 20.w,
+              ),
+              activeIcon: Image.asset(
+                _getIcon(0, isActive: true),
+                width: 25.w,
+              ),
+              title: Text(_getLabel(0)),
+              selectedColor: AppColors.primaryOrangeColor,
+              unselectedColor: AppColors.primaryOrangeColor,
+            ),
+            SalomonBottomBarItem(
+              icon: Image.asset(
+                _getIcon(1, isActive: false),
+                width: 20.w,
+              ),
+              activeIcon: Image.asset(
+                _getIcon(1, isActive: true),
+                width: 25.w,
+              ),
+              title: Text(_getLabel(1)),
+              selectedColor: AppColors.primaryOrangeColor,
+              unselectedColor: AppColors.primaryOrangeColor,
+            ),
+            SalomonBottomBarItem(
+              icon: Image.asset(
+                _getIcon(2, isActive: false),
+                width: 20.w,
+              ),
+              activeIcon: Image.asset(
+                _getIcon(2, isActive: true),
+                width: 25.w,
+              ),
+              title: Text(_getLabel(2)),
+              selectedColor: AppColors.primaryOrangeColor,
+              unselectedColor: AppColors.customBlackColor,
+            ),
+            SalomonBottomBarItem(
+              icon: Image.asset(
+                _getIcon(3, isActive: false),
+                width: 20.w,
+              ),
+              activeIcon: Image.asset(
+                _getIcon(3, isActive: true),
+                width: 25.w,
+              ),
+              title: Text(_getLabel(3)),
+              selectedColor: AppColors.primaryOrangeColor,
+              unselectedColor: AppColors.primaryOrangeColor,
+            ),
+            SalomonBottomBarItem(
+              icon: Image.asset(
+                _getIcon(4, isActive: false),
+                width: 20.w,
+              ),
+              activeIcon: Image.asset(
+                _getIcon(4, isActive: true),
+                width: 25.w,
+              ),
+              title: Text(_getLabel(4)),
+              selectedColor: AppColors.primaryOrangeColor,
+              unselectedColor: AppColors.primaryOrangeColor,
+            ),
           ],
         ),
-        //bottomNavigationBar: _buildBottomNavigationBar()
       ),
     );
   }
 
-  Widget _buildBottomNavigationBar() {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24.r),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          elevation: 0,
-          iconSize: 26.r,
-          currentIndex: selectedIndex,
-          selectedItemColor: AppColors.primaryOrangeColor,
-          landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
-          backgroundColor: Colors.black.withValues(alpha: .666),
-          unselectedItemColor: AppColors.customWhiteColor,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          onTap: _onItemTapped,
-          items: List.generate(5, (index) {
-            return BottomNavigationBarItem(
-              icon: Stack(
-                alignment: Alignment.center,
-                children: [
-                  if (selectedIndex == index)
-                    Container(
-                      width: 38.r,
-                      height: 38.r,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primaryOrangeColor
-                                .withValues(alpha: .5),
-                            blurRadius: 12.r,
-                            spreadRadius: 5.r,
-                          ),
-                        ],
-                      ),
-                    ),
-                  Image.asset(
-                    _getIcon(index, isActive: false),
-                    width: 30.w,
-                  ),
-                ],
-              ),
-              activeIcon: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 35.r,
-                    height: 35.r,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primaryOrangeColor
-                              .withValues(alpha: .29),
-                          blurRadius: 16.r,
-                          spreadRadius: 6.r,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Image.asset(
-                    _getIcon(index, isActive: true),
-                    width: 40.w,
-                  ),
-                ],
-              ),
-              label: '',
-            );
-          }),
-        ),
-      ),
-    );
+  String _getLabel(int index) {
+    switch (index) {
+      case 0:
+        return "Home";
+      case 1:
+        return "Categories";
+      case 2:
+        return "Favorites";
+      case 3:
+        return "Cart";
+      case 4:
+        return "Profile";
+      default:
+        return "";
+    }
   }
 
   _getIcon(int index, {required bool isActive}) {
