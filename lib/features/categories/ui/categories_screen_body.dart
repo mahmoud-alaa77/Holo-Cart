@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/categories/ui/widgets/category_cart_item.dart';
@@ -47,6 +49,10 @@ class CategoriesScreenBody extends StatelessWidget {
                               mainAxisSpacing: 2),
                       itemBuilder: (context, index) {
                         return CategoryCartItem(
+                          onTap: () async {
+                            await context.push(AppRoutes.allProductsInCategory,
+                                extra: 16);
+                          },
                           categoryName: state.categoryModel.data![index].name!,
                           image:
                               state.categoryModel.data![index].categoryImage!,
@@ -77,7 +83,7 @@ class CategoriesScreenBody extends StatelessWidget {
                   }
                 },
               ),
-              verticalSpace(60.h)
+              verticalSpace(16.h)
             ],
           ),
         ),

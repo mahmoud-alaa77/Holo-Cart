@@ -6,16 +6,18 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 class CategoryCartItem extends StatelessWidget {
   final String categoryName;
   final String image;
+  final void Function()? onTap;
   const CategoryCartItem({
     super.key,
     required this.categoryName,
     required this.image,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
           margin:
               EdgeInsetsDirectional.symmetric(horizontal: 6.h, vertical: 4.h),

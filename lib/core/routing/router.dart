@@ -114,8 +114,15 @@ final router = GoRouter(
       path: AppRoutes.productDetails,
       builder: (context, state) {
         final data = state.extra as ProductData;
-        return BlocProvider(
-          create: (context) => getIt<GetProductColorsCubit>(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<GetProductColorsCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<GetProductsInCategoryCubit>(),
+            ),
+          ],
           child: ProductDetailsPage(
             product: data,
           ),
@@ -167,20 +174,19 @@ final router = GoRouter(
         child: const ForgetPasswordScreen(),
       ),
     ),
-  GoRoute(
-  path: AppRoutes.verificationCode,
-  builder: (context, state) {
-    final email = state.extra as String;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
-        BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
-      ],
-      child: VerificationCodeScreen(email: email),
-    );
-  },
-),
-
+    GoRoute(
+      path: AppRoutes.verificationCode,
+      builder: (context, state) {
+        final email = state.extra as String;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
+            BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
+          ],
+          child: VerificationCodeScreen(email: email),
+        );
+      },
+    ),
 
     GoRoute(
       path: AppRoutes.resetPassword,

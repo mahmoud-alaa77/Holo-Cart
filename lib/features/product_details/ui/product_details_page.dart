@@ -7,6 +7,7 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
+import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/widgets/silimilar_to_list_view.dart';
@@ -29,6 +30,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     super.initState();
     BlocProvider.of<GetProductColorsCubit>(context)
         .getProductColors(widget.product.productId!);
+    BlocProvider.of<GetProductsInCategoryCubit>(context)
+        .getAllProductsInCategory(id: widget.product.categoryId!);
   }
 
   @override
