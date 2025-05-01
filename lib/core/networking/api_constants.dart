@@ -1,6 +1,6 @@
 class ApiConstants {
   static const String baseUrl =
-      "https://holo.runasp.net/Api/V1/"; // تأكد من استخدام HTTPS
+      "https://holo.runasp.net/Api/V1/"; 
 
   static const String getAllCategories = "Category/GetAll";
   static const String login = "Authentication/SignIn";
@@ -16,4 +16,9 @@ class ApiConstants {
       "Product/ProductsByCategory?CategoryId={categoryId}";
 
   static const String getProductColors = "ProductColor/ProductId?id={id}";
+  static const String forgetPassword = "Authentication/SendResetPasswordCode";
+  static const String confirmVerification = "Authentication/ConfirmResetPasswordCode";
+  static const String resetPassword = "Authentication/ResetPassword";
+
+
 }
