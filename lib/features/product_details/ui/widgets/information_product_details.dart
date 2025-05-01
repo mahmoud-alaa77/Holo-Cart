@@ -41,7 +41,7 @@ class InformationProductDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    product?.name ?? "",
+                    product.name ?? "",
                     style: AppTextStyles.font22W700,
                   ),
                   Spacer(),
@@ -55,7 +55,7 @@ class InformationProductDetails extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "\$ ${product?.basePrice ?? ""}",
+                    "\$ ${product.basePrice ?? ""}",
                     style: AppTextStyles.font20W700
                         .copyWith(color: AppColors.primaryOrangeColor),
                   ),
@@ -122,7 +122,7 @@ class InformationProductDetails extends StatelessWidget {
               Text("Description", style: AppTextStyles.font24W600),
               verticalSpace(10),
               ReadMoreText(
-                product?.description ?? "",
+                product.description ?? "",
                 trimLines: 3,
                 colorClickableText: Colors.blue,
                 trimMode: TrimMode.Line,
