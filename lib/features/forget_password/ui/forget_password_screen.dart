@@ -16,7 +16,8 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      backgroundColor: AppColors.primaryOrangeColor,
+      
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -27,7 +28,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             colors: [
               Colors.black,
               Colors.grey,
-              Colors.white,
+              Colors.orange,
             ],
           ),
         ),
