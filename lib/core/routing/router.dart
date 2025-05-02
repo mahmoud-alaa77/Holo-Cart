@@ -10,6 +10,7 @@ import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
 import 'package:holo_cart/features/forget_password/logic/forget_password/forget_password_cubit.dart';
+import 'package:holo_cart/features/forget_password/logic/reset_password/reset_password_cubit.dart';
 import 'package:holo_cart/features/forget_password/logic/verify/verification_code_cubit.dart';
 import 'package:holo_cart/features/forget_password/ui/forget_password_screen.dart';
 import 'package:holo_cart/features/forget_password/ui/reset_password.dart';
@@ -188,10 +189,22 @@ final router = GoRouter(
       },
     ),
 
-    GoRoute(
-      path: AppRoutes.resetPassword,
-      builder: (context, state) => const ResetPassword(),
-    ),
+   GoRoute(
+  path: AppRoutes.resetPassword,
+  builder: (context, state) {
+    // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
+    final email = (state.extra as String?) ?? "";
+    
+    return MultiBlocProvider(
+      providers: [
+        
+        BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
+      ], 
+      child: ResetPasswordScreen(email: email)
+    );
+  }
+),
+
     GoRoute(
         path: AppRoutes.allProductsInCategory,
         builder: (context, state) {

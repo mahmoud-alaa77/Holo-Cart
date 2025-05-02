@@ -34,7 +34,8 @@ class ForgetPassTextfields extends StatelessWidget {
                 color: AppColors.customWhiteColor,
               )),
           verticalSpace(15),
-           AuthTextfield(hintText: "Enter Email Address",validator: (value) {
+           AuthTextfield(
+            hintText: "Enter Email Address",validator: (value) {
                 if (value == null ||
                     value.isEmpty ||
                     !AppRegex.isEmailValid(value)) {

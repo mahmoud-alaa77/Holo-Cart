@@ -60,5 +60,14 @@ abstract class ApiService {
   Future<ForgetPasswordRespnse> confirmResetPasswordCode(
     @Query("Email") String? email,
     @Query("Code") String ?code,
+
   );
+  @POST(ApiConstants.resetPassword)
+  @FormUrlEncoded()
+  Future<ForgetPasswordRespnse> resetPassword(
+      @Field("Email") String email,
+  @Field("Password") String password,
+  @Field("ConfirmPassword") String confirmPassword,);
+  
+  
 }

@@ -7,7 +7,8 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/forget_password/logic/verify/verification_code_cubit.dart';
 
 class BlocListenerVerification extends StatelessWidget {
-  const BlocListenerVerification({super.key});
+  final String email;
+  const BlocListenerVerification({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class BlocListenerVerification extends StatelessWidget {
         }
 
         if (state is VerificationCodeSuccess) {
-          context.push(AppRoutes.resetPassword);
+          context.push(AppRoutes.resetPassword, extra: email); // ✅ الإيميل الممرر
         } else if (state is VerificationCodeError) {
           showDialog(
             context: context,
@@ -52,3 +53,4 @@ class BlocListenerVerification extends StatelessWidget {
     );
   }
 }
+
