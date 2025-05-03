@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:holo_cart/core/networking/api_error_model.dart';
 
 abstract class Failure {
   final String errorMessage;
@@ -9,7 +10,7 @@ abstract class Failure {
 class ServerFailure extends Failure {
   ServerFailure(super.message);
   
-  factory ServerFailure.fromDioError(DioException dioError) {
+   factory ServerFailure.fromDioError(DioException dioError) {
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
         return ServerFailure("Connection time out with api server");
@@ -20,7 +21,6 @@ class ServerFailure extends Failure {
       case DioExceptionType.badCertificate:
         return ServerFailure("Internal Server Error");
       case DioExceptionType.badResponse:
-        // التحقق من حالات إعادة التوجيه
         if (dioError.response?.statusCode == 307 || dioError.response?.statusCode == 308) {
           return ServerFailure("Redirect error - please try again");
         }
@@ -31,25 +31,34 @@ class ServerFailure extends Failure {
       case DioExceptionType.connectionError:
         return ServerFailure("No Internet Connection");
       case DioExceptionType.unknown:
-        // تعديل: تحقق من وجود استجابة لإعادة التوجيه
         if (dioError.response?.statusCode == 307 || dioError.response?.statusCode == 308) {
           return ServerFailure("Redirect error - please try again");
         }
         return ServerFailure("Connection Error");
-      }
+    }
   }
-  
+
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
+    try {
+      final apiError = ApiErrorModel.fromJson(response as Map<String, dynamic>);
+      final message = apiError.message ?? ServerFailure._getDefaultMessage(statusCode);
+      return ServerFailure(message);
+    } catch (e) {
+      return ServerFailure(ServerFailure._getDefaultMessage(statusCode));
+    }
+  }
+
+  static String _getDefaultMessage(int? statusCode) {
     if (statusCode == 404) {
-      return ServerFailure("Your request not found, please try Later");
+      return "Your request not found, please try later";
     } else if (statusCode == 500) {
-      return ServerFailure("Internal Server Error, Please Try Later");
+      return "Internal Server Error, please try later";
     } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure("This account hasn't exist");
+      return "This account doesn't exist";
     } else if (statusCode == 422) {
-      return ServerFailure("Email or phone has already been taken");
+      return "Email or phone has already been taken";
     } else {
-      return ServerFailure("Opps There was an error Please Try Again");
+      return "Oops! There was an error, please try again";
     }
   }
 }
