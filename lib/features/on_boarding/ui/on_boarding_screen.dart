@@ -38,9 +38,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             },
             children: [
               OnBoardingBody(
-                imageUrl: "assets/images/onBoarding1.png",
+                imageUrl: "assets/images/onboard1.json",
                 outerColor: const Color(0xffFB8D3F),
-                innerColor: const Color(0xffF67F31),
+                //innerColor: const Color(0xffF67F31),
+                scale: .8,
                 title: "Choose Your Product",
                 subTitle:
                     "Find the perfect match for your needs and you can view it in 3D inside the holo cart store and provides 3D products ",
@@ -55,9 +56,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 },
               ),
               OnBoardingBody(
-                imageUrl: "assets/images/onBoarding2.png",
+                imageUrl: "assets/images/payment.json",
                 outerColor: const Color(0xffFDC347),
-                innerColor: const Color(0xffFAD051),
+                // innerColor: const Color(0xffFAD051),
+                scale: .95,
                 title: "Choose Payment Method",
                 subTitle:
                     "Choose the payment method that suits you to complete your order quickly, easily, safely and comfortably.",
@@ -72,10 +74,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 },
               ),
               OnBoardingBody(
-                imageUrl: "assets/images/onBoarding3.png",
+                imageUrl: "assets/images/order.json",
                 outerColor: const Color(0xff58D6CE),
-                innerColor: const Color(0xff6BE9E1),
+                //innerColor: const Color(0xff6BE9E1),
                 title: "Get Order On Time",
+                scale: .95,
                 subTitle:
                     "Ensure your order arrives on time with our fast delivery services and We work hard to ensure your order arrives on time and in the best condition. ",
                 buttonBackgroundColor: onBoardingScreenColor(index),
@@ -89,9 +92,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 },
               ),
               OnBoardingBody(
-                imageUrl: "assets/images/onBoarding4.png",
+                imageUrl: "assets/images/offer.json",
                 outerColor: const Color(0xff908DFE),
-                innerColor: const Color(0xff8280FF),
+                scale: .95,
+                // innerColor: const Color(0xff8280FF),
                 title: "Get The Best Offers",
                 subTitle:
                     "Enjoy the best offers and discounts on your favorite products. Take advantage of the exceptional offers now and achieve the greatest savings.",
