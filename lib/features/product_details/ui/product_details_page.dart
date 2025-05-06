@@ -122,9 +122,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(widget.product.name ?? "",
-                              style: AppTextStyles.font22W700),
-                          const Spacer(),
+                          Expanded(
+                            child: Text(widget.product.name ?? "",
+                                style: AppTextStyles.font22W700,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis),
+                          ),
                           const Icon(Icons.favorite_border_rounded,
                               color: Colors.redAccent),
                         ],
