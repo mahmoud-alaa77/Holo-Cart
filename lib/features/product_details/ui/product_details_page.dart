@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/local_db_helper.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
+import 'package:holo_cart/features/cart/data/models/cart_item_model.dart';
+import 'package:holo_cart/features/cart/ui/widgets/cart_item.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
@@ -24,6 +27,7 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int selectedColorIndex = 0;
   String? selectedColorImage;
+  int quantity = 1;
 
   @override
   void initState() {
@@ -270,11 +274,74 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           color: Colors.blue,
                         ),
                       ),
+                      verticalSpace(20),
+                      Row(
+                        children: [
+                          Text("Quantity", style: AppTextStyles.font24W600),
+                          const Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.primaryOrangeColor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8.r),
+                            ),
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    if (quantity > 1) {
+                                      setState(() {
+                                        quantity--;
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: AppColors.primaryOrangeColor,
+                                    size: 20.sp,
+                                  ),
+                                ),
+                                Text(
+                                  quantity.toString(),
+                                  style: AppTextStyles.font18W600,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      quantity++;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: AppColors.primaryOrangeColor,
+                                    size: 20.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                       verticalSpace(10),
                       const SimilarTOListView(),
                       verticalSpace(30),
                       ButtonItem(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            CartItemModel cartItem = CartItemModel(
+                              productId: widget.product.productId!.toString(),
+                              title: widget.product.name!,
+                              price: widget.product.basePrice!.toDouble(),
+                              quantity: quantity,
+                              image: selectedColorImage ??
+                                  widget.product.mainImageUrl.toString(),
+                            );
+
+                            DBHelper().insertCartItem(cartItem.toMap());
+                          });
+                        },
                         text: "Add to cart",
                         radius: 30,
                       ),
