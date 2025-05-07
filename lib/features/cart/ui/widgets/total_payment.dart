@@ -3,7 +3,8 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 
 class TotalPayment extends StatelessWidget {
-  const TotalPayment({super.key});
+  final String total;
+  const TotalPayment({super.key, required this.total});
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +32,6 @@ class TotalPayment extends StatelessWidget {
           ),
           Text(
             "\$99",
-            style: AppTextStyles.font16W400
-                .copyWith(color: AppColors.customLightGrayColor),
-          )
-        ],
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "Total",
-            style: AppTextStyles.font16W500,
-          ),
-          Text(
-            "\$1098",
             style: AppTextStyles.font16W400
                 .copyWith(color: AppColors.customLightGrayColor),
           )

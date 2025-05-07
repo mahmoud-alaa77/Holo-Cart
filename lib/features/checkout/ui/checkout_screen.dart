@@ -20,7 +20,7 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal:5.w ),
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,7 +51,7 @@ class CheckoutScreen extends StatelessWidget {
                   )),
                   const PaymentMethod(),
                   verticalSpace(15),
-                  const TotalPayment(),
+                  //const TotalPayment(),
                   verticalSpace(10),
                   ButtonItem(
                     text: "Place Order",
