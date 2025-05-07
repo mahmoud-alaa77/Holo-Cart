@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
-import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
+import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreenBody(),
     const CategoriesScreenBody(),
     const FavouriteScreenBody(),
-    const CartEmptyScreen(),
+    CartScreenBody(),
     const ProfileScreenBody(),
   ];
   @override
