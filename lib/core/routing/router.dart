@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
-import 'package:holo_cart/features/cart/ui/cart_empty_screen.dart';
+import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
+import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
@@ -107,6 +108,9 @@ final router = GoRouter(
           BlocProvider(
             create: (context) => getIt<GetProductColorsCubit>(),
           ),
+          BlocProvider(
+            create: (context) => CartCubit()..getCartItems(),
+          ),
         ],
         child: const MainScreen(),
       ),
@@ -144,13 +148,13 @@ final router = GoRouter(
         return AddCardScreen(controller: controllers);
       },
     ),
-    GoRoute(
-      path: AppRoutes.cartScreen,
-      builder: (context, state) => const CartScreen(),
-    ),
+    // GoRoute(
+    //   path: AppRoutes.cartScreen,
+    //   builder: (context, state) => const CartScreen(),
+    // ),
     GoRoute(
       path: AppRoutes.emptycartScreen,
-      builder: (context, state) => const CartEmptyScreen(),
+      builder: (context, state) => CartScreenBody(),
     ),
     GoRoute(
       path: AppRoutes.checkout,
@@ -189,21 +193,16 @@ final router = GoRouter(
       },
     ),
 
-   GoRoute(
-  path: AppRoutes.resetPassword,
-  builder: (context, state) {
-    // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
-    final email = (state.extra as String?) ?? "";
-    
-    return MultiBlocProvider(
-      providers: [
-        
-        BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
-      ], 
-      child: ResetPasswordScreen(email: email)
-    );
-  }
-),
+    GoRoute(
+        path: AppRoutes.resetPassword,
+        builder: (context, state) {
+          // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
+          final email = (state.extra as String?) ?? "";
+
+          return MultiBlocProvider(providers: [
+            BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
+          ], child: ResetPasswordScreen(email: email));
+        }),
 
     GoRoute(
         path: AppRoutes.allProductsInCategory,
