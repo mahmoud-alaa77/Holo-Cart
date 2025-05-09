@@ -5,7 +5,6 @@ import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
-import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
@@ -35,8 +34,10 @@ import 'package:holo_cart/features/profile/payment/payment_screen.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
+import 'package:holo_cart/main.dart';
 
-final router = GoRouter(
+GoRouter router(bool isLogedIn) =>   GoRouter(
+   initialLocation: isLogedInUser ? AppRoutes.main : AppRoutes.splash,
   routes: [
     // Splash Route
     GoRoute(
