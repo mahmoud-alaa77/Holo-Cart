@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
@@ -30,8 +32,21 @@ saveUserToken(loginResponse.userData!.accessToken??"");
     },
   );
 }
-Future<void> saveUserToken(String token)async{
-    await SharedPrefHelper.setSecuredString(SharedPrefKeys.token, token);
-    DioFactory.setTokenIntoHeaderAfterLogin(token);
-  }
+Future<void> saveUserToken(String token) async {
+  await SharedPrefHelper.setSecuredString(SharedPrefKeys.token, token);
+  DioFactory.setTokenIntoHeaderAfterLogin(token);
+
+  // ✅ استخراج الـ id من الـ token وتخزينه
+  final decoded = parseJwt(token);
+  final userId = decoded['Id'];
+  await SharedPrefHelper.saveDataByKey(SharedPrefKeys.userId, int.parse(userId));
+}
+  Map<String, dynamic> parseJwt(String token) {
+  final parts = token.split('.');
+  if (parts.length != 3) throw Exception('Invalid token');
+  final payload = parts[1];
+  final normalized = base64Url.normalize(payload);
+  final decoded = utf8.decode(base64Url.decode(normalized));
+  return json.decode(decoded);
+}
 }
