@@ -19,6 +19,7 @@ class ApiConstants {
   static const String forgetPassword = "Authentication/SendResetPasswordCode";
   static const String confirmVerification = "Authentication/ConfirmResetPasswordCode";
   static const String resetPassword = "Authentication/ResetPassword";
+  static const String getUserById = "User/{id}";
 
 
 }
