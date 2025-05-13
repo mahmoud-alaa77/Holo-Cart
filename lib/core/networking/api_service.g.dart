@@ -377,6 +377,56 @@ class _ApiService implements ApiService {
     return _value;
   }
 
+  @override
+  Future<void> updateProfile({
+    required int id,
+    required String fullName,
+    required String userName,
+    required String phoneNumber,
+    required String address,
+    File? profileImage,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry('Id', id.toString()));
+    _data.fields.add(MapEntry('FullName', fullName));
+    _data.fields.add(MapEntry('UserName', userName));
+    _data.fields.add(MapEntry('PhoneNumber', phoneNumber));
+    _data.fields.add(MapEntry('Address', address));
+    if (profileImage != null) {
+      if (profileImage != null) {
+        _data.files.add(
+          MapEntry(
+            'ProfileImage',
+            MultipartFile.fromFileSync(
+              profileImage.path,
+              filename: profileImage.path.split(Platform.pathSeparator).last,
+            ),
+          ),
+        );
+      }
+    }
+    final _options = _setStreamType<void>(
+      Options(
+        method: 'PUT',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'multipart/form-data',
+      )
+          .compose(
+            _dio.options,
+            'User/Edit',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    await _dio.fetch<void>(_options);
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

@@ -7,7 +7,7 @@ import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
-import 'package:holo_cart/features/profile/logic/cubit/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
