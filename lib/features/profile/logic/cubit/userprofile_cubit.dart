@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
 import 'package:holo_cart/core/helper/shared_pref_keys.dart';
-import 'package:holo_cart/features/profile/data/model/profile_response_model.dart';
+import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:holo_cart/features/profile/data/repo/user_profile_repo.dart';
 import 'package:meta/meta.dart';
 

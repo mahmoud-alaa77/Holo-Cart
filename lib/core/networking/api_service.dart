@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' hide Headers; // إخفاء Headers بتاع Dio
 import 'package:holo_cart/features/product_details/data/models/get_product_colors_model.dart';
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
-import 'package:holo_cart/features/profile/data/model/profile_response_model.dart';
+import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
@@ -72,4 +74,14 @@ abstract class ApiService {
   
   @GET(ApiConstants.getUserById)
 Future<UserProfileResponseModel> getUserById(@Path("id") String id);
+@PUT(ApiConstants.updateProfle)
+@MultiPart()
+Future<void> updateProfile({
+  @Part(name: 'Id') required int id,
+  @Part(name: 'FullName') required String fullName,
+  @Part(name: 'UserName') required String userName,
+  @Part(name: 'PhoneNumber') required String phoneNumber,
+  @Part(name: 'Address') required String address,
+  @Part(name: 'ProfileImage') File? profileImage,
+});
 }

@@ -33,13 +33,14 @@ import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/update_information_user/update_user_profile.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
 GoRouter router(bool isLogedIn) =>   GoRouter(
-   initialLocation: isLogedInUser ? AppRoutes.main : AppRoutes.splash,
+   initialLocation: isLogedInUser ? AppRoutes.UpdateUserProfile : AppRoutes.splash,
   routes: [
     // Splash Route
     GoRoute(
@@ -228,5 +229,9 @@ GoRouter router(bool isLogedIn) =>   GoRouter(
     );
   },
 ),
+GoRoute(
+      path: AppRoutes.UpdateUserProfile,
+      builder: (context, state) => const UpdateUserProfile(),
+    ),
   ],
 );

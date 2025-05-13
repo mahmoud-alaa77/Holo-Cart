@@ -1,5 +1,5 @@
 class AppRoutes {
-  static const String splash = '/';
+  static const String splash = '/lj';
   static const String onBoarding = '/on_board';
   static const String login = '/login';
   static const String mainAuth = '/main_auth';
@@ -19,6 +19,7 @@ class AppRoutes {
   static const String resetPassword = '/reset_password';
   static const String allProductsInCategory = '/all_products_in_category';
     static const String userProfile = '/user_profile';
+  static const String UpdateUserProfile = '/';
 
 
 }
