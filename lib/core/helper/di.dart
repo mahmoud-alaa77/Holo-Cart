@@ -18,8 +18,8 @@ import 'package:holo_cart/features/login/data/repo/login_repo.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/product_details/data/repo/product_details_repo.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
-import 'package:holo_cart/features/profile/data/repo/user_profile_repo.dart';
-import 'package:holo_cart/features/profile/logic/cubit/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/data/repo/get_profile/user_profile_repo.dart';
+import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/sign_up/data/repo/sign_up_repo.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 

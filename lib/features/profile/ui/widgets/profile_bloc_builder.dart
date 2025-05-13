@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:holo_cart/features/profile/logic/cubit/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/widgets/edit_profile_container.dart';
 
 class ProfileBlocBuilder extends StatelessWidget {
