@@ -31,7 +31,7 @@ class ProfileImage extends StatelessWidget {
         );
       },
       child: CircleAvatar(
-        radius: 75.r,
+        radius: 60.r,
         backgroundColor: AppColors.customLightGrayColor,
         child: CircleAvatar(
           radius: 70.r,

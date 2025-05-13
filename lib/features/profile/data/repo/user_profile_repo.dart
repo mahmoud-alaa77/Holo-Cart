@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:holo_cart/core/handle_errors/failure.dart';
 import 'package:holo_cart/core/networking/api_service.dart';
-import 'package:holo_cart/features/profile/data/model/profile_response_model.dart';
+import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 
 class ProfileRepo {
   final ApiService _apiService;
