@@ -5,7 +5,6 @@ import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
-import 'package:holo_cart/features/cart/ui/cart_screen.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
@@ -29,14 +28,19 @@ import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_s
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
-import 'package:holo_cart/features/profile/address/address_screen.dart';
-import 'package:holo_cart/features/profile/payment/add_card_screen.dart';
-import 'package:holo_cart/features/profile/payment/payment_screen.dart';
+import 'package:holo_cart/features/profile/logic/cubit/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
+import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/update_information_user/update_user_profile.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
+import 'package:holo_cart/main.dart';
 
-final router = GoRouter(
+GoRouter router(bool isLogedIn) =>   GoRouter(
+   initialLocation: isLogedInUser ? AppRoutes.UpdateUserProfile : AppRoutes.splash,
   routes: [
     // Splash Route
     GoRoute(
@@ -134,10 +138,7 @@ final router = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: AppRoutes.profilePayment,
-      builder: (context, state) => const PaymentScreen(),
-    ),
+   
     GoRoute(
       path: AppRoutes.cardNumber,
       builder: (context, state) {
@@ -179,6 +180,10 @@ final router = GoRouter(
         child: const ForgetPasswordScreen(),
       ),
     ),
+     GoRoute(
+      path: AppRoutes.profilePayment,
+      builder: (context, state) => const PaymentScreen(),
+    ),
     GoRoute(
       path: AppRoutes.verificationCode,
       builder: (context, state) {
@@ -215,5 +220,18 @@ final router = GoRouter(
             ),
           );
         }),
+        GoRoute(
+  path: AppRoutes.userProfile,
+  builder: (context, state) {
+    return BlocProvider(
+      create: (_) => getIt<UserProfileCubit>()..getUserProfile(),
+      child: const ProfileScreenBody(), 
+    );
+  },
+),
+GoRoute(
+      path: AppRoutes.UpdateUserProfile,
+      builder: (context, state) => const UpdateUserProfile(),
+    ),
   ],
 );

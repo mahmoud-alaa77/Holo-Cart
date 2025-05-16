@@ -13,13 +13,17 @@ class AppbarScreen extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.only(top: 15.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+       
         children: [
           IconButton(
-              onPressed: () {
-                GoRouter.of(context).pop();
-              },
-              icon:  Icon(Icons.arrow_back_ios_new_rounded ,size: 25.sp,)),
+  onPressed: () {
+    GoRouter.of(context).pop();
+  },
+  icon: Icon(Icons.arrow_back_ios_new_rounded, size: 25.sp),
+  padding: EdgeInsets.zero, // هذا يلغي المساحة الداخلية
+  constraints: const BoxConstraints(), // هذا يلغي المساحة الخارجية الافتراضية
+  visualDensity: VisualDensity.compact, // لتقليل المساحة الزائدة بشكل عام
+),
              const Spacer(flex: 1,),
              horizontalSpace(18),
            Text(title,

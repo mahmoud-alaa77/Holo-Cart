@@ -4,12 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 
 import 'package:holo_cart/core/themes/app_text_styles.dart';
-import 'package:holo_cart/features/profile/about/about_screen.dart';
-import 'package:holo_cart/features/profile/address/address_screen.dart';
-import 'package:holo_cart/features/profile/payment/payment_screen.dart';
-import 'package:holo_cart/features/profile/ui/widgets/edit_profile_container.dart';
+import 'package:holo_cart/features/profile/ui/views/about/about_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
+import 'package:holo_cart/features/profile/ui/widgets/profile_bloc_builder.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_image.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_list_button.dart';
+
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({super.key});
@@ -23,50 +24,40 @@ class ProfileScreenBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             verticalSpace(24),
-            Text(
-              "Profile",
-              style: AppTextStyles.font24W900,
-            ),
+            Text("Profile", style: AppTextStyles.font24W900),
             verticalSpace(20),
             const ProfileImage(),
             verticalSpace(24),
-            const EditProfileContainer(),
+
+          const  ProfileBlocBuilder(),
+
             verticalSpace(24),
             ProfileListButton(
               title: "Address",
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const AddressScreen();
-                }));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const AddressScreen()),
+                );
               },
             ),
             ProfileListButton(
               title: "Payment",
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const PaymentScreen();
-                }));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const PaymentScreen()),
+                );
               },
             ),
-            ProfileListButton(
-              title: "Setting",
-              onPressed: () {},
-            ),
+            ProfileListButton(title: "Setting", onPressed: () {}),
             ProfileListButton(
               title: "About Shope",
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const AboutScreen();
-                }));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const AboutScreen()),
+                );
               },
             ),
-            ProfileListButton(
-              title: "Help & Support",
-              onPressed: () {},
-            ),
+            ProfileListButton(title: "Help & Support", onPressed: () {}),
             verticalSpace(100),
           ],
         ),
@@ -74,3 +65,4 @@ class ProfileScreenBody extends StatelessWidget {
     );
   }
 }
+
