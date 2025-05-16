@@ -7,14 +7,26 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
+  List<CartItemModel> cartItemsList = [];
   Future<void> getCartItems() async {
     emit(GetCartItemsLoading());
     try {
       final cartItems = await DBHelper().getCartItems();
-      emit(GetCartItemsSuccess(
-          cartItems: cartItems.map((e) => CartItemModel.fromMap(e)).toList()));
+      cartItemsList = cartItems.map((e) => CartItemModel.fromMap(e)).toList();
+
+      emit(GetCartItemsSuccess(cartItems: cartItemsList));
     } catch (e) {
       emit(GetCartItemsFailure(message: e.toString()));
     }
+  }
+
+  Future<void> deleteItem(String productId) async {
+    await DBHelper().deleteItem(productId);
+    await getCartItems();
+  }
+
+  Future<void> clearCart() async {
+    await DBHelper().clearCart();
+    await getCartItems();
   }
 }

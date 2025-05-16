@@ -15,3 +15,12 @@ final class GetCartItemsFailure extends CartState {
   final String message;
   GetCartItemsFailure({required this.message});
 }
+
+final class RemoveAllCartItems extends CartState {}
+
+final class RemoveCartItem extends CartState {}
+
+// final class CalcTotal extends CartState {
+//   final double total;
+//   CalcTotal({required this.total});
+// }

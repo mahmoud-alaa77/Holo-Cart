@@ -32,7 +32,16 @@ class DBHelper {
 
   Future<void> insertCartItem(Map<String, dynamic> data) async {
     final db = await database;
-    await db.insert('cart', data, conflictAlgorithm: ConflictAlgorithm.replace);
+
+    final String productId = data['productId'];
+
+    await db.delete(
+      'cart',
+      where: 'productId = ?',
+      whereArgs: [productId],
+    );
+
+    await db.insert('cart', data);
   }
 
   Future<List<Map<String, dynamic>>> getCartItems() async {

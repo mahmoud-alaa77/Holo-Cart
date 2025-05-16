@@ -13,6 +13,8 @@ class BagAndButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset("assets/images/parcel.png", width: 150.w, height: 150.h),
         Text("Your Cart is empty", style: AppTextStyles.font24W500),
@@ -20,10 +22,11 @@ class BagAndButton extends StatelessWidget {
         SizedBox(
           width: 200.w,
           child: ButtonItem(
-              text: "Explore products",radius: 30.sp,
+              text: "Explore products",
+              radius: 30.sp,
               color: AppColors.primaryOrangeColor,
               onPressed: () {
-                GoRouter.of(context).push(AppRoutes.cartScreen);
+                GoRouter.of(context).push(AppRoutes.main);
               }),
         )
       ],

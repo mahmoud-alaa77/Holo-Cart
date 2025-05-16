@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
+import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
@@ -33,7 +35,12 @@ class _MainScreenState extends State<MainScreen> {
         bottomNavigationBar: SalomonBottomBar(
           backgroundColor: AppColors.customBlackColor,
           currentIndex: selectedIndex,
-          onTap: (i) => setState(() => selectedIndex = i),
+          onTap: (i) => setState(() {
+            selectedIndex = i;
+            if (selectedIndex == 3) {
+              BlocProvider.of<CartCubit>(context).getCartItems();
+            }
+          }),
           items: [
             SalomonBottomBarItem(
               icon: Image.asset(
