@@ -98,16 +98,17 @@ class HotSalesProductItem extends StatelessWidget {
                 ),
                 horizontalSpace(8),
                 Text(
-                  "${product.basePrice}\$",
-                  style: AppTextStyles.font13W400
-                      .copyWith(color: AppColors.customLightGrayColor)
-                      .copyWith(decoration: TextDecoration.lineThrough),
+                  "${product.basePrice! + product.basePrice! * (int.parse(discount) / 100)}\$",
+                  style: AppTextStyles.font13W400.copyWith(
+                      color: AppColors.customLightGrayColor,
+                      decoration: TextDecoration.lineThrough,
+                      fontSize: 10.sp),
                 ),
                 const Spacer(),
                 Text(
                   "$discount% OFF",
-                  style: AppTextStyles.font12W400
-                      .copyWith(color: AppColors.primaryOrangeColor),
+                  style: AppTextStyles.font12W400.copyWith(
+                      color: AppColors.primaryOrangeColor, fontSize: 8.sp),
                 ),
                 horizontalSpace(8)
               ],

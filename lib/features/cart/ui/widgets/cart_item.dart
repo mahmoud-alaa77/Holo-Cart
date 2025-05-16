@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/local_db_helper.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/cart/data/models/cart_item_model.dart';
+import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 
 class CartItem extends StatefulWidget {
   final CartItemModel cartItem;
@@ -16,7 +18,7 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
   late int quantity;
-  final dbHelper = DBHelper(); // كلاس المساعدة للـ SQLite
+  final dbHelper = DBHelper();
 
   @override
   void initState() {
@@ -27,6 +29,7 @@ class _CartItemState extends State<CartItem> {
   Future<void> updateQuantity(int newQuantity) async {
     setState(() {
       quantity = newQuantity;
+      BlocProvider.of<CartCubit>(context).getCartItems();
     });
 
     await dbHelper.updateQuantity(widget.cartItem.productId, newQuantity);
