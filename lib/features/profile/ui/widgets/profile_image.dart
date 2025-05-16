@@ -23,7 +23,7 @@ class ProfileImage extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
-                  child: Image.asset("assets/images/person.jpg"),
+                  child: Image.asset("assets/images/user.png"),
                 ),
               ),
             ),
@@ -31,12 +31,12 @@ class ProfileImage extends StatelessWidget {
         );
       },
       child: CircleAvatar(
-        radius: 75.r,
+        radius: 60.r,
         backgroundColor: AppColors.customLightGrayColor,
         child: CircleAvatar(
           radius: 70.r,
           backgroundColor: Colors.white,
-          backgroundImage: const AssetImage("assets/images/person.jpg"),
+          backgroundImage: const AssetImage("assets/images/user.png"),
         ),
       ),
     );

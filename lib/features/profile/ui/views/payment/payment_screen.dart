@@ -7,8 +7,8 @@ import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
-import 'package:holo_cart/features/profile/payment/widgets/cards_textfildes.dart';
-import 'package:holo_cart/features/profile/payment/widgets/paypal_item.dart';
+import 'package:holo_cart/features/profile/ui/views/payment/widgets/cards_textfildes.dart';
+import 'package:holo_cart/features/profile/ui/views/payment/widgets/paypal_item.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});

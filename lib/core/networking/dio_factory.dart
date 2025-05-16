@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 
@@ -44,8 +46,18 @@ class DioFactory {
   static void addDioHeaders() async {
     dio?.options.headers = {
       'Accept': '*/*',
+      'Authorization':
+          'Bearer ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.token)}'
+      
     };
   }
+  static void setTokenIntoHeaderAfterLogin(String token) async{
+    dio?.options.headers = {
+       'Authorization':
+          'Bearer $token',
+    };
+  }
+
 
   static void addDioInterceptor() {
     dio?.interceptors.add(

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
+import 'package:holo_cart/features/profile/logic/cubit/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -25,7 +27,10 @@ class _MainScreenState extends State<MainScreen> {
     const CategoriesScreenBody(),
     const FavouriteScreenBody(),
     CartScreenBody(),
-    const ProfileScreenBody(),
+    BlocProvider(
+    create: (_) => getIt<UserProfileCubit>()..getUserProfile(),
+    child: const ProfileScreenBody(),
+  ),
   ];
   @override
   Widget build(BuildContext context) {
