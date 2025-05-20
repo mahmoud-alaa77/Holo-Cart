@@ -50,8 +50,11 @@ class CategoriesScreenBody extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return CategoryCartItem(
                           onTap: () async {
-                            await context.push(AppRoutes.allProductsInCategory,
-                                extra: 16);
+                            await context
+                                .push(AppRoutes.allProductsInCategory, extra: [
+                              state.categoryModel.data![index].id!,
+                              state.categoryModel.data![index].name.toString()
+                            ]);
                           },
                           categoryName: state.categoryModel.data![index].name!,
                           image:
