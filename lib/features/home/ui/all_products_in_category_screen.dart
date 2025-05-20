@@ -7,8 +7,9 @@ import 'package:holo_cart/features/home/data/models/get_all_products_model.dart'
 import 'package:holo_cart/features/home/ui/widgets/all_products_section/product_cart_item.dart';
 
 class AllProductsInCategoryScreen extends StatefulWidget {
-  final int categoryId;
-  const AllProductsInCategoryScreen({super.key, required this.categoryId});
+  final List<dynamic> idAndName;
+  const AllProductsInCategoryScreen(
+      {super.key,required this.idAndName});
 
   @override
   State<AllProductsInCategoryScreen> createState() =>
@@ -21,7 +22,7 @@ class _AllProductsInCategoryScreenState
   void initState() {
     // TODO: implement initState
     BlocProvider.of<GetProductsInCategoryCubit>(context)
-        .getAllProductsInCategory(id: widget.categoryId);
+        .getAllProductsInCategory(id: widget.idAndName[0]);
     super.initState();
   }
 
@@ -31,7 +32,7 @@ class _AllProductsInCategoryScreenState
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(widget.categoryId.toString()),
+            title: Text(widget.idAndName[1].toString()),
           ),
           body: BlocBuilder<GetProductsInCategoryCubit,
               GetProductsInCategoryState>(

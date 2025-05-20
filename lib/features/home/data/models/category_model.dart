@@ -20,6 +20,8 @@ class CategoryModel {
 
 @JsonSerializable()
 class CategoriesData {
+  @JsonKey(name: "categoryId")
+  int? id;
   @JsonKey(name: "categoryImage")
   String? categoryImage;
   String? name;

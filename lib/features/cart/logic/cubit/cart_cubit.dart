@@ -21,7 +21,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> deleteItem(String productId) async {
-    await DBHelper().deleteItem(productId);
+    await DBHelper().deleteCartItem(productId);
     await getCartItems();
   }
 
