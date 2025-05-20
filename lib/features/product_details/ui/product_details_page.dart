@@ -28,6 +28,20 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   String? selectedColorImage;
   int quantity = 1;
 
+  bool showImage = false;
+
+  void onButtonPressed() {
+    setState(() {
+      showImage = true;
+    });
+
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        showImage = false;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -274,55 +288,66 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ),
                       ),
                       verticalSpace(20),
-                      Row(
-                        children: [
-                          Text("Quantity", style: AppTextStyles.font24W600),
-                          const Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.primaryOrangeColor,
-                                width: 1,
+                      Stack(children: [
+                        Row(
+                          children: [
+                            Text("Quantity", style: AppTextStyles.font24W600),
+                            const Spacer(),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.primaryOrangeColor,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
                               ),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    if (quantity > 1) {
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      if (quantity > 1) {
+                                        setState(() {
+                                          quantity--;
+                                        });
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.remove,
+                                      color: AppColors.primaryOrangeColor,
+                                      size: 20.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    quantity.toString(),
+                                    style: AppTextStyles.font18W600,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
                                       setState(() {
-                                        quantity--;
+                                        quantity++;
                                       });
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.remove,
-                                    color: AppColors.primaryOrangeColor,
-                                    size: 20.sp,
+                                    },
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: AppColors.primaryOrangeColor,
+                                      size: 20.sp,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  quantity.toString(),
-                                  style: AppTextStyles.font18W600,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      quantity++;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: AppColors.primaryOrangeColor,
-                                    size: 20.sp,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (showImage)
+                          Positioned(
+                            top: 100,
+                            child: Image.asset(
+                              'assets/images/bag.png',
+                              width: 100,
+                              height: 100,
                             ),
                           ),
-                        ],
-                      ),
+                      ]),
                       verticalSpace(10),
                       const SimilarTOListView(),
                       verticalSpace(30),
@@ -339,6 +364,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             );
 
                             DBHelper().insertCartItem(cartItem.toMap());
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (context) {
+                            //     return AlertDialog(
+                            //       icon: const Icon(
+                            //         Icons.check_circle,
+                            //         color: Colors.green,
+                            //         size: 32,
+                            //       ),
+                            //       content: const Text("Added to cart!"),
+                            //       actions: [
+                            //         TextButton(
+                            //           onPressed: () {
+                            //             context.pop();
+                            //           },
+                            //           child: const Text("Got it"),
+                            //         ),
+                            //       ],
+                            //     );
+                            //   },
+                            // );
                           });
                         },
                         text: "Add to cart",
@@ -346,7 +392,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                       verticalSpace(10),
                       ButtonItem(
-                        onPressed: () {},
+                        onPressed: () {
+                          onButtonPressed();
+                        },
                         text: "Buy Now",
                         color: AppColors.customRedColor,
                         radius: 30,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,8 +53,41 @@ class CartScreenBody extends StatelessWidget {
                   child: SizedBox(
                     height: 400.h,
                     child: ListView.builder(
-                      itemBuilder: (context, index) => CartItem(
-                        cartItem: state.cartItems[index],
+                      itemBuilder: (context, index) => Dismissible(
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          context
+                              .read<CartCubit>()
+                              .deleteItem(state.cartItems[index].productId);
+                          log(state.cartItems[index].price.toString());
+                        },
+                        confirmDismiss: (direction) async {
+                          context
+                              .read<CartCubit>()
+                              .deleteItem(state.cartItems[index].productId);
+                          log(state.cartItems[index].price.toString());
+                        },
+                        background: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(10.r)),
+                          child: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                        secondaryBackground: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(10.r)),
+                          child: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                        child: CartItem(
+                          cartItem: state.cartItems[index],
+                        ),
                       ),
                       itemCount: state.cartItems.length,
                     ),
