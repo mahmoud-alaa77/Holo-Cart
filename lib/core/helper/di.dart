@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:holo_cart/core/networking/api_service.dart';
 import 'package:holo_cart/core/networking/dio_factory.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
+import 'package:holo_cart/features/favourites/data/repo/favourite_repo.dart';
+import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 import 'package:holo_cart/features/forget_password/data/repo/forget_password_repo.dart';
 import 'package:holo_cart/features/forget_password/data/repo/reset_password_repo.dart';
 import 'package:holo_cart/features/forget_password/data/repo/verification_repo.dart';
@@ -40,19 +42,23 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<SignUpRepo>(() => SignUpRepo(getIt()));
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
   //ForgetPassword
-  getIt.registerLazySingleton<ForgetPasswordRepo>(() => ForgetPasswordRepo(getIt()));
-  getIt.registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(getIt()));
-  
-  getIt.registerLazySingleton<VerificationRepo>(() => VerificationRepo(getIt()));
-  getIt.registerFactory<VerificationCodeCubit>(() => VerificationCodeCubit(getIt()));
+  getIt.registerLazySingleton<ForgetPasswordRepo>(
+      () => ForgetPasswordRepo(getIt()));
+  getIt
+      .registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(getIt()));
+
+  getIt
+      .registerLazySingleton<VerificationRepo>(() => VerificationRepo(getIt()));
+  getIt.registerFactory<VerificationCodeCubit>(
+      () => VerificationCodeCubit(getIt()));
   // reset password
-  getIt.registerLazySingleton<ResetPasswordRepo>(() => ResetPasswordRepo(getIt()));
+  getIt.registerLazySingleton<ResetPasswordRepo>(
+      () => ResetPasswordRepo(getIt()));
   getIt.registerFactory<ResetPasswordCubit>(() => ResetPasswordCubit(getIt()));
 
   // Profile
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerFactory<UserProfileCubit>(() => UserProfileCubit(getIt()));
-
 
   //-------------- home ----------------
 // Home_categories
@@ -79,4 +85,8 @@ Future<void> setupGetIt() async {
       () => ProductDetailsRepo(apiService: getIt()));
   getIt.registerFactory<GetProductColorsCubit>(
       () => GetProductColorsCubit(productDetailsRepo: getIt()));
+
+  //favourite
+  getIt.registerLazySingleton<FavouriteRepo>(() => FavouriteRepo(getIt()));
+  getIt.registerFactory<FavouriteCubit>(() => FavouriteCubit(getIt()));
 }

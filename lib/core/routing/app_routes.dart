@@ -18,8 +18,6 @@ class AppRoutes {
   static const String verificationCode = '/verification_code';
   static const String resetPassword = '/reset_password';
   static const String allProductsInCategory = '/all_products_in_category';
-    static const String userProfile = '/user_profile';
+  static const String userProfile = '/user_profile';
   static const String UpdateUserProfile = '/';
-
-
 }
