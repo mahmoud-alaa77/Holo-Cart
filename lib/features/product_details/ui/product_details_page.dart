@@ -145,8 +145,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis),
                           ),
-                          const Icon(Icons.favorite_border_rounded,
-                              color: Colors.redAccent),
+                          widget.product.isFavorite == true
+                              ? const Icon(Icons.favorite,
+                                  color: Colors.redAccent)
+                              : const Icon(Icons.favorite_border_rounded,
+                                  color: Colors.redAccent),
                         ],
                       ),
                       verticalSpace(10),

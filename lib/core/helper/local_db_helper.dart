@@ -101,7 +101,8 @@ class DBHelper {
 
   Future<void> deleteFavouriteItem(String productId) async {
     final db = await database;
-    await db.delete('favourites', where: 'productId = ?', whereArgs: [productId]);
+    await db
+        .delete('favourites', where: 'productId = ?', whereArgs: [productId]);
   }
 
   Future<void> clearFavourites() async {

@@ -63,6 +63,7 @@ dependencies:
   sqflite: ^2.4.1
   flutter_secure_storage: ^9.2.4
   image_picker: ^1.1.2
+  device_preview: ^1.2.0
 
 
 dev_dependencies:

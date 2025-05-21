@@ -9,6 +9,7 @@ import 'package:holo_cart/features/categories/logic/cubit/get_products_in_catego
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
+import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 import 'package:holo_cart/features/forget_password/logic/forget_password/forget_password_cubit.dart';
 import 'package:holo_cart/features/forget_password/logic/reset_password/reset_password_cubit.dart';
 import 'package:holo_cart/features/forget_password/logic/verify/verification_code_cubit.dart';
@@ -40,8 +41,8 @@ import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
 GoRouter router(bool isLogedIn) => GoRouter(
-      initialLocation:
-          isLogedInUser ? AppRoutes.UpdateUserProfile : AppRoutes.splash,
+      initialLocation: AppRoutes.main,
+      // isLogedInUser ? AppRoutes.UpdateUserProfile : AppRoutes.splash,
       routes: [
         // Splash Route
         GoRoute(
@@ -118,6 +119,10 @@ GoRouter router(bool isLogedIn) => GoRouter(
               ),
               BlocProvider(
                 create: (context) => CartCubit()..getCartItems(),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    getIt<FavouriteCubit>()..getAllFavouriteProducts(id: 4),
               ),
             ],
             child: const MainScreen(),

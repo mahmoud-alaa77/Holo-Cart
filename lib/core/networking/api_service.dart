@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart' hide Headers; // إخفاء Headers بتاع Dio
+import 'package:holo_cart/features/favourites/data/models/get_favourites_model.dart';
 import 'package:holo_cart/features/product_details/data/models/get_product_colors_model.dart';
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
@@ -62,26 +63,30 @@ abstract class ApiService {
   @GET(ApiConstants.confirmVerification)
   Future<ForgetPasswordRespnse> confirmResetPasswordCode(
     @Query("Email") String? email,
-    @Query("Code") String ?code,
-
+    @Query("Code") String? code,
   );
   @POST(ApiConstants.resetPassword)
   @FormUrlEncoded()
   Future<ForgetPasswordRespnse> resetPassword(
-      @Field("Email") String email,
-  @Field("Password") String password,
-  @Field("ConfirmPassword") String confirmPassword,);
-  
+    @Field("Email") String email,
+    @Field("Password") String password,
+    @Field("ConfirmPassword") String confirmPassword,
+  );
+
   @GET(ApiConstants.getUserById)
-Future<UserProfileResponseModel> getUserById(@Path("id") String id);
-@PUT(ApiConstants.updateProfle)
-@MultiPart()
-Future<void> updateProfile({
-  @Part(name: 'Id') required int id,
-  @Part(name: 'FullName') required String fullName,
-  @Part(name: 'UserName') required String userName,
-  @Part(name: 'PhoneNumber') required String phoneNumber,
-  @Part(name: 'Address') required String address,
-  @Part(name: 'ProfileImage') File? profileImage,
-});
+  Future<UserProfileResponseModel> getUserById(@Path("id") String id);
+  @PUT(ApiConstants.updateProfle)
+  @MultiPart()
+  Future<void> updateProfile({
+    @Part(name: 'Id') required int id,
+    @Part(name: 'FullName') required String fullName,
+    @Part(name: 'UserName') required String userName,
+    @Part(name: 'PhoneNumber') required String phoneNumber,
+    @Part(name: 'Address') required String address,
+    @Part(name: 'ProfileImage') File? profileImage,
+  });
+
+// get all favourite products
+  @GET(ApiConstants.getFavouriteItems)
+  Future<GetFavouriteModel> getAllFavouriteProducts(@Path("id") String id);
 }
