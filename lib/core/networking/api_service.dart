@@ -89,4 +89,5 @@ abstract class ApiService {
 // get all favourite products
   @GET(ApiConstants.getFavouriteItems)
   Future<GetFavouriteModel> getAllFavouriteProducts(@Path("id") String id);
+
 }

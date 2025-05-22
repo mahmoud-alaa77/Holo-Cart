@@ -8,7 +8,6 @@ import 'package:holo_cart/features/profile/ui/views/about/about_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_bloc_builder.dart';
-import 'package:holo_cart/features/profile/ui/widgets/profile_image.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_list_button.dart';
 
 
@@ -26,7 +25,7 @@ class ProfileScreenBody extends StatelessWidget {
             verticalSpace(24),
             Text("Profile", style: AppTextStyles.font24W900),
             verticalSpace(20),
-            const ProfileImage(),
+            
             verticalSpace(24),
 
           const  ProfileBlocBuilder(),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/appbar_screen.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/update_information_user/widgets/change_profile_photo.dart';
+import 'package:holo_cart/features/profile/ui/views/update_information_user/widgets/update_profile_bloc_lisenier.dart';
 
 import 'widgets/update_profile_text_fileds.dart';
 
@@ -16,7 +19,7 @@ class UpdateUserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric( vertical: 30.h),
+        padding: EdgeInsets.symmetric(vertical: 30.h),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -32,9 +35,12 @@ class UpdateUserProfile extends StatelessWidget {
               const ChangeProfilePhoto(),
               const UpdateProfileTextFileds(),
               verticalSpace(40),
+              const UpdateProfileBlocLisenier(),
               ButtonItem(
                 text: "Save Changes",
-                onPressed: () {},
+                onPressed: () {
+                  context.read<UpdateProfileCubit>().validateThenUpdate();
+                },
                 color: AppColors.primaryOrangeColor,
               ),
             ],

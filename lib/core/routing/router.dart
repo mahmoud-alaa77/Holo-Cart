@@ -29,7 +29,9 @@ import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_s
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
-import 'package:holo_cart/features/profile/logic/cubit/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
+import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
@@ -41,8 +43,8 @@ import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
 GoRouter router(bool isLogedIn) => GoRouter(
-      initialLocation: AppRoutes.main,
-      // isLogedInUser ? AppRoutes.UpdateUserProfile : AppRoutes.splash,
+      initialLocation:
+          isLogedInUser ? AppRoutes.main : AppRoutes.splash,
       routes: [
         // Splash Route
         GoRoute(
@@ -238,9 +240,16 @@ GoRouter router(bool isLogedIn) => GoRouter(
             );
           },
         ),
-        GoRoute(
-          path: AppRoutes.UpdateUserProfile,
-          builder: (context, state) => const UpdateUserProfile(),
-        ),
+       GoRoute(
+  path: AppRoutes.updateUserProfile,
+  builder: (context, state) {
+    final user = state.extra as UserProfileModel;
+
+    return BlocProvider(
+      create: (_) => getIt<UpdateProfileCubit>()..loadInitialData(user),
+      child: const UpdateUserProfile(),
+    );
+  },
+),
       ],
     );
