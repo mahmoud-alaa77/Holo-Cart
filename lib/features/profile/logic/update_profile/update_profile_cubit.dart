@@ -31,17 +31,19 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
   String? oldPhone;
   String? oldAddress;
 
-  void loadInitialData(UserProfileModel user) {
-    fullNameController.text = user.fullName;
-    userNameController.text = user.userName;
-    phoneController.text = user.phoneNumber;
-    addressController.text = user.address ?? "";
+  String? oldProfileImageUrl;
 
-    oldFullName = user.fullName;
-    oldUserName = user.fullName;
-    oldPhone = user.phoneNumber;
-    oldAddress = user.address;
-  }
+void loadInitialData(UserProfileModel user) {
+  fullNameController.text = user.fullName;
+  userNameController.text = user.userName;
+  phoneController.text = user.phoneNumber;
+  addressController.text = user.address ?? "";
+
+  oldFullName = user.fullName;
+  oldUserName = user.userName;
+  oldPhone = user.phoneNumber;
+  oldAddress = user.address;
+  oldProfileImageUrl = user.profileImage; }
 
   void setProfileImage(File file) {
     profileImage = file;
