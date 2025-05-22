@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_profile_model/profile_response_model.dart';
+part of 'profile_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -32,6 +32,7 @@ UserProfileModel _$UserProfileModelFromJson(Map<String, dynamic> json) =>
       country: json['country'] as String?,
       phoneNumber: json['phoneNumber'] as String,
       profileImage: json['profileImage'] as String?,
+      userName: json['userName'] as String,
     );
 
 Map<String, dynamic> _$UserProfileModelToJson(UserProfileModel instance) =>
@@ -42,4 +43,5 @@ Map<String, dynamic> _$UserProfileModelToJson(UserProfileModel instance) =>
       'country': instance.country,
       'phoneNumber': instance.phoneNumber,
       'profileImage': instance.profileImage,
+      'userName': instance.userName,
     };

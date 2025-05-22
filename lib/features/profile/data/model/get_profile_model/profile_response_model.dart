@@ -1,14 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
 
-part '../profile_response_model.g.dart';
+part 'profile_response_model.g.dart';
 
 @JsonSerializable()
 class UserProfileResponseModel {
   final int statusCode;
   final bool succeeded;
   final String message;
-  final UserProfileModel data;
+  final UserProfileModel  data;
 
   UserProfileResponseModel({
     required this.statusCode,
@@ -30,6 +30,8 @@ class UserProfileModel {
   final String? country;
   final String phoneNumber;
   final String? profileImage;
+  final String userName;
+
 
   UserProfileModel({
     required this.fullName,
@@ -38,6 +40,7 @@ class UserProfileModel {
     this.country,
     required this.phoneNumber,
     this.profileImage,
+    required this.userName,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) =>

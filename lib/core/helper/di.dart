@@ -19,7 +19,9 @@ import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/product_details/data/repo/product_details_repo.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/profile/data/repo/get_profile/user_profile_repo.dart';
+import 'package:holo_cart/features/profile/data/repo/update_profile/update_profile_repo.dart.dart';
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/sign_up/data/repo/sign_up_repo.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
@@ -52,6 +54,9 @@ Future<void> setupGetIt() async {
   // Profile
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerFactory<UserProfileCubit>(() => UserProfileCubit(getIt()));
+  // update profile
+  getIt.registerLazySingleton<UpdateProfileRepo>(() => UpdateProfileRepo(getIt()));
+  getIt.registerFactory<UpdateProfileCubit>(() => UpdateProfileCubit(getIt()));
 
 
   //-------------- home ----------------
@@ -79,4 +84,5 @@ Future<void> setupGetIt() async {
       () => ProductDetailsRepo(apiService: getIt()));
   getIt.registerFactory<GetProductColorsCubit>(
       () => GetProductColorsCubit(productDetailsRepo: getIt()));
+
 }

@@ -18,11 +18,7 @@ class ProfileBlocBuilder extends StatelessWidget {
           return const CircularProgressIndicator();
         } else if (state is UserprofileLoaded) {
           final user = state.user;
-          return EditProfileContainer(
-            name: user.fullName,
-            email: user.email,
-            phone: user.phoneNumber,
-          );
+          return EditProfileContainer(user: user);
         } else if (state is UserprofileError) {
           log("Error: ${state.error}");
           return Text("خطأ: ${state.error}");

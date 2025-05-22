@@ -378,7 +378,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<void> updateProfile({
+  Future<UpdateProfileResponseModel> updateProfile({
     required int id,
     required String fullName,
     required String userName,
@@ -409,7 +409,7 @@ class _ApiService implements ApiService {
         );
       }
     }
-    final _options = _setStreamType<void>(
+    final _options = _setStreamType<UpdateProfileResponseModel>(
       Options(
         method: 'PUT',
         headers: _headers,
@@ -424,7 +424,15 @@ class _ApiService implements ApiService {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late UpdateProfileResponseModel _value;
+    try {
+      _value = UpdateProfileResponseModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
