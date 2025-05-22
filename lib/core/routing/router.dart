@@ -28,7 +28,9 @@ import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_s
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
+import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
+import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
@@ -39,199 +41,210 @@ import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
-GoRouter router(bool isLogedIn) =>   GoRouter(
-   initialLocation: isLogedInUser ? AppRoutes.UpdateUserProfile : AppRoutes.splash,
-  routes: [
-    // Splash Route
-    GoRoute(
-      path: AppRoutes.splash,
-      builder: (context, state) => const SplashScreen(),
-    ),
-    // Onboarding Route with Custom Slide Transition
-    GoRoute(
-      path: AppRoutes.onBoarding,
-      name: "on_boarding",
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const OnBoardingScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
+GoRouter router(bool isLogedIn) => GoRouter(
+      initialLocation:
+          isLogedInUser ? AppRoutes.main : AppRoutes.splash,
+      routes: [
+        // Splash Route
+        GoRoute(
+          path: AppRoutes.splash,
+          builder: (context, state) => const SplashScreen(),
+        ),
+        // Onboarding Route with Custom Slide Transition
+        GoRoute(
+          path: AppRoutes.onBoarding,
+          name: "on_boarding",
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: const OnBoardingScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(1, 0),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                );
+              },
             );
           },
-        );
-      },
-    ),
-    // Login Route
-    GoRoute(
-      path: AppRoutes.login,
-      builder: (context, state) => BlocProvider(
-        create: (context) => getIt<LoginCubit>(),
-        child: const LoginScreen(),
-      ),
-    ),
-    // Main Auth Route
-    GoRoute(
-      path: AppRoutes.mainAuth,
-      builder: (context, state) => const LoginORSignupORGuestScreen(),
-    ),
-    //signup route
-    GoRoute(
-      path: AppRoutes.signUp,
-      builder: (context, state) => BlocProvider(
-        create: (context) => getIt<SignUpCubit>(),
-        child: const SignUpScreen(),
-      ),
-    ),
-    // Home Route
-    GoRoute(
-      path: AppRoutes.main,
-      builder: (context, state) => MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => getIt<GetCategoriesCubit>()..getCategories(),
-          ),
-          BlocProvider(
-            create: (context) => getIt<GetAllProductsCubit>()..getAllProducts(),
-          ),
-          BlocProvider(
-            create: (context) => getIt<DiscountsCubit>()..getAllDiscounts(),
-          ),
-          BlocProvider(
-            create: (context) => getIt<GetProductsByDiscountCubit>()
-              ..getProductsByDiscount("10"),
-          ),
-          BlocProvider(
-            create: (context) => getIt<GetProductsInCategoryCubit>(),
-          ),
-          BlocProvider(
-            create: (context) => getIt<GetProductColorsCubit>(),
-          ),
-          BlocProvider(
-            create: (context) => CartCubit()..getCartItems(),
-          ),
-        ],
-        child: const MainScreen(),
-      ),
-    ),
-    GoRoute(
-      path: AppRoutes.productDetails,
-      builder: (context, state) {
-        final data = state.extra as ProductData;
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => getIt<GetProductColorsCubit>(),
-            ),
-            BlocProvider(
-              create: (context) => getIt<GetProductsInCategoryCubit>(),
-            ),
-          ],
-          child: ProductDetailsPage(
-            product: data,
-          ),
-        );
-      },
-    ),
-   
-    GoRoute(
-      path: AppRoutes.cardNumber,
-      builder: (context, state) {
-        final controllers = (state.extra is List<TextEditingController>)
-            ? state.extra as List<TextEditingController>
-            : <TextEditingController>[];
-
-        return AddCardScreen(controller: controllers);
-      },
-    ),
-    // GoRoute(
-    //   path: AppRoutes.cartScreen,
-    //   builder: (context, state) => const CartScreen(),
-    // ),
-    GoRoute(
-      path: AppRoutes.emptycartScreen,
-      builder: (context, state) => CartScreenBody(),
-    ),
-    GoRoute(
-      path: AppRoutes.checkout,
-      builder: (context, state) => const CheckoutScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.address,
-      builder: (context, state) => const AddressScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.proccessingOrder,
-      builder: (context, state) => const ProccessingOrderScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.done,
-      builder: (context, state) => const DoneScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.forgetPassword,
-      builder: (context, state) => BlocProvider(
-        create: (context) => getIt<ForgetPasswordCubit>(),
-        child: const ForgetPasswordScreen(),
-      ),
-    ),
-     GoRoute(
-      path: AppRoutes.profilePayment,
-      builder: (context, state) => const PaymentScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.verificationCode,
-      builder: (context, state) {
-        final email = state.extra as String;
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
-            BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
-          ],
-          child: VerificationCodeScreen(email: email),
-        );
-      },
-    ),
-
-    GoRoute(
-        path: AppRoutes.resetPassword,
-        builder: (context, state) {
-          // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
-          final email = (state.extra as String?) ?? "";
-
-          return MultiBlocProvider(providers: [
-            BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
-          ], child: ResetPasswordScreen(email: email));
-        }),
-
-    GoRoute(
-        path: AppRoutes.allProductsInCategory,
-        builder: (context, state) {
-          final id = state.extra as int;
-          return BlocProvider(
-            create: (context) => getIt<GetProductsInCategoryCubit>(),
-            child: AllProductsInCategoryScreen(
-              categoryId: id,
-            ),
-          );
-        }),
+        ),
+        // Login Route
         GoRoute(
-  path: AppRoutes.userProfile,
+          path: AppRoutes.login,
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          ),
+        ),
+        // Main Auth Route
+        GoRoute(
+          path: AppRoutes.mainAuth,
+          builder: (context, state) => const LoginORSignupORGuestScreen(),
+        ),
+        //signup route
+        GoRoute(
+          path: AppRoutes.signUp,
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<SignUpCubit>(),
+            child: const SignUpScreen(),
+          ),
+        ),
+        // Home Route
+        GoRoute(
+          path: AppRoutes.main,
+          builder: (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    getIt<GetCategoriesCubit>()..getCategories(),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    getIt<GetAllProductsCubit>()..getAllProducts(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<DiscountsCubit>()..getAllDiscounts(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<GetProductsByDiscountCubit>()
+                  ..getProductsByDiscount("10"),
+              ),
+              BlocProvider(
+                create: (context) => getIt<GetProductsInCategoryCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<GetProductColorsCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => CartCubit()..getCartItems(),
+              ),
+            ],
+            child: const MainScreen(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.productDetails,
+          builder: (context, state) {
+            final data = state.extra as ProductData;
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => getIt<GetProductColorsCubit>(),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<GetProductsInCategoryCubit>(),
+                ),
+              ],
+              child: ProductDetailsPage(
+                product: data,
+              ),
+            );
+          },
+        ),
+
+        GoRoute(
+          path: AppRoutes.cardNumber,
+          builder: (context, state) {
+            final controllers = (state.extra is List<TextEditingController>)
+                ? state.extra as List<TextEditingController>
+                : <TextEditingController>[];
+
+            return AddCardScreen(controller: controllers);
+          },
+        ),
+        // GoRoute(
+        //   path: AppRoutes.cartScreen,
+        //   builder: (context, state) => const CartScreen(),
+        // ),
+        GoRoute(
+          path: AppRoutes.emptycartScreen,
+          builder: (context, state) => CartScreenBody(),
+        ),
+        GoRoute(
+          path: AppRoutes.checkout,
+          builder: (context, state) => const CheckoutScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.address,
+          builder: (context, state) => const AddressScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.proccessingOrder,
+          builder: (context, state) => const ProccessingOrderScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.done,
+          builder: (context, state) => const DoneScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.forgetPassword,
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<ForgetPasswordCubit>(),
+            child: const ForgetPasswordScreen(),
+          ),
+        ),
+        GoRoute(
+          path: AppRoutes.profilePayment,
+          builder: (context, state) => const PaymentScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.verificationCode,
+          builder: (context, state) {
+            final email = state.extra as String;
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
+                BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
+              ],
+              child: VerificationCodeScreen(email: email),
+            );
+          },
+        ),
+
+        GoRoute(
+            path: AppRoutes.resetPassword,
+            builder: (context, state) {
+              // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
+              final email = (state.extra as String?) ?? "";
+
+              return MultiBlocProvider(providers: [
+                BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
+              ], child: ResetPasswordScreen(email: email));
+            }),
+
+        GoRoute(
+            path: AppRoutes.allProductsInCategory,
+            builder: (context, state) {
+              final id = state.extra as int;
+              return BlocProvider(
+                create: (context) => getIt<GetProductsInCategoryCubit>(),
+                child: AllProductsInCategoryScreen(
+                  categoryId: id,
+                ),
+              );
+            }),
+        GoRoute(
+          path: AppRoutes.userProfile,
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => getIt<UserProfileCubit>()..getUserProfile(),
+              child: const ProfileScreenBody(),
+            );
+          },
+        ),
+       GoRoute(
+  path: AppRoutes.UpdateUserProfile,
   builder: (context, state) {
+    final user = state.extra as UserProfileModel;
+
     return BlocProvider(
-      create: (_) => getIt<UserProfileCubit>()..getUserProfile(),
-      child: const ProfileScreenBody(), 
+      create: (_) => getIt<UpdateProfileCubit>()..loadInitialData(user),
+      child: const UpdateUserProfile(),
     );
   },
 ),
-GoRoute(
-      path: AppRoutes.UpdateUserProfile,
-      builder: (context, state) => const UpdateUserProfile(),
-    ),
-  ],
-);
+      ],
+    );
