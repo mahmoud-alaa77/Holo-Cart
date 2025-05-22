@@ -37,7 +37,10 @@ class ChangeProfilePhoto extends StatelessWidget {
                 backgroundColor: Colors.grey.shade200,
                 backgroundImage: cubit.profileImage != null
                     ? FileImage(cubit.profileImage!)
-                    : const AssetImage("assets/images/user.png")
+                    : (cubit.oldProfileImageUrl != null &&
+                                cubit.oldProfileImageUrl!.isNotEmpty
+                            ? NetworkImage(cubit.oldProfileImageUrl!)
+                            : const AssetImage("assets/images/user.png"))
                         as ImageProvider,
               ),
             ),
@@ -47,7 +50,8 @@ class ChangeProfilePhoto extends StatelessWidget {
               child: InkWell(
                 onTap: () async {
                   final picker = ImagePicker();
-                  final picked = await picker.pickImage(source: ImageSource.gallery);
+                  final picked =
+                      await picker.pickImage(source: ImageSource.gallery);
                   if (picked != null) {
                     cubit.setProfileImage(File(picked.path));
                   }
@@ -55,7 +59,8 @@ class ChangeProfilePhoto extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 15.sp,
                   backgroundColor: AppColors.primaryOrangeColor,
-                  child: const Icon(CupertinoIcons.pen, color: Colors.white, size: 25),
+                  child: const Icon(CupertinoIcons.pen,
+                      color: Colors.white, size: 25),
                 ),
               ),
             ),
