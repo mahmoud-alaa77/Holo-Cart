@@ -14,9 +14,9 @@ class AuthTextfield extends StatelessWidget {
     this.fillColor,
     this.keyboardType,
     this.maxLength,
-    this.inputFormatters,
+    this.inputFormatters,  this.initialValue,
   });
-
+final String? initialValue;
   final String hintText;
   final Icon? icon;
   final bool? obscureText;
@@ -26,11 +26,15 @@ class AuthTextfield extends StatelessWidget {
   final Color? fillColor;
   final TextInputType? keyboardType;
   final int? maxLength;
+
   final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+     
+
+      
       keyboardType: keyboardType,
       controller: controller,
       obscureText: obscureText ?? false,
