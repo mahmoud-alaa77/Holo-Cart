@@ -25,29 +25,28 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
 
   File? profileImage;
 
-  // البيانات الأصلية
   String? oldFullName;
   String? oldUserName;
   String? oldPhone;
   String? oldAddress;
-
   String? oldProfileImageUrl;
 
-void loadInitialData(UserProfileModel user) {
-  fullNameController.text = user.fullName;
-  userNameController.text = user.userName;
-  phoneController.text = user.phoneNumber;
-  addressController.text = user.address ?? "";
+  void loadInitialData(UserProfileModel user) {
+    fullNameController.text = user.fullName;
+    userNameController.text = user.userName;
+    phoneController.text = user.phoneNumber;
+    addressController.text = user.address ?? "";
 
-  oldFullName = user.fullName;
-  oldUserName = user.userName;
-  oldPhone = user.phoneNumber;
-  oldAddress = user.address;
-  oldProfileImageUrl = user.profileImage; }
+    oldFullName = user.fullName;
+    oldUserName = user.userName;
+    oldPhone = user.phoneNumber;
+    oldAddress = user.address;
+    oldProfileImageUrl = user.profileImage;
+  }
 
-  void setProfileImage(File file) {
-    profileImage = file;
-    emit(state);
+  void setProfileImage(File image) {
+    profileImage = image;
+    emit(UpdateProfileImageChanged());
   }
 
   Future<void> validateThenUpdate() async {
@@ -60,19 +59,15 @@ void loadInitialData(UserProfileModel user) {
       fullName: fullNameController.text.trim().isNotEmpty
           ? fullNameController.text.trim()
           : oldFullName ?? "",
-
       userName: userNameController.text.trim().isNotEmpty
           ? userNameController.text.trim()
           : oldUserName ?? "",
-
       phoneNumber: phoneController.text.trim().isNotEmpty
           ? phoneController.text.trim()
           : oldPhone ?? "",
-
       address: addressController.text.trim().isNotEmpty
           ? addressController.text.trim()
           : oldAddress ?? "",
-
       profileImage: profileImage,
     );
 
@@ -83,5 +78,14 @@ void loadInitialData(UserProfileModel user) {
       (failure) => emit(UpdateProfileFailure(failure.errorMessage)),
       (response) => emit(UpdateProfileSuccess(response)),
     );
+  }
+
+  @override
+  Future<void> close() {
+    fullNameController.dispose();
+    userNameController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
+    return super.close();
   }
 }

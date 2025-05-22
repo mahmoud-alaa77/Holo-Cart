@@ -42,7 +42,7 @@ class EditProfileContainer extends StatelessWidget {
           TextButton(
   onPressed: () {
     GoRouter.of(context)
-        .push(AppRoutes.UpdateUserProfile, extra: user)
+        .push(AppRoutes.updateUserProfile, extra: user)
         .then((_) {
           // Trigger refresh when returning back
           context.read<UserProfileCubit>().getUserProfile();

@@ -15,3 +15,4 @@ final class UpdateProfileFailure extends UpdateProfileState {
 
   UpdateProfileFailure(this.errorMessage);
 }
+class UpdateProfileImageChanged extends UpdateProfileState {}
