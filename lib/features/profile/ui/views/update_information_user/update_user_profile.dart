@@ -25,24 +25,33 @@ class UpdateUserProfile extends StatelessWidget {
             children: [
               const AppbarScreen(title: "Setting"),
               verticalSpace(20),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Your Profile",
-                    style: AppTextStyles.font24W500,
-                  )),
-              verticalSpace(20),
-              const ChangeProfilePhoto(),
-              const UpdateProfileTextFileds(),
-              verticalSpace(40),
-              const UpdateProfileBlocLisenier(),
-              ButtonItem(
-                text: "Save Changes",
-                onPressed: () {
-                  context.read<UpdateProfileCubit>().validateThenUpdate();
-                },
-                color: AppColors.primaryOrangeColor,
-              ),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                     Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Your Profile",
+                      style: AppTextStyles.font24W500,
+                    )),
+                verticalSpace(20),
+                const ChangeProfilePhoto(),
+                const UpdateProfileTextFileds(),
+                verticalSpace(40),
+                const UpdateProfileBlocLisenier(),
+                ButtonItem(
+                  text: "Save Changes",
+                  onPressed: () {
+                    context.read<UpdateProfileCubit>().validateThenUpdate();
+                  },
+                  color: AppColors.primaryOrangeColor,
+                ),
+                
+                  ],
+                ),
+              )
+             
             ],
           ),
         ),

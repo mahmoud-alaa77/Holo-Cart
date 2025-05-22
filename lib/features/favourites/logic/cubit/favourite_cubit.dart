@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:holo_cart/core/helper/local_db_helper.dart';
 import 'package:holo_cart/features/favourites/data/models/get_favourites_model.dart';
 import 'package:holo_cart/features/favourites/data/repo/favourite_repo.dart';
 
