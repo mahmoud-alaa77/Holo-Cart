@@ -9,7 +9,6 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/appbar_screen.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
-import 'package:holo_cart/features/cart/ui/widgets/total_payment.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/edit_checkout_details.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/payment_method.dart';
 
