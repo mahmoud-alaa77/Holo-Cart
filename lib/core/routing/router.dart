@@ -42,9 +42,24 @@ import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
-GoRouter router(bool isLogedIn) => GoRouter(
-      initialLocation:
-          isLogedInUser ? AppRoutes.main : AppRoutes.splash,
+final router = GoRouter(
+  initialLocation: AppRoutes.splash,
+
+ redirect: (context, state) {
+    if (!isLogedInUser) {
+      if (state.matchedLocation != AppRoutes.splash) {
+        return AppRoutes.splash;
+      }
+    } else {
+      
+      if (state.matchedLocation == AppRoutes.splash || state.matchedLocation == AppRoutes.login) {
+        return AppRoutes.main;
+      }
+      
+    }
+
+    return null; // سماح بالوصول
+  },
       routes: [
         // Splash Route
         GoRoute(
