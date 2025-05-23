@@ -20,34 +20,41 @@ class FavouriteScreenBody extends StatelessWidget {
         child: BlocBuilder<FavouriteCubit, FavouriteState>(
           builder: (context, state) {
             if (state is FavouriteLoaded) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    verticalSpace(24),
-                    Text("My Favourites (12) ",
-                        style: AppTextStyles.font20W700),
-                    verticalSpace(30),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 5.w,
-                        mainAxisSpacing: 10.h,
-                        childAspectRatio: 0.6,
+              return state.favouriteItems.favouriteDataList!.isNotEmpty
+                  ? SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          verticalSpace(24),
+                          Text(
+                              "My Favourites (${state.favouriteItems.favouriteDataList!.length}) ",
+                              style: AppTextStyles.font20W700),
+                          verticalSpace(30),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 5.w,
+                              mainAxisSpacing: 10.h,
+                              childAspectRatio: 0.6,
+                            ),
+                            itemCount: state
+                                    .favouriteItems.favouriteDataList?.length ??
+                                0,
+                            itemBuilder: (context, index) {
+                              return FavouritCartItem(
+                                favouriteProductData: state
+                                    .favouriteItems.favouriteDataList![index],
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      itemCount:
-                          state.favouriteItems.favouriteDataList?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return FavouritCartItem(
-                          favouriteProductData:
-                              state.favouriteItems.favouriteDataList![index],
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              );
+                    )
+                  : Center(
+                      child: Text("No Favourite Items"),
+                    );
             } else if (state is FavouriteError) {
               return Center(child: Text(state.message));
             } else {

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart' hide Headers; // إخفاء Headers بتاع Dio
+import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body.dart';
 import 'package:holo_cart/features/favourites/data/models/get_favourites_model.dart';
 import 'package:holo_cart/features/product_details/data/models/get_product_colors_model.dart';
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
@@ -38,18 +39,19 @@ abstract class ApiService {
   Future<SignUpResponse> signUp(@Body() SignUpRequestBody signUpRequestBody);
 
   @GET(ApiConstants.getAllProducts)
-  Future<GetAllProductsModel> getAllProducts();
+  Future<GetAllProductsModel> getAllProducts(@Path("id") int id);
 
   @GET(ApiConstants.getAllDiscounts)
-  Future<GetAllDiscountsModel> getAllDiscounts();
+  Future<GetAllDiscountsModel> getAllDiscounts(@Path("id") int id);
 
   @GET(ApiConstants.getProductsByDiscount)
   Future<GetProductsByDiscountModel> getProductsByDiscount(
-      @Path("discountPercentage") String discountPercentage);
+      @Path("discountPercentage") String discountPercentage,
+      @Path("id") int id);
 
   @GET(ApiConstants.getProductsByCategory)
   Future<GetAllProductsModel> getProductsByCategory(
-      @Path("categoryId") String categoryId);
+      @Path("categoryId") String categoryId, @Path("id") int id);
 
   @GET(ApiConstants.getProductColors)
   Future<GetProductColorModel> getProductColors(@Path("id") String id);
@@ -88,5 +90,19 @@ abstract class ApiService {
 
 // get all favourite products
   @GET(ApiConstants.getFavouriteItems)
-  Future<GetFavouriteModel> getAllFavouriteProducts(@Path("id") String id);
+  Future<GetFavouriteModel> getAllFavouriteProducts(@Path("id") String? id);
+
+  @POST(ApiConstants.addFavouriteItem)
+  @Headers({
+    'Content-Type': 'application/json',
+  })
+  Future<void> addProductToFavourite(
+      @Body() AddOrDeleteFavBody addOrDeleteFavBody);
+
+  @DELETE(ApiConstants.deleteFavouriteItem)
+  @Headers({
+    'Content-Type': 'application/json',
+  })
+  Future<void> deleteProductFromFavourite(
+      @Body() AddOrDeleteFavBody addOrDeleteFavBody);
 }

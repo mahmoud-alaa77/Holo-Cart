@@ -15,3 +15,14 @@ final class FavouriteError extends FavouriteState {
 }
 
 final class FavouriteLoading extends FavouriteState {}
+
+
+final class AddFavouriteSuccess extends FavouriteState {
+  final String message;
+  AddFavouriteSuccess(this.message);
+}
+
+final class DeleteFavouriteSuccess extends FavouriteState {
+  final String message;
+  DeleteFavouriteSuccess(this.message);
+}

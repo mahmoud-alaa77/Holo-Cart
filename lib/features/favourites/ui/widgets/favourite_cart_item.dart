@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body.dart';
 import 'package:holo_cart/features/favourites/data/models/get_favourites_model.dart';
+import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 
 class FavouritCartItem extends StatelessWidget {
   final FavouriteData favouriteProductData;
@@ -50,7 +53,7 @@ class FavouritCartItem extends StatelessWidget {
                     favouriteProductData.mainImageUrl ?? "",
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) => const Center(
-                      child:  Icon(
+                      child: Icon(
                         Icons.error,
                       ),
                     ),
@@ -80,7 +83,14 @@ class FavouritCartItem extends StatelessWidget {
                       ),
                       const Spacer(),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          AddOrDeleteFavBody product = AddOrDeleteFavBody(
+                            productId: favouriteProductData.productId!,
+                            userId: 1,
+                          );
+                          BlocProvider.of<FavouriteCubit>(context)
+                              .deleteProductToFavorite(body: product);
+                        },
                         icon: const Icon(
                           Icons.favorite,
                           color: Colors.red,

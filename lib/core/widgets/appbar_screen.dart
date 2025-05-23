@@ -11,25 +11,28 @@ class AppbarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top: 15.h),
+      padding: EdgeInsets.only(top: 15.h),
       child: Row(
-       
         children: [
           IconButton(
-  onPressed: () {
-    GoRouter.of(context).pop();
-  },
-  icon: Icon(Icons.arrow_back_ios_new_rounded, size: 25.sp),
-  padding: EdgeInsets.zero, // هذا يلغي المساحة الداخلية
-  constraints: const BoxConstraints(), // هذا يلغي المساحة الخارجية الافتراضية
-  visualDensity: VisualDensity.compact, // لتقليل المساحة الزائدة بشكل عام
-),
-             const Spacer(flex: 1,),
-             horizontalSpace(18),
-           Text(title,
-              style:AppTextStyles.font24W600)
-              ,
-          const Spacer(flex: 2,)
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: Icon(Icons.arrow_back_ios_new_rounded, size: 25.sp),
+            padding: EdgeInsets.zero, // هذا يلغي المساحة الداخلية
+            constraints:
+                const BoxConstraints(), // هذا يلغي المساحة الخارجية الافتراضية
+            visualDensity:
+                VisualDensity.compact, // لتقليل المساحة الزائدة بشكل عام
+          ),
+          const Spacer(
+            flex: 1,
+          ),
+          horizontalSpace(18),
+          Text(title, style: AppTextStyles.font24W600),
+          const Spacer(
+            flex: 2,
+          )
         ],
       ),
     );

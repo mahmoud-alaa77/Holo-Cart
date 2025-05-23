@@ -122,7 +122,7 @@ GoRouter router(bool isLogedIn) => GoRouter(
               ),
               BlocProvider(
                 create: (context) =>
-                    getIt<FavouriteCubit>()..getAllFavouriteProducts(id: 4),
+                    getIt<FavouriteCubit>()..getAllFavouriteProducts(id: 1),
               ),
             ],
             child: const MainScreen(),
@@ -139,6 +139,12 @@ GoRouter router(bool isLogedIn) => GoRouter(
                 ),
                 BlocProvider(
                   create: (context) => getIt<GetProductsInCategoryCubit>(),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<FavouriteCubit>(),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<GetAllProductsCubit>(),
                 ),
               ],
               child: ProductDetailsPage(
