@@ -10,7 +10,10 @@ import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/cart/data/models/cart_item_model.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
+import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body.dart';
+import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
+import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/widgets/silimilar_to_list_view.dart';
 import 'package:readmore/readmore.dart';
@@ -29,7 +32,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int quantity = 1;
 
   bool showImage = false;
-
+  late bool isFavorited;
   void onButtonPressed() {
     setState(() {
       showImage = true;
@@ -45,10 +48,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   void initState() {
     super.initState();
+    isFavorited = false;
     BlocProvider.of<GetProductColorsCubit>(context)
         .getProductColors(widget.product.productId!);
     BlocProvider.of<GetProductsInCategoryCubit>(context)
         .getAllProductsInCategory(id: widget.product.categoryId!);
+    isFavorited = widget.product.isFavorite!;
   }
 
   @override
@@ -145,11 +150,39 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis),
                           ),
-                          widget.product.isFavorite == true
-                              ? const Icon(Icons.favorite,
-                                  color: Colors.redAccent)
-                              : const Icon(Icons.favorite_border_rounded,
-                                  color: Colors.redAccent),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (isFavorited == true) {
+                                  BlocProvider.of<FavouriteCubit>(context)
+                                      .addProductToFavorite(
+                                    body: AddOrDeleteFavBody(
+                                        productId:
+                                            widget.product.productId!.toInt(),
+                                        userId: 1),
+                                  );
+                                  isFavorited = false;
+                                  BlocProvider.of<GetAllProductsCubit>(context)
+                                      .getAllProducts();
+                                } else {
+                                  BlocProvider.of<FavouriteCubit>(context)
+                                      .deleteProductToFavorite(
+                                    body: AddOrDeleteFavBody(
+                                        productId:
+                                            widget.product.productId!.toInt(),
+                                        userId: 1),
+                                  );
+                                  isFavorited = true;
+                                  BlocProvider.of<GetAllProductsCubit>(context)
+                                      .getAllProducts();
+                                }
+                              });
+                            },
+                            icon: isFavorited == true
+                                ? Icon(Icons.favorite, color: Colors.redAccent)
+                                : Icon(Icons.favorite_border,
+                                    color: Colors.redAccent),
+                          )
                         ],
                       ),
                       verticalSpace(10),

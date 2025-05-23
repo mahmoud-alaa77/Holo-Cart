@@ -111,7 +111,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetAllProductsModel> getAllProducts() async {
+  Future<GetAllProductsModel> getAllProducts(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -120,7 +120,7 @@ class _ApiService implements ApiService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'Product/Paginated',
+            'Product/Paginated?ApplicationUserId=${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -138,7 +138,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetAllDiscountsModel> getAllDiscounts() async {
+  Future<GetAllDiscountsModel> getAllDiscounts(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -147,7 +147,7 @@ class _ApiService implements ApiService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'Discount/GetAll',
+            'Discount/GetAll?ApplicationUserId=${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -167,6 +167,7 @@ class _ApiService implements ApiService {
   @override
   Future<GetProductsByDiscountModel> getProductsByDiscount(
     String discountPercentage,
+    int id,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -176,7 +177,7 @@ class _ApiService implements ApiService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'Product/ProductsByDiscount?DiscountPercentage=${discountPercentage}',
+            'Product/ProductsByDiscount?DiscountPercentage=${discountPercentage}&?ApplicationUserId=${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -194,7 +195,10 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetAllProductsModel> getProductsByCategory(String categoryId) async {
+  Future<GetAllProductsModel> getProductsByCategory(
+    String categoryId,
+    int id,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -203,7 +207,7 @@ class _ApiService implements ApiService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'Product/ProductsByCategory?CategoryId=${categoryId}',
+            'Product/ProductsByCategory?CategoryId=${categoryId}&ApplicationUserId=${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -428,9 +432,10 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetFavouriteModel> getAllFavouriteProducts(String id) async {
+  Future<GetFavouriteModel> getAllFavouriteProducts(String? id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetFavouriteModel>(
@@ -452,6 +457,62 @@ class _ApiService implements ApiService {
       rethrow;
     }
     return _value;
+  }
+
+  @override
+  Future<void> addProductToFavourite(
+    AddOrDeleteFavBody addOrDeleteFavBody,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(addOrDeleteFavBody.toJson());
+    final _options = _setStreamType<void>(
+      Options(
+        method: 'POST',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'application/json',
+      )
+          .compose(
+            _dio.options,
+            'Favourit/Create',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<void> deleteProductFromFavourite(
+    AddOrDeleteFavBody addOrDeleteFavBody,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(addOrDeleteFavBody.toJson());
+    final _options = _setStreamType<void>(
+      Options(
+        method: 'DELETE',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'application/json',
+      )
+          .compose(
+            _dio.options,
+            'Favourit/Delete',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    await _dio.fetch<void>(_options);
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

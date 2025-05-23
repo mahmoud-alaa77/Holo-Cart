@@ -26,7 +26,8 @@ class HomeRepo {
 
   Future<Either<Failure, GetAllProductsModel>> getAllProducts() async {
     try {
-      final response = await apiService.getAllProducts();
+      //TODO : change this to user id after khaled finish profle
+      final response = await apiService.getAllProducts(1);
       return right(response);
     } catch (error) {
       if (error is DioException) {
@@ -38,7 +39,9 @@ class HomeRepo {
 
   Future<Either<Failure, GetAllDiscountsModel>> getAllDiscounts() async {
     try {
-      final response = await apiService.getAllDiscounts();
+      //TODO : change this to user id after khaled finish profle
+
+      final response = await apiService.getAllDiscounts(1);
       return right(response);
     } catch (error) {
       if (error is DioException) {
@@ -51,8 +54,10 @@ class HomeRepo {
   Future<Either<Failure, GetProductsByDiscountModel>> getProductsByDiscount(
       final String discountPercentage) async {
     try {
+      //TODO : change this to user id after khaled finish profle
+
       final response =
-          await apiService.getProductsByDiscount(discountPercentage);
+          await apiService.getProductsByDiscount(discountPercentage, 1);
       return right(response);
     } catch (error) {
       if (error is DioException) {
@@ -65,7 +70,9 @@ class HomeRepo {
   Future<Either<Failure, GetAllProductsModel>> getAllProductsInCategory(
       {required int id}) async {
     try {
-      final response = await apiService.getProductsByCategory(id.toString());
+      //TODO : change this to user id after khaled finish profle
+
+      final response = await apiService.getProductsByCategory(id.toString(), 1);
       return right(response);
     } catch (error) {
       if (error is DioException) {

@@ -4,15 +4,17 @@ class ApiConstants {
   static const String getAllCategories = "Category/GetAll";
   static const String login = "Authentication/SignIn";
   static const String signUp = "User/Create";
-  static const String getAllProducts = "Product/Paginated";
+  static const String getAllProducts =
+      "Product/Paginated?ApplicationUserId={id}";
 
-  static const String getAllDiscounts = "Discount/GetAll";
+  static const String getAllDiscounts =
+      "Discount/GetAll?ApplicationUserId={id}";
 
   static const String getProductsByDiscount =
-      "Product/ProductsByDiscount?DiscountPercentage={discountPercentage}";
+      "Product/ProductsByDiscount?DiscountPercentage={discountPercentage}&?ApplicationUserId={id}";
 
   static const String getProductsByCategory =
-      "Product/ProductsByCategory?CategoryId={categoryId}";
+      "Product/ProductsByCategory?CategoryId={categoryId}&ApplicationUserId={id}";
 
   static const String getProductColors = "ProductColor/ProductId?id={id}";
   static const String forgetPassword = "Authentication/SendResetPasswordCode";
@@ -22,5 +24,8 @@ class ApiConstants {
   static const String getUserById = "User/{id}";
   static const String updateProfle = "User/Edit";
 
+//favourit
   static const String getFavouriteItems = "Favourit/user/{id}";
+  static const String addFavouriteItem = "Favourit/Create";
+  static const String deleteFavouriteItem = "Favourit/Delete";
 }
