@@ -43,23 +43,23 @@ import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
 final router = GoRouter(
-  initialLocation: AppRoutes.splash,
+  initialLocation: AppRoutes.mainAuth,
 
- redirect: (context, state) {
-    if (!isLogedInUser) {
-      if (state.matchedLocation != AppRoutes.splash) {
-        return AppRoutes.splash;
-      }
-    } else {
+//  redirect: (context, state) {
+//     if (!isLogedInUser) {
+//       if (state.matchedLocation != AppRoutes.splash) {
+//         return AppRoutes.splash;
+//       }
+//     } else {
       
-      if (state.matchedLocation == AppRoutes.splash || state.matchedLocation == AppRoutes.login) {
-        return AppRoutes.main;
-      }
-      
-    }
+//       if (state.matchedLocation == AppRoutes.splash || state.matchedLocation == AppRoutes.login) {
+//         return AppRoutes.main;
+//       }
 
-    return null; // سماح بالوصول
-  },
+//     }
+
+//     return null; // سماح بالوصول
+//   },
       routes: [
         // Splash Route
         GoRoute(

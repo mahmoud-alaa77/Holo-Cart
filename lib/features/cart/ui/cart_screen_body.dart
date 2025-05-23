@@ -66,6 +66,7 @@ class CartScreenBody extends StatelessWidget {
                               .read<CartCubit>()
                               .deleteItem(state.cartItems[index].productId);
                           log(state.cartItems[index].price.toString());
+                          return null;
                         },
                         background: Container(
                           decoration: BoxDecoration(
