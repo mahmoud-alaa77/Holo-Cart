@@ -1,10 +1,11 @@
 class AppRoutes {
-  static const String splash = '/lj';
+  static const String splash = '/';
   static const String onBoarding = '/on_board';
   static const String login = '/login';
   static const String mainAuth = '/main_auth';
   static const String signUp = '/sign_up';
-  static const String main = '/';
+  static const String main = '/khg';
+  
   static const String productDetails = '/product_details';
   static const String profilePayment = '/profile_payment';
   static const String cardNumber = '/card_number';
