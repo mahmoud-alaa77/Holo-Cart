@@ -14,6 +14,7 @@ import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body
 import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
+import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/widgets/silimilar_to_list_view.dart';
 import 'package:readmore/readmore.dart';
@@ -30,7 +31,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int selectedColorIndex = 0;
   String? selectedColorImage;
   int quantity = 1;
-
+  late LoginCubit loginCubit;
+  int currentUserId = 0;
   bool showImage = false;
   late bool isFavorited;
   void onButtonPressed() {
@@ -48,6 +50,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   void initState() {
     super.initState();
+    loginCubit = BlocProvider.of<LoginCubit>(context);
+    currentUserId = loginCubit.currentUserId;
     isFavorited = false;
     BlocProvider.of<GetProductColorsCubit>(context)
         .getProductColors(widget.product.productId!);
@@ -159,7 +163,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     body: AddOrDeleteFavBody(
                                         productId:
                                             widget.product.productId!.toInt(),
-                                        userId: 1),
+                                        userId:
+                                            currentUserId),
                                   );
                                   isFavorited = false;
                                   BlocProvider.of<GetAllProductsCubit>(context)
@@ -170,7 +175,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     body: AddOrDeleteFavBody(
                                         productId:
                                             widget.product.productId!.toInt(),
-                                        userId: 1),
+                                        userId:
+                                            currentUserId),
                                   );
                                   isFavorited = true;
                                   BlocProvider.of<GetAllProductsCubit>(context)

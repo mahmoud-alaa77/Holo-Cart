@@ -43,8 +43,8 @@ import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
 GoRouter router(bool isLogedIn) => GoRouter(
-      initialLocation:
-          isLogedInUser ? AppRoutes.main : AppRoutes.splash,
+      initialLocation: AppRoutes.login,
+      //  isLogedInUser ? AppRoutes.main : AppRoutes.splash,
       routes: [
         // Splash Route
         GoRoute(
@@ -95,41 +95,45 @@ GoRouter router(bool isLogedIn) => GoRouter(
         ),
         // Home Route
         GoRoute(
-          path: AppRoutes.main,
-          builder: (context, state) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) =>
-                    getIt<GetCategoriesCubit>()..getCategories(),
-              ),
-              BlocProvider(
-                create: (context) =>
-                    getIt<GetAllProductsCubit>()..getAllProducts(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<DiscountsCubit>()..getAllDiscounts(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<GetProductsByDiscountCubit>()
-                  ..getProductsByDiscount("10"),
-              ),
-              BlocProvider(
-                create: (context) => getIt<GetProductsInCategoryCubit>(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<GetProductColorsCubit>(),
-              ),
-              BlocProvider(
-                create: (context) => CartCubit()..getCartItems(),
-              ),
-              BlocProvider(
-                create: (context) =>
-                    getIt<FavouriteCubit>()..getAllFavouriteProducts(id: 1),
-              ),
-            ],
-            child: const MainScreen(),
-          ),
-        ),
+            path: AppRoutes.main,
+            builder: (context, state) {
+              final userId = state.extra as int;
+
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) =>
+                        getIt<GetCategoriesCubit>()..getCategories(),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                        getIt<GetAllProductsCubit>()..getAllProducts(),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                        getIt<DiscountsCubit>()..getAllDiscounts(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<GetProductsByDiscountCubit>()
+                      ..getProductsByDiscount("10"),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<GetProductsInCategoryCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<GetProductColorsCubit>(),
+                  ),
+                  BlocProvider(
+                    create: (context) => CartCubit()..getCartItems(),
+                  ),
+                  BlocProvider(
+                    create: (context) => getIt<FavouriteCubit>()
+                      ..getAllFavouriteProducts(id: userId),
+                  ),
+                ],
+                child: const MainScreen(),
+              );
+            }),
         GoRoute(
           path: AppRoutes.productDetails,
           builder: (context, state) {
@@ -147,6 +151,9 @@ GoRouter router(bool isLogedIn) => GoRouter(
                 ),
                 BlocProvider(
                   create: (context) => getIt<GetAllProductsCubit>(),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<LoginCubit>(),
                 ),
               ],
               child: ProductDetailsPage(
@@ -246,16 +253,16 @@ GoRouter router(bool isLogedIn) => GoRouter(
             );
           },
         ),
-       GoRoute(
-  path: AppRoutes.updateUserProfile,
-  builder: (context, state) {
-    final user = state.extra as UserProfileModel;
+        GoRoute(
+          path: AppRoutes.updateUserProfile,
+          builder: (context, state) {
+            final user = state.extra as UserProfileModel;
 
-    return BlocProvider(
-      create: (_) => getIt<UpdateProfileCubit>()..loadInitialData(user),
-      child: const UpdateUserProfile(),
-    );
-  },
-),
+            return BlocProvider(
+              create: (_) => getIt<UpdateProfileCubit>()..loadInitialData(user),
+              child: const UpdateUserProfile(),
+            );
+          },
+        ),
       ],
     );
