@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/custom_loading_widget.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 
 class LoginBlocListner extends StatelessWidget {
@@ -13,7 +14,9 @@ class LoginBlocListner extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listenWhen: (previous, current) =>
-          current is LoginLoading || current is LoginSuccess || current is LoginFailure,
+          current is LoginLoading ||
+          current is LoginSuccess ||
+          current is LoginFailure,
       listener: (context, state) {
         debugPrint("LoginBlocListener State: $state");
 
@@ -21,13 +24,12 @@ class LoginBlocListner extends StatelessWidget {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ),
+            builder: (context) => const CustomLoadingWidget(),
           );
         } else if (state is LoginSuccess) {
           context.pop();
-          context.go('/main');
+          context.go(AppRoutes.main,
+              extra: BlocProvider.of<LoginCubit>(context).currentUserId ?? 4);
         } else if (state is LoginFailure) {
           context.pop();
           setupErrorState(context, state.errorMessage);
@@ -38,8 +40,7 @@ class LoginBlocListner extends StatelessWidget {
   }
 }
 
-void setupErrorState(BuildContext context,   String errorMessage) {
- 
+void setupErrorState(BuildContext context, String errorMessage) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(

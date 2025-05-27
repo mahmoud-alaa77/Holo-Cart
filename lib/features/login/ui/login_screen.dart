@@ -18,8 +18,6 @@ import 'package:holo_cart/features/login/ui/widgets/login_face_google.dart';
 import 'package:holo_cart/features/login/ui/widgets/not_have_account.dart';
 import 'package:holo_cart/features/login/ui/widgets/other_login.dart';
 
-
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -47,8 +45,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-         const AuthBackround(),
-         
+          const AuthBackround(),
           Positioned(
             top: 80.h,
             child: Container(
@@ -66,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const BackItem(),
+                    // const BackItem(),
                     Center(
                       child: Text("Hello in ,Login \nPage.",
                           textAlign: TextAlign.center,
@@ -76,8 +73,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const EmailAndPassword(),
                     GestureDetector(
-                      onTap: () =>GoRouter.of(context).push(AppRoutes.forgetPassword),
-
+                      onTap: () =>
+                          GoRouter.of(context).push(AppRoutes.forgetPassword),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -91,12 +88,14 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    
+
                     verticalSpace(22),
-                    ButtonItem(text: "Login", onPressed: () {
-                      validateThenDoLogin(context);
-                    }),
-                   const LoginBlocListner(),
+                    ButtonItem(
+                        text: "Login",
+                        onPressed: () {
+                          validateThenDoLogin(context);
+                        }),
+                    const LoginBlocListner(),
                     SizedBox(
                       height: 26.h,
                     ),
@@ -114,6 +113,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
 void validateThenDoLogin(BuildContext context) {
   if (context.read<LoginCubit>().formKey.currentState!.validate()) {
     context.read<LoginCubit>().emitStateLogin(
