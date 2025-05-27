@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               child: MaterialApp.router(
-                routerConfig: router(isLogedInUser),
+                routerConfig: router,
                 debugShowCheckedModeBanner: false,
                 title: 'Holo Cart',
                 theme: AppTheme.darkMode,
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               child: MaterialApp.router(
-                routerConfig: router(isLogedInUser),
+                routerConfig: router,
                 debugShowCheckedModeBanner: false,
                 title: 'Holo Cart',
                 theme: AppTheme.lightMode,
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               child: MaterialApp.router(
-                routerConfig: router(isLogedInUser),
+                routerConfig: router,
                 debugShowCheckedModeBanner: false,
                 title: 'Holo Cart',
                 theme: AppTheme.lightMode,

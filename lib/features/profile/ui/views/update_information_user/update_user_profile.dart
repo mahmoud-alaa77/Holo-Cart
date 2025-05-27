@@ -39,7 +39,7 @@ class UpdateUserProfile extends StatelessWidget {
                 const ChangeProfilePhoto(),
                 const UpdateProfileTextFileds(),
                 verticalSpace(40),
-                const UpdateProfileBlocLisenier(),
+                const UpdateProfileBlocListener(),
                 ButtonItem(
                   text: "Save Changes",
                   onPressed: () {
