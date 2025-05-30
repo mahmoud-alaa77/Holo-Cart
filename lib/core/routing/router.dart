@@ -33,7 +33,7 @@ import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
-import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/update_information_user/update_user_profile.dart';

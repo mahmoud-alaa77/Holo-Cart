@@ -77,14 +77,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SignUpResponse> signUp(SignUpRequestBody signUpRequestBody) async {
+  Future<ApiResponse> signUp(SignUpRequestBody signUpRequestBody) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(signUpRequestBody.toJson());
-    final _options = _setStreamType<SignUpResponse>(
+    final _options = _setStreamType<ApiResponse>(
       Options(
         method: 'POST',
         headers: _headers,
@@ -100,9 +100,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SignUpResponse _value;
+    late ApiResponse _value;
     try {
-      _value = SignUpResponse.fromJson(_result.data!);
+      _value = ApiResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -485,5 +485,11 @@ class _ApiService implements ApiService {
     }
 
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
+  }
+  
+  @override
+  Future<ApiResponse> createShippingAddress(ShippingAddressRequest shippingAddressRequest) {
+    // TODO: implement createShippingAddress
+    throw UnimplementedError();
   }
 }

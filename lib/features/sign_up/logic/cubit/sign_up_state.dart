@@ -6,9 +6,9 @@ sealed class SignUpState {}
 final class SignUpInitial extends SignUpState {}
 final class SignUpLoading extends SignUpState {}
 final class SignUpSuccess extends SignUpState {
-  final SignUpResponse signUpResponse;
+  final ApiResponse apiResponse;
 
-  SignUpSuccess(this.signUpResponse);
+  SignUpSuccess(this.apiResponse);
 }
 final class SignUpFailure extends SignUpState {
   final String errorMessage;

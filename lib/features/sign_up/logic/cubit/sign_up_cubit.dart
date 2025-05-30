@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:holo_cart/features/sign_up/data/model/api_response.dart';
 import 'package:holo_cart/features/sign_up/data/model/sign_up_request.dart';
-import 'package:holo_cart/features/sign_up/data/model/sign_up_response.dart';
 
 import '../../data/repo/sign_up_repo.dart';
 
@@ -27,7 +27,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     final result = await signUpRepo.signUp(signUpRequestBody);
     result.fold(
       (failure) => emit(SignUpFailure(failure.errorMessage)),
-      (signUpResponse) => emit(SignUpSuccess(signUpResponse)),
+      (apiResponse) => emit(SignUpSuccess(apiResponse)),
     );
   }
 }
