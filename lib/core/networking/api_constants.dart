@@ -23,4 +23,7 @@ class ApiConstants {
   static const String updateProfle = "User/Edit";
 
   static const String getFavouriteItems = "Favourit/user/{id}";
+  static const String createShippingAddress = "ShippingAddress/User";
+  
+
 }

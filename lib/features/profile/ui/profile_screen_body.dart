@@ -5,7 +5,7 @@ import 'package:holo_cart/core/helper/spacing.dart';
 
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/profile/ui/views/about/about_screen.dart';
-import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_bloc_builder.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_list_button.dart';

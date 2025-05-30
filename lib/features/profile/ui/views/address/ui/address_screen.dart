@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
-import 'package:holo_cart/features/profile/ui/views/address/edit_adresses_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/edit_adresses_screen.dart';
 
 
 
