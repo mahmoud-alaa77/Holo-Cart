@@ -21,6 +21,7 @@ class AppRoutes {
   static const String allProductsInCategory = '/all_products_in_category';
     static const String userProfile = '/user_profile';
   static const String updateUserProfile = '/f';
+  static const String addNewAddress = '/add_new_address';
   
 
 

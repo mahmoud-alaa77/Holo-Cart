@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/features/profile/ui/views/address/ui/edit_adresses_screen.dart';
@@ -90,7 +92,9 @@ class _AddressScreenState extends State<AddressScreen> {
             
             ButtonItem(
               text: 'ADD NEW ADDRESS',
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).push(AppRoutes.addNewAddress);
+              },
               color: AppColors.primaryOrangeColor,
             ),
           ],
