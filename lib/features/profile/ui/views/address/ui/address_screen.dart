@@ -71,7 +71,7 @@ class _AddressScreenState extends State<AddressScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => EditAddressScreen(
-                                    controller: addressControllers[index]),
+                                    ),
                               ),
                             );
                           },

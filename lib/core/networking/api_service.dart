@@ -7,6 +7,7 @@ import 'package:holo_cart/features/forget_password/data/models/forget_password_r
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:holo_cart/features/profile/data/model/update_profile_model/update_profile_response_model.dart';
 import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/shipping_address_response.dart';
 import 'package:holo_cart/features/sign_up/data/model/api_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
@@ -94,7 +95,9 @@ abstract class ApiService {
 
   // create shipping address
   @POST(ApiConstants.createShippingAddress)
-  
-  Future<ApiResponse> createShippingAddress(
+  @Headers({
+    'Content-Type': 'application/json',
+  })
+  Future<ShippingAddressResponse> createShippingAddress(
       @Body() ShippingAddressRequest shippingAddressRequest);
 }

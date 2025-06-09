@@ -6,6 +6,7 @@ class ApiResponse {
   @JsonKey(name: 'succeeded')
   final bool status;
   final int statusCode;
+  
 
   
 ApiResponse({required this.message, required this.status, required this.statusCode});

@@ -6,7 +6,7 @@ sealed class ShippingAddressState {}
 final class ShippingAddressInitial extends ShippingAddressState {}
 final class ShippingAddressLoading extends ShippingAddressState {}
 final class ShippingAddressSuccess extends ShippingAddressState {
-  final ApiResponse response;
+  final ShippingAddressResponse response;
 
   ShippingAddressSuccess(this.response);
 }
