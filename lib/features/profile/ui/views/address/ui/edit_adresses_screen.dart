@@ -1,20 +1,26 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
-import 'package:holo_cart/core/widgets/auth_textfield.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/bloc_listener_shipping_address.dart';
+
+import 'widgets/address_text_fields.dart';
 
 class EditAddressScreen extends StatelessWidget {
-  final TextEditingController? controller;
+ 
 
-  const EditAddressScreen({super.key, this.controller});
+  const EditAddressScreen({super.key, });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
+          
           'Add Address',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -28,90 +34,42 @@ class EditAddressScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            AuthTextfield(
-              controller: controller,
-              hintText: 'Street Address1',
-              fillColor: Colors.grey[200],
-            ),
-            verticalSpace(12),
-            AuthTextfield(
-              controller: controller,
-              hintText: 'Street Address2',
-              fillColor: Colors.grey[200],
-            ),
-            verticalSpace(12),
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      showCountryPicker(
-                        context: context,
-                        onSelect: (Country country) {},
-                      );
-                    },
-                    child: Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Select Country',
-                            style: TextStyle(color: Colors.black54),
-                          ),
-                          Icon(Icons.arrow_drop_down, color: Colors.black54),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: AuthTextfield(
-                    hintText: 'City',
-                    fillColor: Colors.grey[200],
-                  ),
-                ),
-              ],
-            ),
-            verticalSpace(12),
-            Row(
-              children: [
-                Expanded(
-                  child: AuthTextfield(
-                    hintText: 'State',
-                    fillColor: Colors.grey[200],
-                  ),
-                ),
-                horizontalSpace(12),
-                Expanded(
-                  child: AuthTextfield(
-                    hintText: 'Zip Code',
-                    fillColor: Colors.grey[200],
-                  ),
-                ),
-              ],
-            ),
-            verticalSpace(24),
-            ButtonItem(
-              text: 'Save',
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: AppColors.primaryOrangeColor,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const AddressTextFields(),
+              const BlocListenerShippingAddress(),
+              ButtonItem(
+                text: 'Save Address',
+                onPressed: () {
+                  validateShippingAddress(context);
+                 
+                },
+                color: AppColors.customBlueColor,
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+void validateShippingAddress(BuildContext context) async {
+  final id = await SharedPrefHelper.getInt(SharedPrefKeys.userId); 
+
+  if (context.read<ShippingAddressCubit>().formKey.currentState!.validate()) {
+    context.read<ShippingAddressCubit>().createShippingAddress(
+      ShippingAddressRequest(
+        userId: id,
+        addressLine1: context.read<ShippingAddressCubit>().address1Controller.text,
+        addressLine2: context.read<ShippingAddressCubit>().address2Controller.text,
+        city: context.read<ShippingAddressCubit>().cityController.text,
+        country: context.read<ShippingAddressCubit>().countryController.text,
+        state: context.read<ShippingAddressCubit>().stateController.text,
+        zipCode: context.read<ShippingAddressCubit>().zipCodeController.text,
       ),
     );
   }
