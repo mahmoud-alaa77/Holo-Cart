@@ -35,7 +35,7 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.signUp)
-  @Headers({
+  @Headers(const {
     'Content-Type': 'application/json',
   })
   Future<ApiResponse> signUp(@Body() SignUpRequestBody signUpRequestBody);
@@ -92,7 +92,6 @@ abstract class ApiService {
 // get all favourite products
   @GET(ApiConstants.getFavouriteItems)
   Future<GetFavouriteModel> getAllFavouriteProducts(@Path("id") String id);
-
   // create shipping address
   @POST(ApiConstants.createShippingAddress)
   @Headers({
@@ -100,4 +99,5 @@ abstract class ApiService {
   })
   Future<ShippingAddressResponse> createShippingAddress(
       @Body() ShippingAddressRequest shippingAddressRequest);
+
 }
