@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:holo_cart/core/handle_errors/failure.dart';
 import 'package:holo_cart/core/networking/api_service.dart';
-import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/create_shipping_address/shiping_address_requset.dart';
 
-import '../models/shipping_address_response.dart';
+import '../models/create_shipping_address/shipping_address_response.dart';
 
 class ShippingAddressRepo {
   final ApiService _apiService;

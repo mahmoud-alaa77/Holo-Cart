@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/create_shipping_address/shiping_address_requset.dart';
 import 'package:holo_cart/features/profile/ui/views/address/data/repo/shipping_address_repo.dart';
 
-import '../../data/models/shipping_address_response.dart';
+import '../../data/models/create_shipping_address/shipping_address_response.dart';
 
 part 'shipping_address_state.dart';
 

@@ -4,7 +4,7 @@ import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
 import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
-import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/create_shipping_address/shiping_address_requset.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/bloc_listener_shipping_address.dart';
 

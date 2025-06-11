@@ -397,16 +397,18 @@ class _ApiService implements ApiService {
     _data.fields.add(MapEntry('PhoneNumber', phoneNumber));
     _data.fields.add(MapEntry('Address', address));
     if (profileImage != null) {
-      _data.files.add(
-        MapEntry(
-          'ProfileImage',
-          MultipartFile.fromFileSync(
-            profileImage.path,
-            filename: profileImage.path.split(Platform.pathSeparator).last,
+      if (profileImage != null) {
+        _data.files.add(
+          MapEntry(
+            'ProfileImage',
+            MultipartFile.fromFileSync(
+              profileImage.path,
+              filename: profileImage.path.split(Platform.pathSeparator).last,
+            ),
           ),
-        ),
-      );
-        }
+        );
+      }
+    }
     final _options = _setStreamType<UpdateProfileResponseModel>(
       Options(
         method: 'PUT',
@@ -460,6 +462,7 @@ class _ApiService implements ApiService {
     return _value;
   }
 
+  @override
   Future<ShippingAddressResponse> createShippingAddress(
     ShippingAddressRequest shippingAddressRequest,
   ) async {
@@ -479,6 +482,33 @@ class _ApiService implements ApiService {
           .compose(
             _dio.options,
             'ShippingAddress/Create',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ShippingAddressResponse _value;
+    try {
+      _value = ShippingAddressResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ShippingAddressResponse> getShippingAddress(String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ShippingAddressResponse>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'ShippingAddress/GetById/${id}',
             queryParameters: queryParameters,
             data: _data,
           )

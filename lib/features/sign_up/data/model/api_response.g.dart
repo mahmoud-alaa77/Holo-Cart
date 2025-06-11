@@ -12,9 +12,3 @@ ApiResponse _$ApiResponseFromJson(Map<String, dynamic> json) => ApiResponse(
       statusCode: (json['statusCode'] as num).toInt(),
     );
 
-Map<String, dynamic> _$ApiResponseToJson(ApiResponse instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'succeeded': instance.status,
-      'statusCode': instance.statusCode,
-    };
