@@ -12,8 +12,10 @@ GetAddressResponseModel _$GetAddressResponseModelFromJson(
       statusCode: (json['statusCode'] as num).toInt(),
       succeeded: json['succeeded'] as bool,
       message: json['message'] as String,
-      data: ShippingAddressContentModel.fromJson(
-          json['data'] as Map<String, dynamic>),
+      data: (json['data'] as List<dynamic>)
+          .map((e) =>
+              ShippingAddressContentModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GetAddressResponseModelToJson(
