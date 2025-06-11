@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
-import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
 
 class BlocListenerShippingAddress extends StatelessWidget {
   const BlocListenerShippingAddress({super.key});
