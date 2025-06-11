@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'shipping_address_response.g.dart';
+part '../shipping_address_response.g.dart';
 
 @JsonSerializable()
 class ShippingAddressResponse {
