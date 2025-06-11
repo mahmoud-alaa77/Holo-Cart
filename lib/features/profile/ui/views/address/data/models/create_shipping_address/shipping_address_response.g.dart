@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_shipping_address/shipping_address_response.dart';
+part of 'shipping_address_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
