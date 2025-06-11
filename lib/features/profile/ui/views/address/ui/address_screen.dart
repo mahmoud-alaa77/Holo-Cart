@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
-import 'package:holo_cart/features/profile/ui/views/address/ui/edit_adresses_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/shipping_address_list_view.dart';
 
 
 
-class AddressScreen extends StatefulWidget {
+class AddressScreen extends StatelessWidget {
   const AddressScreen({super.key});
 
-  @override
-  _AddressScreenState createState() => _AddressScreenState();
-}
-
-class _AddressScreenState extends State<AddressScreen> {
-  final List<TextEditingController> addressControllers = [
-    TextEditingController(text: '2715 Ash Dr. San Jose, South...'),
-    TextEditingController(text: '2715 Ash Dr. San Jose, South...'),
-  ];
+ 
+  
 
   @override
   Widget build(BuildContext context) {
@@ -42,54 +36,10 @@ class _AddressScreenState extends State<AddressScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: addressControllers.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: addressControllers[index],
-                            decoration:const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditAddressScreen(
-                                    ),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Edit',
-                            style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+            const Expanded(
+              child: ShippingAddressListView(),
             ),
-            
+            verticalSpace(16),
             ButtonItem(
               text: 'ADD NEW ADDRESS',
               onPressed: () {
@@ -103,5 +53,4 @@ class _AddressScreenState extends State<AddressScreen> {
     );
   }
 }
-
 

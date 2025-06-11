@@ -397,16 +397,18 @@ class _ApiService implements ApiService {
     _data.fields.add(MapEntry('PhoneNumber', phoneNumber));
     _data.fields.add(MapEntry('Address', address));
     if (profileImage != null) {
-      _data.files.add(
-        MapEntry(
-          'ProfileImage',
-          MultipartFile.fromFileSync(
-            profileImage.path,
-            filename: profileImage.path.split(Platform.pathSeparator).last,
+      if (profileImage != null) {
+        _data.files.add(
+          MapEntry(
+            'ProfileImage',
+            MultipartFile.fromFileSync(
+              profileImage.path,
+              filename: profileImage.path.split(Platform.pathSeparator).last,
+            ),
           ),
-        ),
-      );
-        }
+        );
+      }
+    }
     final _options = _setStreamType<UpdateProfileResponseModel>(
       Options(
         method: 'PUT',

@@ -9,7 +9,7 @@ class GetAddressResponseModel {
   final int statusCode;
   final bool succeeded;
   final String message;
-  final ShippingAddressContentModel  data;
+  final List<ShippingAddressContentModel> data;
 
   GetAddressResponseModel({
     required this.statusCode,
