@@ -19,7 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-   int currentUserId=0;
+  int currentUserId = 0;
 
   Future<void> emitStateLogin(LoginRequestBody loginRequestBody) async {
     emit(LoginLoading());
@@ -45,7 +45,8 @@ class LoginCubit extends Cubit<LoginState> {
     await SharedPrefHelper.saveDataByKey(
         SharedPrefKeys.userId, int.parse(userId));
     currentUserId = int.parse(userId);
-    log("currentUserId =====> $userId");
+    int id = await SharedPrefHelper.getInt(SharedPrefKeys.userId);
+    log("currentUserId =====> $id");
   }
 
   Map<String, dynamic> parseJwt(String token) {

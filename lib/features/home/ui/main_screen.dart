@@ -8,6 +8,7 @@ import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/ui/categories_screen_body.dart';
 import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
+import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
@@ -28,8 +29,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreenBody(),
     const CategoriesScreenBody(),
     BlocProvider(
-      create: (context) => getIt<FavouriteCubit>()
-        ..getAllFavouriteProducts(id: getIt<LoginCubit>().currentUserId),
+      create: (context) => getIt<FavouriteCubit>()..getAllFavouriteProducts(),
       child: const FavouriteScreenBody(),
     ),
     CartScreenBody(),
@@ -50,6 +50,8 @@ class _MainScreenState extends State<MainScreen> {
             selectedIndex = i;
             if (selectedIndex == 3) {
               BlocProvider.of<CartCubit>(context).getCartItems();
+            } else if (selectedIndex == 0) {
+              BlocProvider.of<GetAllProductsCubit>(context).getAllProducts();
             }
           }),
           items: [

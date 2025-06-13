@@ -12,10 +12,11 @@ import 'package:holo_cart/features/forget_password/logic/forget_password/forget_
 import 'package:holo_cart/features/forget_password/logic/reset_password/reset_password_cubit.dart';
 import 'package:holo_cart/features/forget_password/logic/verify/verification_code_cubit.dart';
 import 'package:holo_cart/features/home/data/repo/home_repo.dart';
-import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
+import 'package:holo_cart/features/home/logic/get_products_by_discount/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
+import 'package:holo_cart/features/home/logic/product_by_id/get_product_by_id_cubit.dart';
 import 'package:holo_cart/features/login/data/repo/login_repo.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/product_details/data/repo/product_details_repo.dart';
@@ -62,7 +63,8 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerFactory<UserProfileCubit>(() => UserProfileCubit(getIt()));
   // update profile
-  getIt.registerLazySingleton<UpdateProfileRepo>(() => UpdateProfileRepo(getIt()));
+  getIt.registerLazySingleton<UpdateProfileRepo>(
+      () => UpdateProfileRepo(getIt()));
   getIt.registerFactory<UpdateProfileCubit>(() => UpdateProfileCubit(getIt()));
 
   //-------------- home ----------------
@@ -90,6 +92,8 @@ Future<void> setupGetIt() async {
       () => ProductDetailsRepo(apiService: getIt()));
   getIt.registerFactory<GetProductColorsCubit>(
       () => GetProductColorsCubit(productDetailsRepo: getIt()));
+  getIt
+      .registerFactory<GetProductByIdCubit>(() => GetProductByIdCubit(getIt()));
 
   //favourite
   getIt.registerLazySingleton<FavouriteRepo>(() => FavouriteRepo(getIt()));

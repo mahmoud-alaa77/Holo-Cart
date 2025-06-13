@@ -17,10 +17,11 @@ import 'package:holo_cart/features/forget_password/ui/forget_password_screen.dar
 import 'package:holo_cart/features/forget_password/ui/reset_password.dart';
 import 'package:holo_cart/features/forget_password/ui/verication_code_screen.dart';
 import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
-import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
+import 'package:holo_cart/features/home/logic/get_products_by_discount/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
+import 'package:holo_cart/features/home/logic/product_by_id/get_product_by_id_cubit.dart';
 import 'package:holo_cart/features/home/ui/all_products_in_category_screen.dart';
 import 'package:holo_cart/features/home/ui/main_screen.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
@@ -43,7 +44,7 @@ import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
 final router = GoRouter(
-  initialLocation: AppRoutes.splash,
+  initialLocation: AppRoutes.mainAuth,
 
 //  redirect: (context, state) {
 //     if (!isLogedInUser) {
@@ -140,8 +141,10 @@ final router = GoRouter(
                 create: (context) => CartCubit()..getCartItems(),
               ),
               BlocProvider(
-                create: (context) => getIt<FavouriteCubit>()
-                  ..getAllFavouriteProducts(id: userId),
+                create: (context) => getIt<FavouriteCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<GetProductByIdCubit>(),
               ),
             ],
             child: const MainScreen(),

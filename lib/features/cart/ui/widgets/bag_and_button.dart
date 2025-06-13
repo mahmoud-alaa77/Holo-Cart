@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
@@ -26,8 +28,10 @@ class BagAndButton extends StatelessWidget {
               text: "Explore products",
               radius: 30.sp,
               color: AppColors.primaryOrangeColor,
-              onPressed: () {
-                GoRouter.of(context).push(AppRoutes.main);
+              onPressed: () async {
+                GoRouter.of(context).push(AppRoutes.main,
+                    extra:
+                        await SharedPrefHelper.getInt(SharedPrefKeys.userId));
               }),
         )
       ],

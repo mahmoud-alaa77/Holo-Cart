@@ -14,3 +14,10 @@ ForgetPasswordRespnse _$ForgetPasswordRespnseFromJson(
       statusCode: (json['statusCode'] as num?)?.toInt(),
     );
 
+Map<String, dynamic> _$ForgetPasswordRespnseToJson(
+        ForgetPasswordRespnse instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+      'succeeded': instance.succeeded,
+      'statusCode': instance.statusCode,
+    };

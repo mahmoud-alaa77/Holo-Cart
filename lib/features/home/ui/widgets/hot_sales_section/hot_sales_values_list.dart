@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
-import 'package:holo_cart/features/home/logic/cubit/get_products_by_discount_cubit.dart';
+import 'package:holo_cart/features/home/logic/get_products_by_discount/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 
 class HotSalesValuesList extends StatefulWidget {

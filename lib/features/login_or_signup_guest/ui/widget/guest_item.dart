@@ -103,14 +103,15 @@ class GuestItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    horizontalSpace(12),
+                    horizontalSpace(12), 
+                    
                     
                     // زر الموافقة
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).pop();
-                          GoRouter.of(context).go(AppRoutes.main);
+                          GoRouter.of(context).go(AppRoutes.main,extra: 1);
                         },
                         child: Container(
                           height: 45.h,
