@@ -497,8 +497,6 @@ class _ApiService implements ApiService {
   @override
   Future<void> addProductToFavourite(
     AddOrDeleteFavBody addOrDeleteFavBody,
-  Future<ShippingAddressResponse> createShippingAddress(
-    ShippingAddressRequest shippingAddressRequest,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -507,8 +505,6 @@ class _ApiService implements ApiService {
     final _data = <String, dynamic>{};
     _data.addAll(addOrDeleteFavBody.toJson());
     final _options = _setStreamType<void>(
-    _data.addAll(shippingAddressRequest.toJson());
-    final _options = _setStreamType<ShippingAddressResponse>(
       Options(
         method: 'POST',
         headers: _headers,
@@ -518,7 +514,6 @@ class _ApiService implements ApiService {
           .compose(
             _dio.options,
             'Favourit/Create',
-            'ShippingAddress/Create',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -526,6 +521,7 @@ class _ApiService implements ApiService {
     );
     await _dio.fetch<void>(_options);
   }
+
   @override
   Future<void> deleteProductFromFavourite(
     AddOrDeleteFavBody addOrDeleteFavBody,
@@ -552,8 +548,36 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<ShippingAddressResponse> createShippingAddress(
+    ShippingAddressRequest shippingAddressRequest,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(shippingAddressRequest.toJson());
+    final _options = _setStreamType<ShippingAddressResponse>(
+      Options(
+        method: 'POST',
+        headers: _headers,
+        extra: _extra,
+        contentType: 'application/json',
+      )
+          .compose(
+            _dio.options,
+            'ShippingAddress/Create',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late ShippingAddressResponse _value;
+    try {
       _value = ShippingAddressResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -562,6 +586,7 @@ class _ApiService implements ApiService {
     return _value;
   }
 
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
             requestOptions.responseType == ResponseType.stream)) {
