@@ -8,6 +8,9 @@ import 'package:holo_cart/features/product_details/data/models/get_product_color
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:holo_cart/features/profile/data/model/update_profile_model/update_profile_response_model.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/shipping_address_response.dart';
+import 'package:holo_cart/features/sign_up/data/model/api_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/features/home/data/models/category_model.dart';
@@ -16,7 +19,6 @@ import 'package:holo_cart/features/home/data/models/get_all_products_model.dart'
 import 'package:holo_cart/features/home/data/models/get_products_by_discount_model.dart';
 import 'package:holo_cart/features/login/data/models/login_response.dart';
 import 'package:holo_cart/features/sign_up/data/model/sign_up_request.dart';
-import 'package:holo_cart/features/sign_up/data/model/sign_up_response.dart';
 
 part 'api_service.g.dart';
 
@@ -35,10 +37,10 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.signUp)
-  @Headers(const {
+  @Headers({
     'Content-Type': 'application/json',
   })
-  Future<SignUpResponse> signUp(@Body() SignUpRequestBody signUpRequestBody);
+  Future<ApiResponse> signUp(@Body() SignUpRequestBody signUpRequestBody);
 
   @GET(ApiConstants.getAllProducts)
   Future<GetAllProductsModel> getAllProducts(@Path("id") int id);
@@ -111,4 +113,11 @@ abstract class ApiService {
   })
   Future<void> deleteProductFromFavourite(
       @Body() AddOrDeleteFavBody addOrDeleteFavBody);
+  // create shipping address
+  @POST(ApiConstants.createShippingAddress)
+  @Headers({
+    'Content-Type': 'application/json',
+  })
+  Future<ShippingAddressResponse> createShippingAddress(
+      @Body() ShippingAddressRequest shippingAddressRequest);
 }
