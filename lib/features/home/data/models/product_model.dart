@@ -1,75 +1,76 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'get_all_products_model.g.dart';
+part 'product_model.g.dart';
 
 @JsonSerializable()
-class GetAllProductsModel {
-  List<ProductData>? data;
-  int? currentPage;
-  int? totalPages;
-  int? totalCount;
-  int? pageSize;
-  bool? hasPreviousPage;
-  bool? hasNextPage;
-  List<String>? messages;
-  bool? succeeded;
+class ProductModel {
+  int? statusCode;
 
-  GetAllProductsModel(
-      {this.data,
-      this.currentPage,
-      this.totalPages,
-      this.totalCount,
-      this.pageSize,
-      this.hasPreviousPage,
-      this.hasNextPage,
-      this.messages,
-      this.succeeded});
+  Product? data;
 
-  factory GetAllProductsModel.fromJson(Map<String, dynamic> json) =>
-      _$GetAllProductsModelFromJson(json);
+  ProductModel({this.statusCode, this.data});
 
-  Map<String, dynamic> toJson() => _$GetAllProductsModelToJson(this);
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
 
 @JsonSerializable()
-class ProductData {
+class Product {
   int? productId;
   String? name;
   String? description;
   int? basePrice;
   String? mainImageUrl;
+  String? modelUrl;
+  bool? isModel3D;
   int? categoryId;
   String? categoryName;
   bool? isFavorite;
   int? discountId;
   String? discountCode;
   int? discountPercentage;
+  List<Colors>? colors;
   List<Reviews>? reviews;
   int? finalPrice;
-  bool? isModel3D;
-  String? modelUrl;
 
-  ProductData(
+  Product(
       {this.productId,
       this.name,
       this.description,
       this.basePrice,
       this.mainImageUrl,
+      this.modelUrl,
+      this.isModel3D,
       this.categoryId,
       this.categoryName,
       this.isFavorite,
       this.discountId,
       this.discountCode,
       this.discountPercentage,
+      this.colors,
       this.reviews,
-      this.finalPrice,
-      this.isModel3D,
-      this.modelUrl});
+      this.finalPrice});
 
-  factory ProductData.fromJson(Map<String, dynamic> json) =>
-      _$ProductDataFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProductDataToJson(this);
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
+}
+
+@JsonSerializable()
+class Colors {
+  String? colorName;
+  String? colorHex;
+  String? imageUrl;
+  int? stock;
+
+  Colors({this.colorName, this.colorHex, this.imageUrl, this.stock});
+
+  factory Colors.fromJson(Map<String, dynamic> json) => _$ColorsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ColorsToJson(this);
 }
 
 @JsonSerializable()

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart' hide Headers; // إخفاء Headers بتاع Dio
 import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body.dart';
 import 'package:holo_cart/features/favourites/data/models/get_favourites_model.dart';
+import 'package:holo_cart/features/home/data/models/product_model.dart';
 import 'package:holo_cart/features/product_details/data/models/get_product_colors_model.dart';
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
@@ -41,6 +42,10 @@ abstract class ApiService {
 
   @GET(ApiConstants.getAllProducts)
   Future<GetAllProductsModel> getAllProducts(@Path("id") int id);
+
+  @GET(ApiConstants.getProductById)
+  Future<ProductModel> getProductById(
+      @Path("userId") int userId, @Path("productId") int productId);
 
   @GET(ApiConstants.getAllDiscounts)
   Future<GetAllDiscountsModel> getAllDiscounts(@Path("id") int id);

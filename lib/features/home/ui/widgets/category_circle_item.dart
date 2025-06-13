@@ -10,12 +10,13 @@ class CategoryCircleItem extends StatelessWidget {
   final int categoryId;
   final String title;
   final String image;
+  final int id;
   const CategoryCircleItem({
     super.key,
     required this.index,
     required this.title,
     required this.image,
-    required this.categoryId,
+    required this.categoryId, required this.id,
   });
 
   @override
@@ -28,7 +29,15 @@ class CategoryCircleItem extends StatelessWidget {
           // BlocProvider.of<GetProductsInCategoryCubit>(context)
           //     .getAllProductsInCategory(id: 16);
           await context.push(AppRoutes.allProductsInCategory,
-              extra: categoryId);
+              extra: [
+                              id,
+                             title
+                            ]);
+
+
+
+
+                            
         },
         child: Column(
           children: [

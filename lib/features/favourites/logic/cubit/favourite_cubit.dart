@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body.dart';
 import 'package:holo_cart/features/favourites/data/models/get_favourites_model.dart';
 import 'package:holo_cart/features/favourites/data/repo/favourite_repo.dart';
@@ -9,9 +11,10 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   final FavouriteRepo favRepo;
   FavouriteCubit(this.favRepo) : super(FavouriteInitial());
 
-  getAllFavouriteProducts({required int id}) async {
+  getAllFavouriteProducts() async {
     emit(FavouriteLoading());
-    final result = await favRepo.getAllFavouriteProducts(id: id);
+    final result = await favRepo.getAllFavouriteProducts(
+        id: await SharedPrefHelper.getInt(SharedPrefKeys.userId));
     result.fold((error) {
       emit(FavouriteError(error.errorMessage));
     }, (favModel) {
@@ -27,6 +30,6 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   deleteProductToFavorite({required AddOrDeleteFavBody body}) async {
     await favRepo.deleteFavouriteProducts(body: body);
     emit(AddFavouriteSuccess("Product removed from favourites"));
-    getAllFavouriteProducts(id: 1);
+    getAllFavouriteProducts();
   }
 }

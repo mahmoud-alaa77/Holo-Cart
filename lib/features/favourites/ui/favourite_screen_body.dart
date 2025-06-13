@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
@@ -14,8 +16,19 @@ import 'package:lottie/lottie.dart';
 
 import 'widgets/favourite_cart_item.dart';
 
-class FavouriteScreenBody extends StatelessWidget {
+class FavouriteScreenBody extends StatefulWidget {
   const FavouriteScreenBody({super.key});
+
+  @override
+  State<FavouriteScreenBody> createState() => _FavouriteScreenBodyState();
+}
+
+class _FavouriteScreenBodyState extends State<FavouriteScreenBody> {
+  @override
+  void initState() {
+    BlocProvider.of<FavouriteCubit>(context).getAllFavouriteProducts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +88,10 @@ class FavouriteScreenBody extends StatelessWidget {
                                 text: "Explore products",
                                 radius: 30.sp,
                                 color: AppColors.primaryOrangeColor,
-                                onPressed: () {
-                                  GoRouter.of(context).push(AppRoutes.main);
+                                onPressed: () async {
+                                  GoRouter.of(context).push(AppRoutes.main,
+                                      extra: await SharedPrefHelper.getInt(
+                                          SharedPrefKeys.userId));
                                 }),
                           )
                         ],

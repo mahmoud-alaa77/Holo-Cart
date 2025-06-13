@@ -1,79 +1,78 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_all_products_model.dart';
+part of 'product_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetAllProductsModel _$GetAllProductsModelFromJson(Map<String, dynamic> json) =>
-    GetAllProductsModel(
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => ProductData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      currentPage: (json['currentPage'] as num?)?.toInt(),
-      totalPages: (json['totalPages'] as num?)?.toInt(),
-      totalCount: (json['totalCount'] as num?)?.toInt(),
-      pageSize: (json['pageSize'] as num?)?.toInt(),
-      hasPreviousPage: json['hasPreviousPage'] as bool?,
-      hasNextPage: json['hasNextPage'] as bool?,
-      messages: (json['messages'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      succeeded: json['succeeded'] as bool?,
+ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
+      statusCode: (json['statusCode'] as num?)?.toInt(),
+      data: json['data'] == null
+          ? null
+          : Product.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$GetAllProductsModelToJson(
-        GetAllProductsModel instance) =>
+Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     <String, dynamic>{
+      'statusCode': instance.statusCode,
       'data': instance.data,
-      'currentPage': instance.currentPage,
-      'totalPages': instance.totalPages,
-      'totalCount': instance.totalCount,
-      'pageSize': instance.pageSize,
-      'hasPreviousPage': instance.hasPreviousPage,
-      'hasNextPage': instance.hasNextPage,
-      'messages': instance.messages,
-      'succeeded': instance.succeeded,
     };
 
-ProductData _$ProductDataFromJson(Map<String, dynamic> json) => ProductData(
+Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       productId: (json['productId'] as num?)?.toInt(),
       name: json['name'] as String?,
       description: json['description'] as String?,
       basePrice: (json['basePrice'] as num?)?.toInt(),
       mainImageUrl: json['mainImageUrl'] as String?,
+      modelUrl: json['modelUrl'] as String?,
+      isModel3D: json['isModel3D'] as bool?,
       categoryId: (json['categoryId'] as num?)?.toInt(),
       categoryName: json['categoryName'] as String?,
       isFavorite: json['isFavorite'] as bool?,
       discountId: (json['discountId'] as num?)?.toInt(),
       discountCode: json['discountCode'] as String?,
       discountPercentage: (json['discountPercentage'] as num?)?.toInt(),
+      colors: (json['colors'] as List<dynamic>?)
+          ?.map((e) => Colors.fromJson(e as Map<String, dynamic>))
+          .toList(),
       reviews: (json['reviews'] as List<dynamic>?)
           ?.map((e) => Reviews.fromJson(e as Map<String, dynamic>))
           .toList(),
       finalPrice: (json['finalPrice'] as num?)?.toInt(),
-      isModel3D: json['isModel3D'] as bool?,
-      modelUrl: json['modelUrl'] as String?,
     );
 
-Map<String, dynamic> _$ProductDataToJson(ProductData instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'productId': instance.productId,
       'name': instance.name,
       'description': instance.description,
       'basePrice': instance.basePrice,
       'mainImageUrl': instance.mainImageUrl,
+      'modelUrl': instance.modelUrl,
+      'isModel3D': instance.isModel3D,
       'categoryId': instance.categoryId,
       'categoryName': instance.categoryName,
       'isFavorite': instance.isFavorite,
       'discountId': instance.discountId,
       'discountCode': instance.discountCode,
       'discountPercentage': instance.discountPercentage,
+      'colors': instance.colors,
       'reviews': instance.reviews,
       'finalPrice': instance.finalPrice,
-      'isModel3D': instance.isModel3D,
-      'modelUrl': instance.modelUrl,
+    };
+
+Colors _$ColorsFromJson(Map<String, dynamic> json) => Colors(
+      colorName: json['colorName'] as String?,
+      colorHex: json['colorHex'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      stock: (json['stock'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$ColorsToJson(Colors instance) => <String, dynamic>{
+      'colorName': instance.colorName,
+      'colorHex': instance.colorHex,
+      'imageUrl': instance.imageUrl,
+      'stock': instance.stock,
     };
 
 Reviews _$ReviewsFromJson(Map<String, dynamic> json) => Reviews(

@@ -78,14 +78,14 @@ class HomeScreenBody extends StatelessWidget {
                       },
                     ),
                     horizontalSpace(8),
-                    GestureDetector(
-                      onTap: () {},
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.customLightColor,
-                        child: Lottie.asset("assets/images/notifcations.json",
-                            width: 45.w),
-                      ),
-                    )
+                    // GestureDetector(
+                    //   onTap: () {},
+                    //   child: CircleAvatar(
+                    //     backgroundColor: AppColors.customLightColor,
+                    //     child: Lottie.asset("assets/images/notifcations.json",
+                    //         width: 45.w),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -123,8 +123,8 @@ class HomeScreenBody extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return CategoryCircleItem(
                             index: index,
-                            // TODO: remove this and get the category id from the api
-                            categoryId: 18,
+                            id: state.categoryModel.data![index].id!,
+                            categoryId: state.categoryModel.data![index].id!,
                             title: state.categoryModel.data![index].name!,
                             image:
                                 state.categoryModel.data![index].categoryImage!,

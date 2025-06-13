@@ -7,6 +7,9 @@ class ApiConstants {
   static const String getAllProducts =
       "Product/Paginated?ApplicationUserId={id}";
 
+  static const String getProductById =
+      "/Product/GetById?ProductId={productId}&UserId={userId}";
+
   static const String getAllDiscounts =
       "Discount/GetAll?ApplicationUserId={id}";
 

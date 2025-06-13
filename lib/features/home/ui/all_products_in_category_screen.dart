@@ -8,8 +8,7 @@ import 'package:holo_cart/features/home/ui/widgets/all_products_section/product_
 
 class AllProductsInCategoryScreen extends StatefulWidget {
   final List<dynamic> idAndName;
-  const AllProductsInCategoryScreen(
-      {super.key,required this.idAndName});
+  const AllProductsInCategoryScreen({super.key, required this.idAndName});
 
   @override
   State<AllProductsInCategoryScreen> createState() =>
@@ -20,7 +19,6 @@ class _AllProductsInCategoryScreenState
     extends State<AllProductsInCategoryScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     BlocProvider.of<GetProductsInCategoryCubit>(context)
         .getAllProductsInCategory(id: widget.idAndName[0]);
     super.initState();
@@ -38,22 +36,25 @@ class _AllProductsInCategoryScreenState
               GetProductsInCategoryState>(
             builder: (context, state) {
               if (state is GetProductsInCategorySuccess) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: state.allProductsModel.data!.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 9 / 15,
-                        mainAxisSpacing: 10.r),
-                    itemBuilder: (context, index) {
-                      ProductData product = state.allProductsModel.data![index];
-                      return ProductCartItem(product: product);
-                    },
-                  ),
-                );
+                return state.allProductsModel.data!.isEmpty
+                    ? const Center(child: Text("No products found"))
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.allProductsModel.data!.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 9 / 15,
+                                  mainAxisSpacing: 10.r),
+                          itemBuilder: (context, index) {
+                            ProductData product =
+                                state.allProductsModel.data![index];
+                            return ProductCartItem(product: product);
+                          },
+                        ),
+                      );
               } else if (state is GetProductsInCategoryError) {
                 return Center(child: Text(state.message));
               } else {
