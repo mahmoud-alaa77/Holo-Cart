@@ -77,14 +77,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<SignUpResponse> signUp(SignUpRequestBody signUpRequestBody) async {
+  Future<ApiResponse> signUp(SignUpRequestBody signUpRequestBody) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(signUpRequestBody.toJson());
-    final _options = _setStreamType<SignUpResponse>(
+    final _options = _setStreamType<ApiResponse>(
       Options(
         method: 'POST',
         headers: _headers,
@@ -100,9 +100,9 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SignUpResponse _value;
+    late ApiResponse _value;
     try {
-      _value = SignUpResponse.fromJson(_result.data!);
+      _value = ApiResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -497,6 +497,8 @@ class _ApiService implements ApiService {
   @override
   Future<void> addProductToFavourite(
     AddOrDeleteFavBody addOrDeleteFavBody,
+  Future<ShippingAddressResponse> createShippingAddress(
+    ShippingAddressRequest shippingAddressRequest,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -505,6 +507,8 @@ class _ApiService implements ApiService {
     final _data = <String, dynamic>{};
     _data.addAll(addOrDeleteFavBody.toJson());
     final _options = _setStreamType<void>(
+    _data.addAll(shippingAddressRequest.toJson());
+    final _options = _setStreamType<ShippingAddressResponse>(
       Options(
         method: 'POST',
         headers: _headers,
@@ -514,6 +518,7 @@ class _ApiService implements ApiService {
           .compose(
             _dio.options,
             'Favourit/Create',
+            'ShippingAddress/Create',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -521,7 +526,6 @@ class _ApiService implements ApiService {
     );
     await _dio.fetch<void>(_options);
   }
-
   @override
   Future<void> deleteProductFromFavourite(
     AddOrDeleteFavBody addOrDeleteFavBody,
@@ -548,9 +552,16 @@ class _ApiService implements ApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ShippingAddressResponse _value;
+      _value = ShippingAddressResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
-  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
             requestOptions.responseType == ResponseType.stream)) {

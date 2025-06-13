@@ -34,7 +34,9 @@ import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
-import 'package:holo_cart/features/profile/ui/views/address/address_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/address_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/edit_adresses_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/payment_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/update_information_user/update_user_profile.dart';
@@ -45,22 +47,20 @@ import 'package:holo_cart/main.dart';
 
 final router = GoRouter(
   initialLocation: AppRoutes.mainAuth,
+  redirect: (context, state) {
+    if (!isLogedInUser) {
+      if (state.matchedLocation != AppRoutes.splash) {
+        return AppRoutes.splash;
+      }
+    } else {
+      if (state.matchedLocation == AppRoutes.splash ||
+          state.matchedLocation == AppRoutes.login) {
+        return AppRoutes.main;
+      }
+    }
 
-//  redirect: (context, state) {
-//     if (!isLogedInUser) {
-//       if (state.matchedLocation != AppRoutes.splash) {
-//         return AppRoutes.splash;
-//       }
-//     } else {
-
-//       if (state.matchedLocation == AppRoutes.splash || state.matchedLocation == AppRoutes.login) {
-//         return AppRoutes.main;
-//       }
-
-//     }
-
-//     return null; // سماح بالوصول
-//   },
+    return null; // سماح بالوصول
+  },
   routes: [
     // Splash Route
     GoRoute(
@@ -87,7 +87,7 @@ final router = GoRouter(
         );
       },
     ),
-    // Login Route
+
     GoRoute(
       path: AppRoutes.login,
       builder: (context, state) => BlocProvider(
@@ -277,6 +277,15 @@ final router = GoRouter(
         return BlocProvider(
           create: (_) => getIt<UpdateProfileCubit>()..loadInitialData(user),
           child: const UpdateUserProfile(),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.addNewAddress,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => getIt<ShippingAddressCubit>(),
+          child: const EditAddressScreen(),
         );
       },
     ),
