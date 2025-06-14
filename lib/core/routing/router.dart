@@ -369,7 +369,7 @@ final router = GoRouter(
         );
       },
     ),
-    GoRoute(
+   GoRoute(
       path: AppRoutes.address,
       builder: (context, state) => BlocProvider(
         create: (context) =>
@@ -399,6 +399,8 @@ final router = GoRouter(
     );
   },
 ),
+
+
 
 
 
