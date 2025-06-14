@@ -64,7 +64,7 @@ final router = GoRouter(
   //       AppRoutes.verificationCode,
   //       AppRoutes.resetPassword,
   //     ];
-      
+
   //     if (!allowedPaths.contains(state.matchedLocation)) {
   //       return AppRoutes.splash; // Redirect to splash if trying to access protected routes
   //     }
@@ -76,7 +76,7 @@ final router = GoRouter(
   //       AppRoutes.signUp,
   //       AppRoutes.mainAuth,
   //     ];
-      
+
   //     if (authPaths.contains(state.matchedLocation)) {
   //       return AppRoutes.main; // Redirect to main screen if trying to access auth screens
   //     }
@@ -131,11 +131,11 @@ final router = GoRouter(
       ),
     ),
     // Home Route
-    
+
     GoRoute(
-      path: AppRoutes.main,
-      builder: (context, state) {
-        
+        path: AppRoutes.main,
+        builder: (context, state) {
+          // final userId = state.extra as int;
 
           return MultiBlocProvider(
             providers: [
@@ -301,7 +301,7 @@ final router = GoRouter(
         );
       },
     ),
-   GoRoute(
+    GoRoute(
       path: AppRoutes.address,
       builder: (context, state) => BlocProvider(
         create: (context) =>
@@ -309,32 +309,32 @@ final router = GoRouter(
         child: AddressScreen(),
       ),
     ),
-   GoRoute(
-  path: AppRoutes.addNewAddress,
-  builder: (context, state) {
-    final extra = state.extra as Map<String, dynamic>?;
+    GoRoute(
+      path: AppRoutes.addNewAddress,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
 
-    final isEdit = extra?['isEdit'] as bool? ?? false;
-    final content = extra?['content'] as ShippingAddressContentModel?;
-    final getCubit = extra?['getCubit'] as GetShippingAddressCubit;
+        final isEdit = extra?['isEdit'] as bool? ?? false;
+        final content = extra?['content'] as ShippingAddressContentModel?;
+        final getCubit = extra?['getCubit'] as GetShippingAddressCubit;
 
-    return MultiBlocProvider(
-      providers: [
-        // كيوبت التعديل/إنشاء
-        BlocProvider(
-          create: (_) => getIt<ShippingAddressCubit>()..loadInitialData(content),
-        ),
-        // كيوبت الجلب (عشان الـ BlocListener يلاقيه)
-        BlocProvider.value(value: getCubit),
-      ],
-      child: EditAndCreateAddressScreen(isEdit: isEdit, content: content, getCubit: getCubit),
-    );
-  },
-),
-
-
-
-
-
+        return MultiBlocProvider(
+          providers: [
+            // كيوبت التعديل/إنشاء
+            BlocProvider(
+              create: (_) =>
+                  getIt<ShippingAddressCubit>()..loadInitialData(content),
+            ),
+            // كيوبت الجلب (عشان الـ BlocListener يلاقيه)
+            BlocProvider.value(value: getCubit),
+            BlocProvider(
+              create: (context) => getIt<UserProfileCubit>()..getUserProfile(),
+            )
+          ],
+          child: EditAndCreateAddressScreen(
+              isEdit: isEdit, content: content, getCubit: getCubit),
+        );
+      },
+    ),
   ],
 );
