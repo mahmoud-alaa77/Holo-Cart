@@ -112,7 +112,7 @@ final router = GoRouter(
     GoRoute(
         path: AppRoutes.main,
         builder: (context, state) {
-          final userId = state.extra as int;
+          // final userId = state.extra as int;
 
           return MultiBlocProvider(
             providers: [
