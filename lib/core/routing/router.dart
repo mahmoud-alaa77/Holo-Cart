@@ -44,6 +44,7 @@ import 'package:holo_cart/features/profile/ui/views/update_information_user/upda
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
+import 'package:holo_cart/main.dart';
 
 import '../../features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 
@@ -215,76 +216,7 @@ final router = GoRouter(
     //   path: AppRoutes.cartScreen,
     //   builder: (context, state) => const CartScreen(),
     // ),
-    GoRoute(
-      path: AppRoutes.emptycartScreen,
-      builder: (context, state) => CartScreenBody(),
-    ),
-    GoRoute(
-      path: AppRoutes.checkout,
-      builder: (context, state) => const CheckoutScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.address,
-      builder: (context, state) => const AddressScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.proccessingOrder,
-      builder: (context, state) => const ProccessingOrderScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.done,
-      builder: (context, state) => const DoneScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.forgetPassword,
-      builder: (context, state) => BlocProvider(
-        create: (context) => getIt<ForgetPasswordCubit>(),
-        child: const ForgetPasswordScreen(),
-      ),
-    ),
-    GoRoute(
-      path: AppRoutes.profilePayment,
-      builder: (context, state) => const PaymentScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.verificationCode,
-      builder: (context, state) {
-        final email = state.extra as String;
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
-            BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
-          ],
-          child: VerificationCodeScreen(email: email),
-        );
-      },
-    ),
-
-    GoRoute(
-        path: AppRoutes.resetPassword,
-        builder: (context, state) {
-          // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
-          final email = (state.extra as String?) ?? "";
-
-          return MultiBlocProvider(providers: [
-            BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
-          ], child: ResetPasswordScreen(email: email));
-        }),
-
-    GoRoute(
-      path: AppRoutes.cardNumber,
-      builder: (context, state) {
-        final controllers = (state.extra is List<TextEditingController>)
-            ? state.extra as List<TextEditingController>
-            : <TextEditingController>[];
-
-        return AddCardScreen(controller: controllers);
-      },
-    ),
-    // GoRoute(
-    //   path: AppRoutes.cartScreen,
-    //   builder: (context, state) => const CartScreen(),
-    // ),
+    
     GoRoute(
       path: AppRoutes.emptycartScreen,
       builder: (context, state) => CartScreenBody(),

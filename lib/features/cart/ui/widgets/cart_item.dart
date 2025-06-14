@@ -49,7 +49,7 @@ class _CartItemState extends State<CartItem> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-      height: 100.h,
+      height: 110.h,
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 5.h),
       decoration: BoxDecoration(

@@ -27,7 +27,7 @@ class SimilarTOListView extends StatelessWidget {
             if (state is GetProductsInCategorySuccess) {
               return SizedBox(
                 width: double.infinity,
-                height: 220.h,
+                height: 230.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => SimilarToCartItem(
