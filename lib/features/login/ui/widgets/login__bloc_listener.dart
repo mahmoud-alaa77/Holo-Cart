@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
@@ -27,7 +28,7 @@ class LoginBlocListner extends StatelessWidget {
           );
         } else if (state is LoginSuccess) {
           context.pop();
-          context.go('/main');
+          context.go(AppRoutes.main);
         } else if (state is LoginFailure) {
           context.pop();
           setupErrorState(context, state.errorMessage);

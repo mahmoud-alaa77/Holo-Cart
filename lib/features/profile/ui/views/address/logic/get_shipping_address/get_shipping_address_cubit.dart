@@ -12,7 +12,7 @@ class GetShippingAddressCubit extends Cubit<GetShippingAddressState> {
   GetShippingAddressCubit(this.getShippingAddressRepo) : super(GetShippingAddressInitial());
 
   Future<void> fetchShippingAddress() async {
-    final userId = await SharedPrefHelper.getInt(SharedPrefKeys.userId);
+    final userId = (await SharedPrefHelper.getInt(SharedPrefKeys.userId)).toString();
     emit(GetShippingAddressLoading());
     final result = await getShippingAddressRepo.getShippingAddress(userId);
     result.fold(

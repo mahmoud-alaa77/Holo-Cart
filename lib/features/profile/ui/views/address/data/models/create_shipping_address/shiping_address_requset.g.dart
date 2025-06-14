@@ -9,6 +9,7 @@ part of 'shiping_address_requset.dart';
 ShippingAddressRequest _$ShippingAddressRequestFromJson(
         Map<String, dynamic> json) =>
     ShippingAddressRequest(
+      id: (json['id'] as num?)?.toInt(),
       userId: (json['userId'] as num).toInt(),
       addressLine1: json['addressLine1'] as String,
       addressLine2: json['addressLine2'] as String,
@@ -21,6 +22,7 @@ ShippingAddressRequest _$ShippingAddressRequestFromJson(
 Map<String, dynamic> _$ShippingAddressRequestToJson(
         ShippingAddressRequest instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'userId': instance.userId,
       'addressLine1': instance.addressLine1,
       'addressLine2': instance.addressLine2,

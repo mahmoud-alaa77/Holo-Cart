@@ -4,7 +4,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String mainAuth = '/main_auth';
   static const String signUp = '/sign_up';
-  static const String main = '/khg';
+  static const String main = '/main';
   
   static const String productDetails = '/product_details';
   static const String profilePayment = '/profile_payment';

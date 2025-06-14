@@ -45,22 +45,44 @@ import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
 import 'package:holo_cart/main.dart';
 
-final router = GoRouter(
-  initialLocation: AppRoutes.mainAuth,
-  redirect: (context, state) {
-    if (!isLogedInUser) {
-      if (state.matchedLocation != AppRoutes.splash) {
-        return AppRoutes.splash;
-      }
-    } else {
-      if (state.matchedLocation == AppRoutes.splash ||
-          state.matchedLocation == AppRoutes.login) {
-        return AppRoutes.main;
-      }
-    }
+import '../../features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 
-    return null; // سماح بالوصول
-  },
+final router = GoRouter(
+  initialLocation: AppRoutes.splash, // Always start from splash
+  // redirect: (context, state) {
+  //   // If user is not logged in
+  //   if (!isLogedInUser) {
+  //     // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
+  //     final allowedPaths = [
+  //       AppRoutes.splash,
+  //       AppRoutes.onBoarding,
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //       AppRoutes.mainAuth,
+  //       AppRoutes.forgetPassword,
+  //       AppRoutes.verificationCode,
+  //       AppRoutes.resetPassword,
+  //     ];
+      
+  //     if (!allowedPaths.contains(state.matchedLocation)) {
+  //       return AppRoutes.splash; // Redirect to splash if trying to access protected routes
+  //     }
+  //   } else {
+  //     // If user is logged in, redirect from auth screens to main screen
+  //     final authPaths = [
+  //       AppRoutes.splash,
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //       AppRoutes.mainAuth,
+  //     ];
+      
+  //     if (authPaths.contains(state.matchedLocation)) {
+  //       return AppRoutes.main; // Redirect to main screen if trying to access auth screens
+  //     }
+  //   }
+
+  //   return null; // Allow access to the requested route
+  // },
   routes: [
     // Splash Route
     GoRoute(
@@ -185,13 +207,7 @@ final router = GoRouter(
       path: AppRoutes.checkout,
       builder: (context, state) => const CheckoutScreen(),
     ),
-    GoRoute(
-      path: AppRoutes.address,
-      builder: (context, state) => BlocProvider(
-        create: (context) => getIt<GetShippingAddressCubit>(),
-        child: const AddressScreen(),
-      ),
-    ),
+
     GoRoute(
       path: AppRoutes.proccessingOrder,
       builder: (context, state) => const ProccessingOrderScreen(),
@@ -268,13 +284,37 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: AppRoutes.addNewAddress,
-      builder: (context, state) {
-        return BlocProvider(
-          create: (context) => getIt<ShippingAddressCubit>(),
-          child: const EditAddressScreen(),
-        );
-      },
+      path: AppRoutes.address,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            getIt<GetShippingAddressCubit>()..fetchShippingAddress(),
+        child: AddressScreen(),
+      ),
     ),
+   GoRoute(
+  path: AppRoutes.addNewAddress,
+  builder: (context, state) {
+    final extra = state.extra as Map<String, dynamic>?;
+
+    final isEdit = extra?['isEdit'] as bool? ?? false;
+    final content = extra?['content'] as ShippingAddressContentModel?;
+    final getCubit = extra?['getCubit'] as GetShippingAddressCubit;
+
+    return MultiBlocProvider(
+      providers: [
+        // كيوبت التعديل/إنشاء
+        BlocProvider(
+          create: (_) => getIt<ShippingAddressCubit>()..loadInitialData(content),
+        ),
+        // كيوبت الجلب (عشان الـ BlocListener يلاقيه)
+        BlocProvider.value(value: getCubit),
+      ],
+      child: EditAndCreateAddressScreen(isEdit: isEdit, content: content, getCubit: getCubit),
+    );
+  },
+),
+
+
+
   ],
 );
