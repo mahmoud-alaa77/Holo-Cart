@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/widgets/auth_textfield.dart';
-import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
 
 class AddressTextFields extends StatelessWidget {
   const AddressTextFields({

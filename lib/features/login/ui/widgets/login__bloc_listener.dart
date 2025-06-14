@@ -29,7 +29,7 @@ class LoginBlocListner extends StatelessWidget {
         } else if (state is LoginSuccess) {
           context.pop();
           context.go(AppRoutes.main,
-              extra: BlocProvider.of<LoginCubit>(context).currentUserId ?? 4);
+              extra: BlocProvider.of<LoginCubit>(context).currentUserId ?? 1);
         } else if (state is LoginFailure) {
           context.pop();
           setupErrorState(context, state.errorMessage);

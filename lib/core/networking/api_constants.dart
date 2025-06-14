@@ -32,4 +32,11 @@ class ApiConstants {
   static const String addFavouriteItem = "Favourit/Create";
   static const String deleteFavouriteItem = "Favourit/Delete";
   static const String createShippingAddress = "ShippingAddress/Create";
+  static const String getShippingAddresses = "ShippingAddress/User/{id}";
+  static const String updateShippingAddress = "ShippingAddress/Update";
+
+
+
+  
+
 }
