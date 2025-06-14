@@ -27,37 +27,37 @@ class EditProfileContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Row(
+  children: [
+    Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(user.fullName, style: AppTextStyles.font18W600),
-              verticalSpace(3),
-              Text(user.email, style: AppTextStyles.font16W500),
-              verticalSpace(3),
-              Text(user.phoneNumber, style: AppTextStyles.font16W500),
-            ],
-          ),
-          const Spacer(),
-          TextButton(
-  onPressed: () {
-    GoRouter.of(context)
-        .push(AppRoutes.updateUserProfile, extra: user)
-        .then((_) {
-          // Trigger refresh when returning back
-          context.read<UserProfileCubit>().getUserProfile();
-        });
-  },
-  child: Text(
-    "Edit",
-    style: AppTextStyles.font16W500.copyWith(
-      color: AppColors.customRedColor,
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-)
+          Text(user.fullName, style: AppTextStyles.font18W600, overflow: TextOverflow.ellipsis),
+          verticalSpace(3),
+          Text(user.email, style: AppTextStyles.font16W500, overflow: TextOverflow.ellipsis),
+          verticalSpace(3),
+          Text(user.phoneNumber, style: AppTextStyles.font16W500, overflow: TextOverflow.ellipsis),
         ],
       ),
+    ),
+    TextButton(
+      onPressed: () {
+        GoRouter.of(context)
+            .push(AppRoutes.updateUserProfile, extra: user)
+            .then((_) {
+              context.read<UserProfileCubit>().getUserProfile();
+            });
+      },
+      child: Text(
+        "Edit",
+        style: AppTextStyles.font16W500.copyWith(
+          color: AppColors.customRedColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    )
+  ],
+),
     );
   }
 }

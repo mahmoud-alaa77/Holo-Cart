@@ -10,7 +10,6 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/features/login/data/models/login_request_body.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
-import 'package:holo_cart/features/login/ui/widgets/back_item.dart';
 import 'package:holo_cart/features/login/ui/widgets/email_and_password.dart';
 import 'package:holo_cart/features/login/ui/widgets/login__bloc_listener.dart';
 import 'package:holo_cart/core/widgets/auth_backround.dart';

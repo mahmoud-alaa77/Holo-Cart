@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
-import 'package:holo_cart/features/profile/ui/views/address/ui/edit_adresses_screen.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/get_shipping_address_bloc_builder.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/shipping_address_list_view.dart';
 
+import '../logic/get_shipping_address/get_shipping_address_cubit.dart';
 
-
-class AddressScreen extends StatefulWidget {
-  const AddressScreen({super.key});
-
-  @override
-  _AddressScreenState createState() => _AddressScreenState();
-}
-
-class _AddressScreenState extends State<AddressScreen> {
-  final List<TextEditingController> addressControllers = [
-    TextEditingController(text: '2715 Ash Dr. San Jose, South...'),
-    TextEditingController(text: '2715 Ash Dr. San Jose, South...'),
-  ];
+class AddressScreen extends StatelessWidget {
+  const AddressScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,68 +35,37 @@ class _AddressScreenState extends State<AddressScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: addressControllers.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: addressControllers[index],
-                            decoration:const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditAddressScreen(
-                                    ),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Edit',
-                            style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            
-            ButtonItem(
-              text: 'ADD NEW ADDRESS',
-              onPressed: () {
-                GoRouter.of(context).push(AppRoutes.addNewAddress);
-              },
-              color: AppColors.primaryOrangeColor,
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const ShippingAddressListView(),
+              const GetShippingAddressBlocBuilder(),
+              verticalSpace(16.0),
+            ],
+          ),
         ),
       ),
+     bottomNavigationBar: Padding(
+  padding: const EdgeInsets.all(16.0),
+  child: ButtonItem(
+    text: 'ADD NEW ADDRESS',
+    onPressed: () async {
+      final shouldRefresh = await GoRouter.of(context).push<bool>(
+        AppRoutes.addNewAddress,
+        extra: {
+          'content': null,
+          'isEdit': false,
+          'getCubit': context.read<GetShippingAddressCubit>(),
+        },
+      );
+
+      if (shouldRefresh == true) {
+        context.read<GetShippingAddressCubit>().fetchShippingAddress(); // 🔁
+      }
+    },
+    color: AppColors.primaryOrangeColor,
+  ),
+),
     );
   }
 }
-
-

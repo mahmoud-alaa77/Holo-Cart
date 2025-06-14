@@ -26,6 +26,8 @@ class ProfileBlocBuilder extends StatelessWidget {
           );
         } else if (state is UserprofileError) {
           return Text("خطأ: ${state.error}");
+        } else if (state is UserProfileGuestState) {
+          return const Text("تسجيل الدخول كزائر");
         } else {
           return const SizedBox.shrink();
         }
