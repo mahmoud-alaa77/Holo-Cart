@@ -15,3 +15,4 @@ final class GetShippingAddressError extends GetShippingAddressState {
 
   GetShippingAddressError(this.errorMessage);
 }
+

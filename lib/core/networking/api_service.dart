@@ -101,7 +101,12 @@ abstract class ApiService {
   Future<ShippingAddressResponse> createShippingAddress(
       @Body() ShippingAddressRequest shippingAddressRequest);
   // get shipping address by id
-  @GET(ApiConstants.getShippingAddress)
+  @GET(ApiConstants.getShippingAddresses)
   Future<GetAddressResponseModel> getShippingAddress(@Path("id") String id);
-
+  @PUT(ApiConstants.updateShippingAddress) 
+  @Headers({
+    'Content-Type': 'application/json',
+  })// حط الـ path المناسب
+  Future<ShippingAddressResponse> updateShippingAddress(
+      @Body() ShippingAddressRequest request);
 }
