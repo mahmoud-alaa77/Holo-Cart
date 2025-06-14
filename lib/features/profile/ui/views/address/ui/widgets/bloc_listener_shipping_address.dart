@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holo_cart/core/themes/app_text_styles.dart';
-import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
+import 'package:holo_cart/features/forget_password/ui/widgets/bloc_listener_forget_password.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
+
+import '../../logic/get_shipping_address/get_shipping_address_cubit.dart';
 
 class BlocListenerShippingAddress extends StatelessWidget {
   const BlocListenerShippingAddress({super.key});
@@ -13,62 +13,40 @@ class BlocListenerShippingAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ShippingAddressCubit, ShippingAddressState>(
       listenWhen: (previous, current) =>
-          current is ShippingAddressSuccess || current is ShippingAddressLoading   || current is ShippingAddressFailure,
+          current is ShippingAddressSuccess ||
+          current is ShippingAddressLoading ||
+          current is ShippingAddressFailure,
       listener: (context, state) {
         if (state is ShippingAddressLoading) {
           showDialog(
-              context: context,
-              builder: (context) =>  Center(
-                child:Image.asset(
-                  'assets/images/loading.gif',
-                  width: 50,
-                  height: 50,)
+            context: context,
+            builder: (context) => Center(
+              child: Image.asset(
+                'assets/images/loading.gif',
+                width: 50,
+                height: 50,
               ),
-            );
+            ),
+          );
         } else if (state is ShippingAddressSuccess) {
-          context.pop();
+          // هنا ينجح الحفظ، يتم تحديث الصفحة الرئيسية
+          context.read<GetShippingAddressCubit>().fetchShippingAddress();
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Address added successfully!'),
+              content: Text('Address saved successfully!'),
               backgroundColor: Colors.green,
             ),
           );
-        } else if (state is ShippingAddressFailure) {
+
+          // ويتم إغلاق الصفحة الحالية
           context.pop();
-          
-          log('Error khaled: ${state.error}');
+        } else if (state is ShippingAddressFailure) {
+          Navigator.pop(context); // اغلق اللودينج
           setupErrorState(context, state.error);
         }
       },
       child: const SizedBox.shrink(),
     );
   }
-}
-void setupErrorState(BuildContext context,  String errorMessage) {
-  
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      icon: const Icon(
-        Icons.error,
-        color: Colors.red,
-        size: 32,
-      ),
-      content: Text(
-        errorMessage,
-        style: AppTextStyles.font15W500
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            context.pop();
-          },
-          child: Text(
-            'Got it',
-            style: AppTextStyles.font14W600,
-          ),
-        ),
-      ],
-    ),
-  );
 }

@@ -12,6 +12,11 @@ class UserProfileCubit extends Cubit<UserprofileState> {
 
   UserProfileCubit(this.profileRepo) : super(UserprofileInitial());
   Future<void> getUserProfile() async {
+    String token = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
+     if (token.isEmpty) {
+    emit(UserProfileGuestState()); // لا تجلب بيانات
+    return;
+  }
     emit(UserprofileLoading());
 
     try {

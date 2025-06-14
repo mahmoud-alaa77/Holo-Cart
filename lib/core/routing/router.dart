@@ -34,7 +34,8 @@ import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
-import 'package:holo_cart/features/profile/ui/views/address/logic/cubit/shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/logic/get_shipping_address/get_shipping_address_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/address/ui/address_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/address/ui/edit_adresses_screen.dart';
 import 'package:holo_cart/features/profile/ui/views/payment/add_card_screen.dart';
@@ -43,24 +44,45 @@ import 'package:holo_cart/features/profile/ui/views/update_information_user/upda
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
-import 'package:holo_cart/main.dart';
+
+import '../../features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 
 final router = GoRouter(
-  initialLocation: AppRoutes.mainAuth,
-  redirect: (context, state) {
-    if (!isLogedInUser) {
-      if (state.matchedLocation != AppRoutes.splash) {
-        return AppRoutes.splash;
-      }
-    } else {
-      if (state.matchedLocation == AppRoutes.splash ||
-          state.matchedLocation == AppRoutes.login) {
-        return AppRoutes.main;
-      }
-    }
+  initialLocation: AppRoutes.splash, // Always start from splash
+  // redirect: (context, state) {
+  //   // If user is not logged in
+  //   if (!isLogedInUser) {
+  //     // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
+  //     final allowedPaths = [
+  //       AppRoutes.splash,
+  //       AppRoutes.onBoarding,
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //       AppRoutes.mainAuth,
+  //       AppRoutes.forgetPassword,
+  //       AppRoutes.verificationCode,
+  //       AppRoutes.resetPassword,
+  //     ];
+      
+  //     if (!allowedPaths.contains(state.matchedLocation)) {
+  //       return AppRoutes.splash; // Redirect to splash if trying to access protected routes
+  //     }
+  //   } else {
+  //     // If user is logged in, redirect from auth screens to main screen
+  //     final authPaths = [
+  //       AppRoutes.splash,
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //       AppRoutes.mainAuth,
+  //     ];
+      
+  //     if (authPaths.contains(state.matchedLocation)) {
+  //       return AppRoutes.main; // Redirect to main screen if trying to access auth screens
+  //     }
+  //   }
 
-    return null; // سماح بالوصول
-  },
+  //   return null; // Allow access to the requested route
+  // },
   routes: [
     // Splash Route
     GoRoute(
@@ -87,7 +109,6 @@ final router = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: AppRoutes.login,
       builder: (context, state) => BlocProvider(
@@ -109,10 +130,11 @@ final router = GoRouter(
       ),
     ),
     // Home Route
+    
     GoRoute(
-        path: AppRoutes.main,
-        builder: (context, state) {
-          final userId = state.extra as int;
+      path: AppRoutes.main,
+      builder: (context, state) {
+        
 
           return MultiBlocProvider(
             providers: [
@@ -250,6 +272,73 @@ final router = GoRouter(
         }),
 
     GoRoute(
+      path: AppRoutes.cardNumber,
+      builder: (context, state) {
+        final controllers = (state.extra is List<TextEditingController>)
+            ? state.extra as List<TextEditingController>
+            : <TextEditingController>[];
+
+        return AddCardScreen(controller: controllers);
+      },
+    ),
+    // GoRoute(
+    //   path: AppRoutes.cartScreen,
+    //   builder: (context, state) => const CartScreen(),
+    // ),
+    GoRoute(
+      path: AppRoutes.emptycartScreen,
+      builder: (context, state) => CartScreenBody(),
+    ),
+    GoRoute(
+      path: AppRoutes.checkout,
+      builder: (context, state) => const CheckoutScreen(),
+    ),
+
+    GoRoute(
+      path: AppRoutes.proccessingOrder,
+      builder: (context, state) => const ProccessingOrderScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.done,
+      builder: (context, state) => const DoneScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.forgetPassword,
+      builder: (context, state) => BlocProvider(
+        create: (context) => getIt<ForgetPasswordCubit>(),
+        child: const ForgetPasswordScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.profilePayment,
+      builder: (context, state) => const PaymentScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.verificationCode,
+      builder: (context, state) {
+        final email = state.extra as String;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => getIt<ForgetPasswordCubit>()),
+            BlocProvider(create: (_) => getIt<VerificationCodeCubit>()),
+          ],
+          child: VerificationCodeScreen(email: email),
+        );
+      },
+    ),
+
+    GoRoute(
+        path: AppRoutes.resetPassword,
+        builder: (context, state) {
+          // استخدام ؟؟ للتحقق من وجود قيمة وتوفير قيمة افتراضية
+          final email = (state.extra as String?) ?? "";
+
+          return MultiBlocProvider(providers: [
+            BlocProvider(create: (_) => getIt<ResetPasswordCubit>()),
+          ], child: ResetPasswordScreen(email: email));
+        }),
+
+    GoRoute(
         path: AppRoutes.allProductsInCategory,
         builder: (context, state) {
           final List<dynamic> idAndName = state.extra as List<dynamic>;
@@ -281,13 +370,37 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: AppRoutes.addNewAddress,
-      builder: (context, state) {
-        return BlocProvider(
-          create: (context) => getIt<ShippingAddressCubit>(),
-          child: const EditAddressScreen(),
-        );
-      },
+      path: AppRoutes.address,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            getIt<GetShippingAddressCubit>()..fetchShippingAddress(),
+        child: AddressScreen(),
+      ),
     ),
+   GoRoute(
+  path: AppRoutes.addNewAddress,
+  builder: (context, state) {
+    final extra = state.extra as Map<String, dynamic>?;
+
+    final isEdit = extra?['isEdit'] as bool? ?? false;
+    final content = extra?['content'] as ShippingAddressContentModel?;
+    final getCubit = extra?['getCubit'] as GetShippingAddressCubit;
+
+    return MultiBlocProvider(
+      providers: [
+        // كيوبت التعديل/إنشاء
+        BlocProvider(
+          create: (_) => getIt<ShippingAddressCubit>()..loadInitialData(content),
+        ),
+        // كيوبت الجلب (عشان الـ BlocListener يلاقيه)
+        BlocProvider.value(value: getCubit),
+      ],
+      child: EditAndCreateAddressScreen(isEdit: isEdit, content: content, getCubit: getCubit),
+    );
+  },
+),
+
+
+
   ],
 );

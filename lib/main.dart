@@ -16,6 +16,7 @@ void main() async {
 
   Bloc.observer = SimpleBlocObserver();
   await checkUserLogin();
+  
 
   runApp(const MyApp());
 }
