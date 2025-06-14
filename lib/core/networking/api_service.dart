@@ -8,8 +8,9 @@ import 'package:holo_cart/features/product_details/data/models/get_product_color
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:holo_cart/features/profile/data/model/update_profile_model/update_profile_response_model.dart';
-import 'package:holo_cart/features/profile/ui/views/address/data/models/shiping_address_requset.dart';
-import 'package:holo_cart/features/profile/ui/views/address/data/models/shipping_address_response.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/create_shipping_address/shiping_address_requset.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/create_shipping_address/shipping_address_response.dart';
+import 'package:holo_cart/features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 import 'package:holo_cart/features/sign_up/data/model/api_response.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:holo_cart/core/networking/api_constants.dart';
@@ -37,7 +38,7 @@ abstract class ApiService {
   );
 
   @POST(ApiConstants.signUp)
-  @Headers({
+  @Headers(const {
     'Content-Type': 'application/json',
   })
   Future<ApiResponse> signUp(@Body() SignUpRequestBody signUpRequestBody);
@@ -120,4 +121,13 @@ abstract class ApiService {
   })
   Future<ShippingAddressResponse> createShippingAddress(
       @Body() ShippingAddressRequest shippingAddressRequest);
+  // get shipping address by id
+  @GET(ApiConstants.getShippingAddresses)
+  Future<GetAddressResponseModel> getShippingAddress(@Path("id") String id);
+  @PUT(ApiConstants.updateShippingAddress) 
+  @Headers({
+    'Content-Type': 'application/json',
+  })// حط الـ path المناسب
+  Future<ShippingAddressResponse> updateShippingAddress(
+      @Body() ShippingAddressRequest request);
 }

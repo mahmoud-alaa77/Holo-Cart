@@ -15,11 +15,3 @@ ShippingAddressResponse _$ShippingAddressResponseFromJson(
       statusCode: (json['statusCode'] as num).toInt(),
     );
 
-Map<String, dynamic> _$ShippingAddressResponseToJson(
-        ShippingAddressResponse instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'succeeded': instance.status,
-      'statusCode': instance.statusCode,
-      'error': instance.error,
-    };

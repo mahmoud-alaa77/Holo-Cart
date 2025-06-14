@@ -3,7 +3,8 @@ part 'shiping_address_requset.g.dart';
 
 @JsonSerializable()
 class ShippingAddressRequest {
-  
+
+  final int? id;
   final int userId;
   final String addressLine1;
   final String addressLine2;
@@ -13,6 +14,7 @@ class ShippingAddressRequest {
   final String zipCode;
 
   ShippingAddressRequest({
+    this.id,
     required this.userId,
     required this.addressLine1,
     required this.addressLine2,

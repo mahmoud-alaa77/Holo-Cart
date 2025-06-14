@@ -21,6 +21,13 @@ class SharedPrefHelper {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.clear();
   }
+  /// Sets a boolean value in SharedPreferences.
+static Future<void> setBool(String key, bool value) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  await sharedPreferences.setBool(key, value);
+  debugPrint('SharedPrefHelper : setBool key: $key = $value');
+}
+
 
   /// Saves a [value] with a [key] in the SharedPreferences.
   static saveDataByKey(String key, dynamic value) async {
@@ -86,4 +93,8 @@ class SharedPrefHelper {
     debugPrint('FlutterSecureStorage : getSecuredString with key :');
     return await flutterSecureStorage.read(key: key) ?? '';
   }
+  static Future<void> removeSecuredString(String key) async {
+  final storage = FlutterSecureStorage();
+  await storage.delete(key: key);
+}
 }
