@@ -10,7 +10,6 @@ import 'package:holo_cart/features/favourites/logic/cubit/favourite_cubit.dart';
 import 'package:holo_cart/features/favourites/ui/favourite_screen_body.dart';
 import 'package:holo_cart/features/home/logic/get_all_products/get_all_products_cubit.dart';
 import 'package:holo_cart/features/home/ui/home_screen_body.dart';
-import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/profile_screen_body.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
