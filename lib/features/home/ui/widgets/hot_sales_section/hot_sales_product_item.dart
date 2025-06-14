@@ -39,7 +39,7 @@ class HotSalesProductItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
         ),
         width: MediaQuery.sizeOf(context).width / 2.3,
-        height: 250.h,
+        height: 260.h,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

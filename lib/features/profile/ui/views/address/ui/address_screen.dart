@@ -60,7 +60,7 @@ class AddressScreen extends StatelessWidget {
       );
 
       if (shouldRefresh == true) {
-        context.read<GetShippingAddressCubit>().fetchShippingAddress(); // 🔁
+        context.read<GetShippingAddressCubit>().fetchShippingAddress(); 
       }
     },
     color: AppColors.primaryOrangeColor,
