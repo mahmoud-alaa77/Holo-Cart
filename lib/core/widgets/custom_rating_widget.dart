@@ -20,7 +20,7 @@ class CustomRatingWidget extends StatelessWidget {
         AnimatedRatingBar(
           activeFillColor: AppColors.customYellowColor,
           strokeColor: AppColors.customYellowColor,
-          initialRating: 4,
+          initialRating: numberOfRatings.toDouble(),
           width: 80.w,
           height: 20.h,
           // width: MediaQuery.of(context).size.width,

@@ -31,12 +31,13 @@ class ApiConstants {
   static const String getFavouriteItems = "Favourit/user/{id}";
   static const String addFavouriteItem = "Favourit/Create";
   static const String deleteFavouriteItem = "Favourit/Delete";
+
+  // shipping
   static const String createShippingAddress = "ShippingAddress/Create";
   static const String getShippingAddresses = "ShippingAddress/User/{id}";
   static const String updateShippingAddress = "ShippingAddress/Update";
 
-
-
-  
-
+//search
+  static const String search =
+      "Product/Paginated?ApplicationUserId={userId}&SearchBy={searchTerm}";
 }

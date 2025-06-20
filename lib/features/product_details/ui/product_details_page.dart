@@ -18,6 +18,7 @@ import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/3d_view.dart';
 import 'package:holo_cart/features/product_details/ui/widgets/silimilar_to_list_view.dart';
+import 'package:lottie/lottie.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -61,6 +62,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     isFavorited = widget.product.isFavorite!;
   }
 
+  void showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => Lottie.asset("assets/images/succeess.json"),
+    );
+
+    // Automatically close after 1.5 seconds
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      Navigator.of(context).pop();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -85,7 +99,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ),
                   child: Column(
                     children: [
-                      verticalSpace(40),
+                      verticalSpace(10),
                       Padding(
                         padding: EdgeInsets.only(left: 8.w),
                         child: Row(
@@ -444,29 +458,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 );
 
                                 DBHelper().insertCartItem(cartItem.toMap());
-                                // showDialog(
-                                //   context: context,
-                                //   builder: (context) {
-                                //     return AlertDialog(
-                                //       icon: const Icon(
-                                //         Icons.check_circle,
-                                //         color: Colors.green,
-                                //         size: 32,
-                                //       ),
-                                //       content: const Text(
-                                //           "Added to cart successfully"),
-                                //       actions: [
-                                //         TextButton(
-                                //           onPressed: () {
-                                //             context.pop();
-                                //           },
-                                //           child: const Text("Got it"),
-                                //         ),
-                                //       ],
-                                //     );
-                                //   },
-                                // );
                               });
+                              showSuccessDialog(context);
                             },
                             text: "Add to cart",
                             radius: 30,

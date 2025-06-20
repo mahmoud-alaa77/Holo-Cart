@@ -7,7 +7,7 @@ import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/home/logic/get_products_by_discount/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_product_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_values_list.dart';
-import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/time_box_widget.dart';
+// import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/time_box_widget.dart';
 
 class HotSalesSection extends StatelessWidget {
   const HotSalesSection({super.key});
@@ -26,19 +26,19 @@ class HotSalesSection extends StatelessWidget {
                 style: AppTextStyles.font20W700,
               ),
               const Spacer(),
-              const Icon(Icons.timer_sharp),
-              horizontalSpace(8),
-              const TimeBoxWidget(
-                contentTime: "05",
-              ),
-              horizontalSpace(4),
-              const TimeBoxWidget(
-                contentTime: "36",
-              ),
-              horizontalSpace(4),
-              const TimeBoxWidget(
-                contentTime: "00",
-              ),
+              // const Icon(Icons.timer_sharp),
+              // horizontalSpace(8),
+              // const TimeBoxWidget(
+              //   contentTime: "05",
+              // ),
+              // horizontalSpace(4),
+              // const TimeBoxWidget(
+              //   contentTime: "36",
+              // ),
+              // horizontalSpace(4),
+              // const TimeBoxWidget(
+              //   contentTime: "00",
+              // ),
             ],
           ),
         ),

@@ -29,6 +29,8 @@ import 'package:holo_cart/features/profile/ui/views/address/data/repo/create_shi
 import 'package:holo_cart/features/profile/ui/views/address/data/repo/get_shipping_address_repo.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/get_shipping_address/get_shipping_address_cubit.dart';
+import 'package:holo_cart/features/search/data/repo/search_repo.dart';
+import 'package:holo_cart/features/search/logic/cubit/seach_cubit.dart';
 import 'package:holo_cart/features/sign_up/data/repo/sign_up_repo.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
@@ -73,15 +75,13 @@ Future<void> setupGetIt() async {
   // Shipping Address
   getIt.registerLazySingleton<ShippingAddressRepo>(
       () => ShippingAddressRepo(getIt()));
-  getIt.registerFactory<ShippingAddressCubit>(() => ShippingAddressCubit(getIt()));
-    // get Shipping Address
-     getIt.registerLazySingleton<GetShippingAddressRepo>(
+  getIt.registerFactory<ShippingAddressCubit>(
+      () => ShippingAddressCubit(getIt()));
+  // get Shipping Address
+  getIt.registerLazySingleton<GetShippingAddressRepo>(
       () => GetShippingAddressRepo(getIt()));
-  getIt.registerFactory<GetShippingAddressCubit>(() => GetShippingAddressCubit(getIt()));
-
-
-
-
+  getIt.registerFactory<GetShippingAddressCubit>(
+      () => GetShippingAddressCubit(getIt()));
 
   //-------------- home ----------------
 // Home_categories
@@ -115,5 +115,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<FavouriteRepo>(() => FavouriteRepo(getIt()));
   getIt.registerFactory<FavouriteCubit>(() => FavouriteCubit(getIt()));
 
-
+//SEARCH
+  getIt.registerLazySingleton<SearchRepo>(() => SearchRepo(getIt()));
+  getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
@@ -13,6 +14,7 @@ import 'package:holo_cart/features/home/ui/widgets/category_circle_item.dart';
 import 'package:holo_cart/features/home/ui/widgets/custom_home_divider_container.dart';
 import 'package:holo_cart/features/home/ui/widgets/hot_sales_section/hot_sales_section.dart';
 import 'package:holo_cart/features/home/ui/widgets/offers_widgets.dart';
+import 'package:holo_cart/features/search/logic/cubit/seach_cubit.dart';
 import 'package:holo_cart/features/search/ui/search_screen.dart';
 import 'package:lottie/lottie.dart';
 
@@ -40,7 +42,10 @@ class HomeScreenBody extends StatelessWidget {
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return const SearchScreen();
+                            return BlocProvider(
+                              create: (context) => getIt<SearchCubit>(),
+                              child: const SearchScreen(),
+                            );
                           },
                         ));
                       },
@@ -99,14 +104,14 @@ class HomeScreenBody extends StatelessWidget {
                       style: AppTextStyles.font22W900,
                     ),
                     const Spacer(),
-                    TextButton(
-                      child: Text(
-                        "see all",
-                        style: AppTextStyles.font13W400
-                            .copyWith(color: AppColors.primaryOrangeColor),
-                      ),
-                      onPressed: () {},
-                    )
+                    // TextButton(
+                    //   child: Text(
+                    //     "see all",
+                    //     style: AppTextStyles.font13W400
+                    //         .copyWith(color: AppColors.primaryOrangeColor),
+                    //   ),
+                    //   onPressed: () {},
+                    // )
                   ],
                 ),
               ),
