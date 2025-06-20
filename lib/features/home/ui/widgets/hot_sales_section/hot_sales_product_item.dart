@@ -114,8 +114,8 @@ class HotSalesProductItem extends StatelessWidget {
               ],
             ),
             verticalSpace(6),
-            const CustomRatingWidget(
-              numberOfRatings: 120,
+            CustomRatingWidget(
+              numberOfRatings: product.reviews?.length.toInt() ?? 0,
             ),
           ],
         ),

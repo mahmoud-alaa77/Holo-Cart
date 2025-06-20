@@ -124,10 +124,14 @@ abstract class ApiService {
   // get shipping address by id
   @GET(ApiConstants.getShippingAddresses)
   Future<GetAddressResponseModel> getShippingAddress(@Path("id") String id);
-  @PUT(ApiConstants.updateShippingAddress) 
+  @PUT(ApiConstants.updateShippingAddress)
   @Headers({
     'Content-Type': 'application/json',
-  })// حط الـ path المناسب
+  }) // حط الـ path المناسب
   Future<ShippingAddressResponse> updateShippingAddress(
       @Body() ShippingAddressRequest request);
+
+  @GET(ApiConstants.search)
+  Future<GetAllProductsModel> search(
+      @Path("userId") int userId, @Path("searchTerm") String searchTerm);
 }
