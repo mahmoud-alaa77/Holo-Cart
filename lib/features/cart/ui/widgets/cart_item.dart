@@ -53,7 +53,9 @@ class _CartItemState extends State<CartItem> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 5.h),
       decoration: BoxDecoration(
-        color: AppColors.customLightColor,
+        color: Theme.of(context).brightness == Brightness.light
+            ? AppColors.customLightColor
+            : AppColors.customLightBlakColor,
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Row(
