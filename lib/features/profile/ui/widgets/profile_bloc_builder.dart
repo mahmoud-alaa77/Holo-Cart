@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/widgets/custom_loading_widget.dart';
 import 'package:holo_cart/features/profile/logic/get_profile/userprofile_cubit.dart';
 import 'package:holo_cart/features/profile/ui/widgets/edit_profile_container.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_image.dart';
@@ -11,10 +11,10 @@ class ProfileBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserProfileCubit , UserprofileState>(
+    return BlocBuilder<UserProfileCubit, UserprofileState>(
       builder: (context, state) {
         if (state is UserprofileLoading) {
-          return const CircularProgressIndicator();
+          return const CustomLoadingWidget();
         } else if (state is UserprofileLoaded) {
           final user = state.user;
           return Column(

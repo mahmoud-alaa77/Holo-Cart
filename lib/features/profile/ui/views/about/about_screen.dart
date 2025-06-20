@@ -26,8 +26,12 @@ class AboutScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              verticalSpace(24),
-              verticalSpace(16),
+              Align(
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    "assets/images/holo_logo.png",
+                    height: 120.h,
+                  )),
               Text(
                 aboutText,
                 style: AppTextStyles.font16W500
