@@ -53,13 +53,12 @@ class AuthItems extends StatelessWidget {
                     Shadow(
                       color: const Color.fromARGB(255, 8, 8, 8)
                           .withValues(alpha: 20),
-                      offset:const Offset(0, 0),
+                      offset: const Offset(0, 0),
                       blurRadius: 7,
                     ),
                   ],
                 ),
               ),
-              
               Text(
                 "Sign up and discover a great amount of new opportunities!",
                 textAlign: TextAlign.center,
@@ -67,14 +66,18 @@ class AuthItems extends StatelessWidget {
                     .copyWith(color: AppColors.customBlackColor),
               ),
               verticalSpace(20),
-              ButtonItem(text: "Login", onPressed: () {
-                GoRouter.of(context).push('/login');
-              }),
+              ButtonItem(
+                  text: "Login",
+                  onPressed: () {
+                    GoRouter.of(context).push('/login');
+                  }),
               verticalSpace(12),
-              ButtonItem(text: "Sign up", onPressed: () {
-                GoRouter.of(context).push(AppRoutes.signUp);
-              }),
-             const GuestItem(),
+              ButtonItem(
+                  text: "Sign up",
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRoutes.signUp);
+                  }),
+              const GuestItem(),
             ],
           ),
         ),
