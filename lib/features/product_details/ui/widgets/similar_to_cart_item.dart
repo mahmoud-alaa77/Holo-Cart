@@ -63,21 +63,18 @@ class SimilarToCartItem extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        "${product.basePrice.toString()}\$",
-                        style: AppTextStyles.font12W700,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      horizontalSpace(48),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite_border_sharp,
-                          ))
-                    ],
+                  Text(
+                    product.description.toString(),
+                    style: AppTextStyles.font12W400,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    "${product.basePrice.toString()} \$",
+                    style:
+                        AppTextStyles.font12W700.copyWith(color: Colors.green),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
