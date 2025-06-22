@@ -13,7 +13,7 @@ class GetShippingAddressBlocBuilder extends StatelessWidget {
     return BlocBuilder<GetShippingAddressCubit, GetShippingAddressState>(
       builder: (context, state) {
         if (state is GetShippingAddressLoading) {
-          return const CircularProgressIndicator();
+          return Center(child: const CircularProgressIndicator());
         } else if (state is GetShippingAddressLoaded) {
           final addressResponseModel = state.getAddressResponseModel;
           return ShippingAddressListView(addressResponseModel: addressResponseModel);
