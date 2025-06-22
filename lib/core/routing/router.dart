@@ -6,6 +6,8 @@ import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
+import 'package:holo_cart/features/checkout/data/repo/stripe_repo.dart';
+import 'package:holo_cart/features/checkout/logic/cubit/stripe_payment_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
@@ -50,40 +52,40 @@ import '../../features/profile/ui/views/address/data/models/display_shipping_add
 
 final router = GoRouter(
   initialLocation: AppRoutes.splash, // Always start from splash
-  // redirect: (context, state) {
-  //   // If user is not logged in
-  //   if (!isLogedInUser) {
-  //     // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
-  //     final allowedPaths = [
-  //       AppRoutes.splash,
-  //       AppRoutes.onBoarding,
-  //       AppRoutes.login,
-  //       AppRoutes.signUp,
-  //       AppRoutes.mainAuth,
-  //       AppRoutes.forgetPassword,
-  //       AppRoutes.verificationCode,
-  //       AppRoutes.resetPassword,
-  //     ];
+  redirect: (context, state) {
+    // If user is not logged in
+    if (!isLogedInUser) {
+      // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
+      final allowedPaths = [
+        AppRoutes.splash,
+        AppRoutes.onBoarding,
+        AppRoutes.login,
+        AppRoutes.signUp,
+        AppRoutes.mainAuth,
+        AppRoutes.forgetPassword,
+        AppRoutes.verificationCode,
+        AppRoutes.resetPassword,
+      ];
 
-  //     if (!allowedPaths.contains(state.matchedLocation)) {
-  //       return AppRoutes.splash; // Redirect to splash if trying to access protected routes
-  //     }
-  //   } else {
-  //     // If user is logged in, redirect from auth screens to main screen
-  //     final authPaths = [
-  //       AppRoutes.splash,
-  //       AppRoutes.login,
-  //       AppRoutes.signUp,
-  //       AppRoutes.mainAuth,
-  //     ];
+      if (!allowedPaths.contains(state.matchedLocation)) {
+        return AppRoutes.splash; // Redirect to splash if trying to access protected routes
+      }
+    } else {
+      // If user is logged in, redirect from auth screens to main screen
+      final authPaths = [
+        AppRoutes.splash,
+        AppRoutes.login,
+        AppRoutes.signUp,
+        AppRoutes.mainAuth,
+      ];
 
-  //     if (authPaths.contains(state.matchedLocation)) {
-  //       return AppRoutes.main; // Redirect to main screen if trying to access auth screens
-  //     }
-  //   }
+      if (authPaths.contains(state.matchedLocation)) {
+        return AppRoutes.main; // Redirect to main screen if trying to access auth screens
+      }
+    }
 
-  //   return null; // Allow access to the requested route
-  // },
+    return null; // Allow access to the requested route
+  },
   routes: [
     // Splash Route
     GoRoute(
@@ -221,10 +223,20 @@ final router = GoRouter(
       path: AppRoutes.emptycartScreen,
       builder: (context, state) => CartScreenBody(),
     ),
-    GoRoute(
-      path: AppRoutes.checkout,
-      builder: (context, state) => const CheckoutScreen(),
-    ),
+  GoRoute(
+  path: AppRoutes.checkout,
+  builder: (context, state) {
+    final extra = state.extra as Map<String, dynamic>;
+    final total = extra['total'] as double;
+    final currency = extra['currency'] as String;
+
+    return BlocProvider(
+      create: (_) => StripePaymentCubit(StripeRepo()),
+      child: CheckoutScreen(total: total, currency: currency),
+    );
+  },
+),
+
 
     GoRoute(
       path: AppRoutes.proccessingOrder,

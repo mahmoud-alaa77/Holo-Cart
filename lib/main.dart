@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:holo_cart/core/helper/di.dart';
 import 'package:holo_cart/core/helper/my_bloc_observer.dart';
 import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
 import 'package:holo_cart/core/helper/shared_pref_keys.dart';
+import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/core/routing/router.dart';
 import 'package:holo_cart/core/themes/app_themes.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
@@ -16,6 +18,7 @@ void main() async {
 
   Bloc.observer = SimpleBlocObserver();
   await checkUserLogin();
+  Stripe.publishableKey = ApiConstants.publicKey;
   
 
   runApp(const MyApp());
