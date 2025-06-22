@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:animated_rating_bar/widgets/animated_rating_bar.dart';
+import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +10,9 @@ import 'package:holo_cart/core/helper/local_db_helper.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/app_text_field.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/core/widgets/custom_rating_widget.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/cart/data/models/cart_item_model.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
@@ -37,6 +43,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int currentUserId = 0;
   bool showImage = false;
   late bool isFavorited;
+
+  double yourRate = 0.0;
+  String yourComment = '';
+
+  TextEditingController commentController = TextEditingController();
+
   void onButtonPressed() {
     setState(() {
       showImage = true;
@@ -473,7 +485,117 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           //   color: AppColors.customRedColor,
                           //   radius: 30,
                           // ),
-                          verticalSpace(33),
+                          verticalSpace(16),
+
+                          Text("Reviews", style: AppTextStyles.font24W600),
+                          verticalSpace(10),
+
+                          ...List.generate(
+                            widget.product.reviews?.length ?? 0,
+                            (index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 30.r,
+                                      backgroundColor:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : AppColors.customDarkWhiteColor,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: AppColors.primaryOrangeColor,
+                                        size: 35.r,
+                                      ),
+                                    ),
+                                    horizontalSpace(8),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              widget.product.reviews?[index]
+                                                      .userName ??
+                                                  "",
+                                              style: AppTextStyles.font16W600,
+                                            ),
+                                            horizontalSpace(16),
+                                            RatingBar.readOnly(
+                                              size: 20.r,
+                                              filledIcon: Icons.star,
+                                              emptyIcon: Icons.star_border,
+                                              initialRating: widget.product
+                                                      .reviews?[index].rating
+                                                      ?.toDouble() ??
+                                                  0.0,
+                                              maxRating: 5,
+                                            )
+                                          ],
+                                        ),
+                                        Text(
+                                          widget.product.reviews?[index]
+                                                  .comment ??
+                                              "",
+                                          style: AppTextStyles.font12W400,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          verticalSpace(16),
+                          AppTextFormField(
+                            labelText: "Your Review",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            controller: commentController,
+                          ),
+                          verticalSpace(8),
+                          Row(
+                            children: [
+                              SizedBox(
+                                child: AnimatedRatingBar(
+                                  activeFillColor: AppColors.customYellowColor,
+                                  strokeColor: AppColors.customYellowColor,
+                                  initialRating: 0.0,
+                                  width: 120.w,
+                                  height: 30.h,
+                                  // width: MediaQuery.of(context).size.width,
+                                  animationColor: AppColors.customRedColor,
+                                  onRatingUpdate: (rating) {
+                                    log("comment is ${commentController.text} and rating is $rating");
+                                  },
+                                ),
+                              ),
+                              horizontalSpace(16),
+                              ButtonItem(
+                                color: AppColors.customRedColor,
+                                onPressed: () {},
+                                text: "Submit",
+                                buttonTextStyle: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppTextStyles.font13W500
+                                        .copyWith(color: Colors.white)
+                                    : AppTextStyles.font13W500
+                                        .copyWith(color: Colors.black),
+                                width: 80.w,
+                                radius: 16.r,
+                              ),
+                            ],
+                          ),
+                          verticalSpace(24),
                         ],
                       ),
                     ),
