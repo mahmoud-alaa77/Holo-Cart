@@ -14,13 +14,18 @@ class StripePaymentCubit extends Cubit<StripePaymentState> {
       PaymentIntentInputModel paymentIntentInputModel) async {
     emit(StripePaymentLoading());
     final userId = await SharedPrefHelper.getInt(SharedPrefKeys.userId);
-    final result = await stripeRepo.makePayment( id: userId.toString(),
+    final result = await stripeRepo.makePayment(
+        id: userId.toString(),
         paymentIntentInputModel: paymentIntentInputModel);
     result.fold(
-      (l) => emit(StripePaymentFailure(errorMessage: l.errorMessage)),
+      (l) {
+        if (l.errorMessage.toLowerCase().contains("cancelled")) {
+          emit(StripePaymentCancelled());
+        } else {
+          emit(StripePaymentFailure(errorMessage: l.errorMessage));
+        }
+      },
       (r) => emit(StripePaymentSuccess()),
-    
     );
   }
-
 }

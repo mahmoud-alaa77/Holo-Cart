@@ -2,6 +2,7 @@ part of 'stripe_payment_cubit.dart';
 
 @immutable
 sealed class StripePaymentState {}
+class StripePaymentCancelled extends StripePaymentState {}
 
 final class StripePaymentInitial extends StripePaymentState {}
 final class StripePaymentLoading extends StripePaymentState {}

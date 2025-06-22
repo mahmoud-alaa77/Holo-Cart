@@ -32,12 +32,19 @@ class StripeService {
   }
 
   Future<void> presentPaymentSheet() async {
-    try {
-      await Stripe.instance.presentPaymentSheet();
-    } on Exception catch (e) {
-      throw Exception('Failed to present payment sheet: $e');
+  try {
+    await Stripe.instance.presentPaymentSheet();
+  } on StripeException catch (e) {
+    if (e.error.localizedMessage?.toLowerCase().contains('canceled') == true) {
+      throw Exception('cancelled'); // استخدم علامة مميزة
+    } else {
+      throw Exception('Failed to present payment sheet: ${e.error.localizedMessage}');
     }
+  } catch (e) {
+    throw Exception('Payment failed: $e');
   }
+}
+
 
   Future makepayment(
       {required String userId,
@@ -51,4 +58,5 @@ class StripeService {
       throw Exception('Payment failed: $e');
     }
   }
+  
 }

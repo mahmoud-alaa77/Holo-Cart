@@ -1,12 +1,9 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
@@ -18,7 +15,7 @@ import 'package:holo_cart/features/checkout/logic/cubit/stripe_payment_cubit.dar
 import 'package:holo_cart/features/checkout/ui/widgets/edit_checkout_details.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/payment_method.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
   final double total;
   final String currency;
 
@@ -27,6 +24,13 @@ class CheckoutScreen extends StatelessWidget {
     required this.total,
     required this.currency,
   });
+
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
+  PaymentType? selectedPayment;
 
   @override
   Widget build(BuildContext context) {
@@ -54,70 +58,80 @@ class CheckoutScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Select your payment method',
-                    style: AppTextStyles.font14W500,
-                  ),
+                  Text('Select your payment method', style: AppTextStyles.font14W500),
                   verticalSpace(10),
                   Center(child: SvgPicture.asset('assets/images/card.svg')),
-                  PaymentMethod(total: total, currency: currency),
-                  verticalSpace(15),
                   verticalSpace(10),
+                  PaymentMethod(
+                    onMethodSelected: (method) {
+                      setState(() {
+                        selectedPayment = method;
+                      });
+                    },
+                  ),
+                  verticalSpace(20),
                   BlocConsumer<StripePaymentCubit, StripePaymentState>(
-  listener: (context, state) {
-    if (state is StripePaymentLoading) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => const Center(child: CircularProgressIndicator()),
-      );
-    }
+                    listener: (context, state) {
+                      if (state is StripePaymentLoading) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => const Center(child: CircularProgressIndicator()),
+                        );
+                      }
+                      if (state is StripePaymentSuccess) {
+                        GoRouter.of(context).pop(); // close loading
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Payment Successful!'), backgroundColor: Colors.green),
+                        );
+                        GoRouter.of(context).go(AppRoutes.done);
+                      }
+                      if (state is StripePaymentCancelled) {
+                        GoRouter.of(context).pop(); // close loading
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Payment was cancelled.'), backgroundColor: Colors.orange),
+                        );
+                      }
+                      if (state is StripePaymentFailure) {
+                        GoRouter.of(context).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.errorMessage), backgroundColor: Colors.red),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      return ButtonItem(
+                        text: "Place Order",
+                        onPressed: () {
+                          if (selectedPayment == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Please select a payment method.'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            return;
+                          }
 
-    if (state is StripePaymentSuccess) {
-      GoRouter.of(context).pop(); // Close loading
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment Successful!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-      GoRouter.of(context).go(AppRoutes.done); // Navigate to success screen
-    }
+                          if (selectedPayment == PaymentType.stripe) {
+                            context.read<StripePaymentCubit>().makePayment(
+                                  PaymentIntentInputModel(
+                                    amount: (widget.total * 100).toStringAsFixed(0),
+                                    currency: widget.currency,
+                                     
+                                  ),
+                                );
+                          }
 
-    if (state is StripePaymentFailure) {
-      log(state.errorMessage);  
-      Navigator.pop(context); // Close loading
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.errorMessage),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  },
-  builder: (context, state) {
-    return ButtonItem(  
-
-
-
-      text: "Place Order",
-      onPressed: () {
-        final cubit = context.read<StripePaymentCubit>();
-        // final userId = SharedPrefHelper.getInt(SharedPrefKeys.userId);
-
-        cubit.makePayment(
-          PaymentIntentInputModel(
-            amount: (total * 100).toStringAsFixed(0), // Convert to cents
-            currency: currency,
-            // Assuming userId is a string
-          ),
-        );
-      },
-      color: AppColors.customRedColor,
-      radius: 30,
-    );
-  },
-)
+                          if (selectedPayment == PaymentType.paypal) {
+                            // هنشتغل عليها لاحقًا
+                          }
+                        },
+                        color: AppColors.customRedColor,
+                        radius: 30,
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

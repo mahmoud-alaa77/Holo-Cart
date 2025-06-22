@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
-import 'package:holo_cart/core/themes/app_text_styles.dart';
-import 'package:holo_cart/features/checkout/data/models/payment_intent_input_model.dart';
-import 'package:holo_cart/features/checkout/data/repo/stripe_repo.dart';
-import 'package:holo_cart/features/checkout/logic/cubit/stripe_payment_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/pay_method_item.dart';
 
-class PaymentMethod extends StatelessWidget {
-  final double total;
-  final String currency;
+enum PaymentType { stripe, paypal }
 
-  const PaymentMethod({Key? key, required this.total, required this.currency}) : super(key: key);
+class PaymentMethod extends StatefulWidget {
+  final Function(PaymentType?) onMethodSelected;
+
+  const PaymentMethod({super.key, required this.onMethodSelected});
+
+  @override
+  State<PaymentMethod> createState() => _PaymentMethodState();
+}
+
+class _PaymentMethodState extends State<PaymentMethod> {
+  PaymentType? _selected;
+
+  void _select(PaymentType type) {
+    setState(() {
+      _selected = type;
+    });
+    widget.onMethodSelected(_selected);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        Text("+ Add New", style: AppTextStyles.font15W600),
-        verticalSpace(8),
-        BlocProvider(
-          create: (_) => StripePaymentCubit(StripeRepo()),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  PaymentIntentInputModel paymentIntentInputModel = PaymentIntentInputModel(
-                    amount: total.toStringAsFixed(0),  // أو *100 لو Stripe بتستخدم cents
-                    currency: currency,
-                    
-                     // أو تاخد من SharedPreferences
-                  );
-                  context.read<StripePaymentCubit>().makePayment(paymentIntentInputModel);
-                },
-                child: PayMethodItem(assetsName: "assets/images/google_pay.png"),
-              ),
-            ],
-          ),
-        ),
+        _buildPaymentItem(PaymentType.stripe, "assets/images/google_pay.png"),
+        horizontalSpace(10),
+        _buildPaymentItem(PaymentType.paypal, "assets/images/paypal.png"),
       ],
+    );
+  }
+
+  Widget _buildPaymentItem(PaymentType type, String asset) {
+    final isSelected = _selected == type;
+
+    return GestureDetector(
+      onTap: () => _select(type),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: isSelected ? Colors.blue : Colors.transparent,
+            width: 1.5.w,
+          ),
+          borderRadius: BorderRadius.circular(14.r),
+        ),
+        child: PayMethodItem(assetsName: asset),
+      ),
     );
   }
 }
