@@ -114,7 +114,13 @@ class CartScreenBody extends StatelessWidget {
                 ButtonItem(
                   text: "Checkout",
                   onPressed: () {
-                    GoRouter.of(context).push(AppRoutes.checkout);
+                    GoRouter.of(context).push(
+                      AppRoutes.checkout,
+                      extra: {
+                        'total': total,
+                        'currency': 'usd',
+                      },
+                    );
                   },
                   color: AppColors.customRedColor,
                   radius: 30,

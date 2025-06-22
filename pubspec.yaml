@@ -67,6 +67,8 @@ dependencies:
   model_viewer_plus: ^1.9.2
   country_picker: ^2.0.27
   custom_rating_bar: ^3.0.0
+  stripe_android: "10.0.0"
+  flutter_stripe: ^10.0.0
 
 
 dev_dependencies:

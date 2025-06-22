@@ -38,7 +38,7 @@ class AddressScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const ShippingAddressListView(),
+              // ShippingAddressListView(),
               const GetShippingAddressBlocBuilder(),
               verticalSpace(16.0),
             ],
