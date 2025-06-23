@@ -15,6 +15,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+Holo-Cart/.env
 
 Holo-Cart/lib/core/networking/api_constants.dart
 

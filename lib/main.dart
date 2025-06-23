@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:holo_cart/core/helper/di.dart';
@@ -19,6 +20,7 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   await checkUserLogin();
   Stripe.publishableKey = ApiConstants.publicKey;
+  await dotenv.load();
   
 
   runApp(const MyApp());
