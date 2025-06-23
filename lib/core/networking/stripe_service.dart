@@ -15,7 +15,7 @@ class StripeService {
     var response = await stripeApiService.post(
       body: inputModel.tojson(),
       url: 'https://api.stripe.com/v1/payment_intents',
-      token: ApiConstants .secretKey,
+      token: ApiConstants.secretKey,
       contentType: Headers.formUrlEncodedContentType,
     );
     return PaymentIntentModel.fromJson(response.data);
