@@ -14,13 +14,15 @@ import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart
 
 bool isLogedInUser = false;
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await setupGetIt();
 
   Bloc.observer = SimpleBlocObserver();
   await checkUserLogin();
   Stripe.publishableKey = ApiConstants.publicKey;
-  await dotenv.load();
+  
   
 
   runApp(const MyApp());

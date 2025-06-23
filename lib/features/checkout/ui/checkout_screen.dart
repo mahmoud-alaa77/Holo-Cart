@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -180,6 +182,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               content: Text(state.errorMessage),
                               backgroundColor: Colors.red),
                         );
+                        log(
+                          'Stripe Payment Error: ${state.errorMessage}',
+                        );  
                       }
                     },
                     builder: (context, state) {
