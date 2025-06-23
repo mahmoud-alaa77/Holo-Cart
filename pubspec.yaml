@@ -69,6 +69,7 @@ dependencies:
   custom_rating_bar: ^3.0.0
   stripe_android: "10.0.0"
   flutter_stripe: ^10.0.0
+  flutter_paypal_payment: ^1.0.7
 
 
 dev_dependencies:

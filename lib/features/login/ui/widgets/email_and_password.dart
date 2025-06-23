@@ -24,7 +24,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
           verticalSpace(25),
            AuthTextfield(
               controller: context.read<LoginCubit>().userNameController,
-                        hintText: "Enter User Name",
+                        hintText: "Enter User Name or Email",
                       ),
                       verticalSpace(15),
                        

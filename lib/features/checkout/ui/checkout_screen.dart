@@ -1,15 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/networking/api_constants.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/appbar_screen.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
+import 'package:holo_cart/core/widgets/custom_loading_widget.dart';
 import 'package:holo_cart/features/checkout/data/models/payment_intent_input_model.dart';
 import 'package:holo_cart/features/checkout/logic/cubit/stripe_payment_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/edit_checkout_details.dart';
@@ -31,6 +33,83 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   PaymentType? selectedPayment;
+
+  void _initiatePayPalPayment() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => PaypalCheckoutView(
+          sandboxMode: true, 
+          clientId:
+              ApiConstants.paypalClientId, 
+          secretKey: ApiConstants
+              .paypalSecretKey, 
+          transactions: [
+            {
+              "amount": {
+                "total": widget.total.toStringAsFixed(2),
+                "currency": widget.currency,
+                "details": {
+                  "subtotal": widget.total.toStringAsFixed(2),
+                  "tax": '0',
+                  "shipping": '0',
+                  "handling_fee": '0',
+                  "shipping_discount": '0',
+                  "insurance": '0'
+                }
+              },
+              "description": "Payment for your order",
+              "item_list": {
+                "items": [
+                  {
+                    "name": "Order Total",
+                    "quantity": 1,
+                    "price": widget.total.toStringAsFixed(2),
+                    "currency": widget.currency
+                  }
+                ],
+              }
+            }
+          ],
+          note: "Contact us for any questions on your order.",
+          onSuccess: (Map params) async {
+            _handlePayPalSuccess(params);
+          },
+          onError: (error) {
+            _handlePayPalError(error);
+          },
+          onCancel: () {
+            _handlePayPalCancel();
+          },
+        ),
+      ),
+    );
+  }
+
+  void _handlePayPalSuccess(Map params) {
+    GoRouter.of(context).pop();
+
+    GoRouter.of(context).go(AppRoutes.proccessingOrder);
+  }
+
+  void _handlePayPalError(error) {
+    GoRouter.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('PayPal Payment Error: $error'),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  void _handlePayPalCancel() {
+    GoRouter.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('PayPal Payment was cancelled.'),
+        backgroundColor: Colors.orange,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +137,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Select your payment method', style: AppTextStyles.font14W500),
+                  Text('Select your payment method',
+                      style: AppTextStyles.font14W500),
                   verticalSpace(10),
                   Center(child: SvgPicture.asset('assets/images/card.svg')),
                   verticalSpace(10),
@@ -76,26 +156,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         showDialog(
                           context: context,
                           barrierDismissible: false,
-                          builder: (_) => const Center(child: CircularProgressIndicator()),
+                          builder: (context) => const CustomLoadingWidget(),
                         );
                       }
                       if (state is StripePaymentSuccess) {
-                        GoRouter.of(context).pop(); // close loading
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Payment Successful!'), backgroundColor: Colors.green),
-                        );
-                        GoRouter.of(context).go(AppRoutes.done);
+                        GoRouter.of(context).pop();
+                      
+                       
+                        GoRouter.of(context).go(AppRoutes.proccessingOrder);
                       }
                       if (state is StripePaymentCancelled) {
-                        GoRouter.of(context).pop(); // close loading
+                        GoRouter.of(context).pop();
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Payment was cancelled.'), backgroundColor: Colors.orange),
+                          const SnackBar(
+                              content: Text('Payment was cancelled.'),
+                              backgroundColor: Colors.orange),
                         );
                       }
                       if (state is StripePaymentFailure) {
                         GoRouter.of(context).pop();
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(state.errorMessage), backgroundColor: Colors.red),
+                          SnackBar(
+                              content: Text(state.errorMessage),
+                              backgroundColor: Colors.red),
                         );
                       }
                     },
@@ -106,7 +189,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           if (selectedPayment == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Please select a payment method.'),
+                                content:
+                                    Text('Please select a payment method.'),
                                 backgroundColor: Colors.red,
                               ),
                             );
@@ -116,15 +200,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           if (selectedPayment == PaymentType.stripe) {
                             context.read<StripePaymentCubit>().makePayment(
                                   PaymentIntentInputModel(
-                                    amount: (widget.total * 100).toStringAsFixed(0),
+                                    amount:
+                                        (widget.total * 100).toStringAsFixed(0),
                                     currency: widget.currency,
-                                     
                                   ),
                                 );
                           }
 
                           if (selectedPayment == PaymentType.paypal) {
-                            // هنشتغل عليها لاحقًا
+                            _initiatePayPalPayment();
                           }
                         },
                         color: AppColors.customRedColor,

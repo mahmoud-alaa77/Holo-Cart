@@ -9,7 +9,6 @@ import 'package:holo_cart/features/forget_password/ui/widgets/bloc_listener_forg
 import 'package:holo_cart/features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/get_shipping_address/get_shipping_address_cubit.dart';
-import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/bloc_listener_shipping_address.dart';
 import 'widgets/address_text_fields.dart';
 
 class EditAndCreateAddressScreen extends StatelessWidget {
