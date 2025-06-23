@@ -650,6 +650,33 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<ShippingAddressResponse> deleteShippingAddress(int id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ShippingAddressResponse>(
+      Options(method: 'DELETE', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'ShippingAddress/Delete/${id}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ShippingAddressResponse _value;
+    try {
+      _value = ShippingAddressResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<GetAllProductsModel> search(int userId, String searchTerm) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

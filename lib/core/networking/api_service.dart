@@ -130,6 +130,8 @@ abstract class ApiService {
   }) // حط الـ path المناسب
   Future<ShippingAddressResponse> updateShippingAddress(
       @Body() ShippingAddressRequest request);
+  @DELETE(ApiConstants.deleteShippingAddress)
+  Future<ShippingAddressResponse> deleteShippingAddress(@Path("id") int id);
 
   @GET(ApiConstants.search)
   Future<GetAllProductsModel> search(
