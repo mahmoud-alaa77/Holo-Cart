@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:holo_cart/core/helper/di.dart';
@@ -13,12 +14,15 @@ import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart
 
 bool isLogedInUser = false;
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await setupGetIt();
 
   Bloc.observer = SimpleBlocObserver();
   await checkUserLogin();
   Stripe.publishableKey = ApiConstants.publicKey;
+  
   
 
   runApp(const MyApp());

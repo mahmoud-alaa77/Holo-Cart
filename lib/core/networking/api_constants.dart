@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiConstants {
   static const String baseUrl = "https://holo.runasp.net/Api/V1/";
 
@@ -27,17 +29,22 @@ class ApiConstants {
   static const String getUserById = "User/{id}";
   static const String updateProfle = "User/Edit";
 
-//favourit
+  // Favourit
   static const String getFavouriteItems = "Favourit/user/{id}";
   static const String addFavouriteItem = "Favourit/Create";
   static const String deleteFavouriteItem = "Favourit/Delete";
-
-  // shipping
   static const String createShippingAddress = "ShippingAddress/Create";
   static const String getShippingAddresses = "ShippingAddress/User/{id}";
   static const String updateShippingAddress = "ShippingAddress/Update";
+  static const String deleteShippingAddress = "ShippingAddress/Delete/{id}";
 
-//search
+  // Stripe & Paypal keys from env
+  static String get secretKey => dotenv.env['STRIPE_SECRET_KEY'] ?? '';
+  static String get publicKey => dotenv.env['STRIPE_PUBLIC_KEY'] ?? '';
+  static String get paypalClientId => dotenv.env['PAYPAL_CLIENT_ID'] ?? '';
+  static String get paypalSecretKey => dotenv.env['PAYPAL_SECRET_KEY'] ?? '';
+
+  // search
   static const String search =
       "Product/Paginated?ApplicationUserId={userId}&SearchBy={searchTerm}";
 }
