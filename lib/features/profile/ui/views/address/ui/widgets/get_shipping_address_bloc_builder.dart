@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/core/widgets/custom_loading_widget.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/get_shipping_address/get_shipping_address_cubit.dart';
+import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/empty_item.dart';
 import 'package:holo_cart/features/profile/ui/views/address/ui/widgets/shipping_address_list_view.dart';
 
 class GetShippingAddressBlocBuilder extends StatelessWidget {
@@ -22,10 +25,12 @@ class GetShippingAddressBlocBuilder extends StatelessWidget {
               duration: Duration(seconds: 2),
             ),
           );
+        } else if (state is GetShippingAddressEmpty) {
+          const Center(child: Emptyitem());
         } else if (state is DeleteShippingAddressError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('حدث خطأ أثناء حذف العنوان: ${state.errorMessage}'),
+              content: Text(' ${state.errorMessage}'),
               backgroundColor: Colors.red,
               duration: const Duration(seconds: 3),
             ),
@@ -33,7 +38,6 @@ class GetShippingAddressBlocBuilder extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        // نظهر المحتوى حتى لو كان في حالة loading للحذف
         if (state is GetShippingAddressLoaded ||
             state is DeleteShippingAddressLoading) {
           final addressResponseModel = state is GetShippingAddressLoaded
@@ -44,10 +48,20 @@ class GetShippingAddressBlocBuilder extends StatelessWidget {
           return ShippingAddressListView(
               addressResponseModel: addressResponseModel);
         } else if (state is GetShippingAddressLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: Align(
+                  alignment: Alignment.center, child: CustomLoadingWidget()));
+        } else if (state is GetShippingAddressEmpty) {
+          return const Center(child: Emptyitem());
         } else if (state is GetShippingAddressError) {
           log("Error fetching shipping address: ${state.errorMessage}");
-          return Text("خطأ: ${state.errorMessage}");
+          return Center(
+            child: Text(
+              "  Erorr: ${state.errorMessage}",
+              style: AppTextStyles.font16W600,
+              textAlign: TextAlign.center,
+            ),
+          );
         } else {
           return const SizedBox.shrink();
         }

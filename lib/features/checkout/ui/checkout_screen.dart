@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
@@ -18,6 +17,7 @@ import 'package:holo_cart/features/checkout/data/models/payment_intent_input_mod
 import 'package:holo_cart/features/checkout/logic/cubit/stripe_payment_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/edit_checkout_details.dart';
 import 'package:holo_cart/features/checkout/ui/widgets/payment_method.dart';
+import 'package:lottie/lottie.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final double total;
@@ -40,11 +40,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => PaypalCheckoutView(
-          sandboxMode: true, 
-          clientId:
-              ApiConstants.paypalClientId, 
-          secretKey: ApiConstants
-              .paypalSecretKey, 
+          sandboxMode: true,
+          clientId: ApiConstants.paypalClientId,
+          secretKey: ApiConstants.paypalSecretKey,
           transactions: [
             {
               "amount": {
@@ -119,7 +117,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalSpace(25),
             const AppbarScreen(title: 'Checkout'),
@@ -129,11 +126,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               title: "Shipping Address",
               subtitle: 'Add Shipping Address',
             ),
-            const EditCheckoutDetails(
-              location: AppRoutes.profilePayment,
-              title: "Payment Method",
-              subtitle: 'Add Payment Method',
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
@@ -142,7 +134,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   Text('Select your payment method',
                       style: AppTextStyles.font14W500),
                   verticalSpace(10),
-                  Center(child: SvgPicture.asset('assets/images/card.svg')),
                   verticalSpace(10),
                   PaymentMethod(
                     onMethodSelected: (method) {
@@ -151,6 +142,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       });
                     },
                   ),
+                  Lottie.asset("assets/images/p4.json",
+                width:double.infinity , height: 250.h ), 
                   verticalSpace(20),
                   BlocConsumer<StripePaymentCubit, StripePaymentState>(
                     listener: (context, state) {
@@ -163,8 +156,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       }
                       if (state is StripePaymentSuccess) {
                         GoRouter.of(context).pop();
-                      
-                       
+
                         GoRouter.of(context).go(AppRoutes.proccessingOrder);
                       }
                       if (state is StripePaymentCancelled) {
@@ -184,7 +176,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         );
                         log(
                           'Stripe Payment Error: ${state.errorMessage}',
-                        );  
+                        );
                       }
                     },
                     builder: (context, state) {

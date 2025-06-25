@@ -56,10 +56,10 @@ final GetShippingAddressCubit getCubit;
                     ),
                   );
                 } else if (state is ShippingAddressSuccess) {
-                  // ✅ عمل ريفريش لبيانات العناوين مباشرة
                   context.read<GetShippingAddressCubit>().fetchShippingAddress();
+                  GoRouter.of(context).pop(); 
 
-                  context.pop(true); // رجوع مع ريفريش
+                  context.pop(true); 
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

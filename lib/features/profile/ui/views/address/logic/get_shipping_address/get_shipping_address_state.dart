@@ -16,6 +16,8 @@ final class GetShippingAddressError extends GetShippingAddressState {
   final String errorMessage;
   GetShippingAddressError(this.errorMessage);
 }
+final class GetShippingAddressEmpty extends GetShippingAddressState {}
+
 
 // States للحذف
 final class DeleteShippingAddressLoading extends GetShippingAddressState {}

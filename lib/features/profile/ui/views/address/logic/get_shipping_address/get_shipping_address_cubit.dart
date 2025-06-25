@@ -10,37 +10,57 @@ part 'get_shipping_address_state.dart';
 
 class GetShippingAddressCubit extends Cubit<GetShippingAddressState> {
   final GetShippingAddressRepo getShippingAddressRepo;
-  
-  GetShippingAddressCubit(this.getShippingAddressRepo) : super(GetShippingAddressInitial());
+
+  GetShippingAddressCubit(this.getShippingAddressRepo)
+      : super(GetShippingAddressInitial());
 
   Future<void> fetchShippingAddress() async {
-    final userId = (await SharedPrefHelper.getInt(SharedPrefKeys.userId)).toString();
+    final userId =
+        (await SharedPrefHelper.getInt(SharedPrefKeys.userId)).toString();
     emit(GetShippingAddressLoading());
+
     final result = await getShippingAddressRepo.getShippingAddress(userId);
     result.fold(
       (failure) => emit(GetShippingAddressError(failure.errorMessage)),
-      (data) => emit(GetShippingAddressLoaded(data)),
+      (data) {
+        
+      
+        
+        
+        if (data.data.isEmpty) {
+          emit(GetShippingAddressEmpty());
+        } else {
+          emit(GetShippingAddressLoaded(data));
+        }
+      },
     );
   }
 
-  // حذف بدون تغيير الـ state للـ loading
-  Future<void> deleteShippingAddress(int id) async {
+  
+ Future<void> deleteShippingAddress(int id) async {
   final result = await getShippingAddressRepo.deleteShippingAddress(id);
   result.fold(
     (failure) => emit(DeleteShippingAddressError(failure.errorMessage)),
     (data) {
       if (state is GetShippingAddressLoaded) {
-        final currentData = (state as GetShippingAddressLoaded).getAddressResponseModel;
-        final updatedList = currentData.data.where((e) => e.shippingAddressId != id).toList();
-        final updatedModel = currentData.copyWith(data: updatedList);
-        emit(GetShippingAddressLoaded(updatedModel));
+        final currentData =
+            (state as GetShippingAddressLoaded).getAddressResponseModel;
+        final updatedList =
+            currentData.data.where((e) => e.shippingAddressId != id).toList();
+
+        if (updatedList.isEmpty) {
+          emit(GetShippingAddressEmpty());
+        } else {
+          final updatedModel = currentData.copyWith(data: updatedList);
+          emit(GetShippingAddressLoaded(updatedModel));
+        }
       }
-      
     },
   );
 }
 
 }
+
 extension GetAddressResponseModelCopyWith on GetAddressResponseModel {
   GetAddressResponseModel copyWith({
     int? statusCode,
