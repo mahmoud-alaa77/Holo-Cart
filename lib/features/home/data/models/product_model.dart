@@ -31,7 +31,7 @@ class Product {
   int? discountId;
   String? discountCode;
   int? discountPercentage;
-  List<Colors>? colors;
+  List<ProductColors>? colors;
   List<Reviews>? reviews;
   int? finalPrice;
 
@@ -60,17 +60,18 @@ class Product {
 }
 
 @JsonSerializable()
-class Colors {
+class ProductColors {
   String? colorName;
   String? colorHex;
   String? imageUrl;
   int? stock;
 
-  Colors({this.colorName, this.colorHex, this.imageUrl, this.stock});
+  ProductColors({this.colorName, this.colorHex, this.imageUrl, this.stock});
 
-  factory Colors.fromJson(Map<String, dynamic> json) => _$ColorsFromJson(json);
+  factory ProductColors.fromJson(Map<String, dynamic> json) =>
+      _$ProductColorsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ColorsToJson(this);
+  Map<String, dynamic> toJson() => _$ProductColorsToJson(this);
 }
 
 @JsonSerializable()

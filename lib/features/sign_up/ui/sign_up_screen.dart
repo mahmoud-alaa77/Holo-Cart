@@ -43,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
           ),
-          const AuthBackround(),
+          const AuthBackGround(),
           Positioned(
             top: 45.h,
             child: Container(

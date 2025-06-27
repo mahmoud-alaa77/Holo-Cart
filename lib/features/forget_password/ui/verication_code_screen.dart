@@ -21,8 +21,8 @@ class VerificationCodeScreen extends StatelessWidget {
   void _verifyCode(BuildContext context, String code) {
     if (code.length == 6) {
       context.read<VerificationCodeCubit>().sendResetPasswordCode(
-        VerificationRequst(code: code, email: email),
-      );
+            VerificationRequst(code: code, email: email),
+          );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -35,8 +35,8 @@ class VerificationCodeScreen extends StatelessWidget {
 
   void _resendCode(BuildContext context) {
     context.read<ForgetPasswordCubit>().sendResetPasswordCode(
-      ForgetPasswordRequest(email: email),
-    );
+          ForgetPasswordRequest(email: email),
+        );
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -70,7 +70,7 @@ class VerificationCodeScreen extends StatelessWidget {
         child: SafeArea(
           child: Stack(
             children: [
-              const AuthBackround(),
+              const AuthBackGround(),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SingleChildScrollView(
@@ -84,18 +84,21 @@ class VerificationCodeScreen extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.w, vertical: 40),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Align(alignment: Alignment.topLeft, child: BackItem()),
+                          const Align(
+                              alignment: Alignment.topLeft, child: BackItem()),
                           verticalSpace(5),
                           Image.asset(
                             "assets/images/verify.png",
                             height: 0.27.sh,
                           ),
                           verticalSpace(5),
-                          Text("Verification code", style: AppTextStyles.font36W500),
+                          Text("Verification code",
+                              style: AppTextStyles.font36W500),
                           Text(
                             "Please confirm the security code sent to your email.",
                             textAlign: TextAlign.center,

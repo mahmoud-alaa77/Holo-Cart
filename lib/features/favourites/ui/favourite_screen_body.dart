@@ -38,13 +38,13 @@ class _FavouriteScreenBodyState extends State<FavouriteScreenBody> {
         child: BlocBuilder<FavouriteCubit, FavouriteState>(
           builder: (context, state) {
             if (state is FavouriteLoaded) {
-              return state.favouriteItems.favouriteDataList!.isNotEmpty
+              return state.favouritesModel.favouriteDataList!.isNotEmpty
                   ? SingleChildScrollView(
                       child: Column(
                         children: [
                           verticalSpace(24),
                           Text(
-                              "My Favourites (${state.favouriteItems.favouriteDataList!.length}) ",
+                              "My Favourites (${state.favouritesModel.favouriteDataList!.length}) ",
                               style: AppTextStyles.font20W700),
                           verticalSpace(30),
                           GridView.builder(
@@ -57,13 +57,13 @@ class _FavouriteScreenBodyState extends State<FavouriteScreenBody> {
                               mainAxisSpacing: 10.h,
                               childAspectRatio: 0.6,
                             ),
-                            itemCount: state
-                                    .favouriteItems.favouriteDataList?.length ??
+                            itemCount: state.favouritesModel.favouriteDataList
+                                    ?.length ??
                                 0,
                             itemBuilder: (context, index) {
                               return FavouritCartItem(
                                 favouriteProductData: state
-                                    .favouriteItems.favouriteDataList![index],
+                                    .favouritesModel.favouriteDataList![index],
                               );
                             },
                           ),

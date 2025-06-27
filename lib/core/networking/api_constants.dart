@@ -47,4 +47,7 @@ class ApiConstants {
   // search
   static const String search =
       "Product/Paginated?ApplicationUserId={userId}&SearchBy={searchTerm}";
+
+  // review
+  static const String addReview = "Review/Create";
 }

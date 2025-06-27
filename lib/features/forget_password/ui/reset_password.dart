@@ -35,7 +35,7 @@ class ResetPasswordScreen extends StatelessWidget {
         child: SafeArea(
           child: Stack(
             children: [
-              const AuthBackround(),
+              const AuthBackGround(),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SingleChildScrollView(
@@ -49,20 +49,21 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.w, vertical: 40),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const BackItem(),
-                          ResetTextFields(screenHeight: MediaQuery.of(context).size.height),
+                          ResetTextFields(
+                              screenHeight: MediaQuery.of(context).size.height),
                           ButtonItem(
                             text: "Confirm",
                             onPressed: () {
                               validateThenDoLogin(context);
-                             
                             },
                           ),
-                        const  BlocListenerResetPassword()
+                          const BlocListenerResetPassword()
                         ],
                       ),
                     ),
@@ -75,16 +76,17 @@ class ResetPasswordScreen extends StatelessWidget {
       ),
     );
   }
-  void validateThenDoLogin(BuildContext context) {
-  if (context.read<ResetPasswordCubit>().formKey.currentState!.validate()) {
-    context.read<ResetPasswordCubit>().resetPassword(
-          ResetPasswordRequest(
-            email:email,
-            confirmPassword: context.read<ResetPasswordCubit>().confirmPassword.text,
-            password: context.read<ResetPasswordCubit>().password.text,
-          ),
-        );
-  }
-}
 
+  void validateThenDoLogin(BuildContext context) {
+    if (context.read<ResetPasswordCubit>().formKey.currentState!.validate()) {
+      context.read<ResetPasswordCubit>().resetPassword(
+            ResetPasswordRequest(
+              email: email,
+              confirmPassword:
+                  context.read<ResetPasswordCubit>().confirmPassword.text,
+              password: context.read<ResetPasswordCubit>().password.text,
+            ),
+          );
+    }
+  }
 }

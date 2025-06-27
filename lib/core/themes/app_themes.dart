@@ -10,14 +10,7 @@ class AppTheme {
       brightness: Brightness.light,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.lightBackgroundColor,
-      )
-
-      // textTheme: TextTheme(
-      //   bodyLarge: AppTextStyles.fontBodyLarge,
-      //   bodySmall: AppTextStyles.fontBodySmall,
-      //   bodyMedium: AppTextStyles.fontBodyMeduim,
-      // ),
-      );
+      ));
 
   static final ThemeData darkMode = ThemeData(
       primaryColor: AppColors.primaryOrangeColor,
@@ -26,11 +19,5 @@ class AppTheme {
       brightness: Brightness.dark,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.darkBackgroundColor,
-      )
-      // textTheme: TextTheme(
-      //   bodyLarge: AppTextStyles.fontBodyLarge,
-      //   bodySmall: AppTextStyles.fontBodySmall,
-      //   bodyMedium: AppTextStyles.fontBodyMeduim,
-      // ),
-      );
+      ));
 }

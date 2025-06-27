@@ -7,6 +7,7 @@ import 'package:holo_cart/features/favourites/data/models/get_favourites_model.d
 import 'package:holo_cart/features/home/data/models/product_model.dart';
 import 'package:holo_cart/features/product_details/data/models/get_product_colors_model.dart';
 import 'package:holo_cart/features/forget_password/data/models/forget_password_response.dart';
+import 'package:holo_cart/features/product_details/data/models/review_request_model.dart';
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
 import 'package:holo_cart/features/profile/data/model/update_profile_model/update_profile_response_model.dart';
 import 'package:holo_cart/features/profile/ui/views/address/data/models/create_shipping_address/shiping_address_requset.dart';
@@ -136,4 +137,10 @@ abstract class ApiService {
   @GET(ApiConstants.search)
   Future<GetAllProductsModel> search(
       @Path("userId") int userId, @Path("searchTerm") String searchTerm);
+
+  @POST(ApiConstants.addReview)
+  @Headers({
+    'Content-Type': 'application/json',
+  })
+  Future<bool> addReview(@Body() Review reviewRequestModel);
 }

@@ -34,7 +34,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       discountCode: json['discountCode'] as String?,
       discountPercentage: (json['discountPercentage'] as num?)?.toInt(),
       colors: (json['colors'] as List<dynamic>?)
-          ?.map((e) => Colors.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ProductColors.fromJson(e as Map<String, dynamic>))
           .toList(),
       reviews: (json['reviews'] as List<dynamic>?)
           ?.map((e) => Reviews.fromJson(e as Map<String, dynamic>))
@@ -61,14 +61,16 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'finalPrice': instance.finalPrice,
     };
 
-Colors _$ColorsFromJson(Map<String, dynamic> json) => Colors(
+ProductColors _$ProductColorsFromJson(Map<String, dynamic> json) =>
+    ProductColors(
       colorName: json['colorName'] as String?,
       colorHex: json['colorHex'] as String?,
       imageUrl: json['imageUrl'] as String?,
       stock: (json['stock'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$ColorsToJson(Colors instance) => <String, dynamic>{
+Map<String, dynamic> _$ProductColorsToJson(ProductColors instance) =>
+    <String, dynamic>{
       'colorName': instance.colorName,
       'colorHex': instance.colorHex,
       'imageUrl': instance.imageUrl,

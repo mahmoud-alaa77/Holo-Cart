@@ -14,7 +14,6 @@ import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart
 
 bool isLogedInUser = false;
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await setupGetIt();
@@ -22,8 +21,6 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   await checkUserLogin();
   Stripe.publishableKey = ApiConstants.publicKey;
-  
-  
 
   runApp(const MyApp());
 }
@@ -47,43 +44,56 @@ class MyApp extends StatelessWidget {
       create: (context) => AppModeCubit(),
       child: BlocBuilder<AppModeCubit, AppModeState>(
         builder: (context, state) {
-          if (state is AppModeDark) {
-            return ScreenUtilInit(
-              designSize: const Size(360, 690),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              child: MaterialApp.router(
-                routerConfig: router,
-                debugShowCheckedModeBanner: false,
-                title: 'Holo Cart',
-                theme: AppTheme.darkMode,
-              ),
-            );
-          } else if (state is AppModeLight) {
-            return ScreenUtilInit(
-              designSize: const Size(360, 690),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              child: MaterialApp.router(
-                routerConfig: router,
-                debugShowCheckedModeBanner: false,
-                title: 'Holo Cart',
-                theme: AppTheme.lightMode,
-              ),
-            );
-          } else {
-            return ScreenUtilInit(
-              designSize: const Size(360, 690),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              child: MaterialApp.router(
-                routerConfig: router,
-                debugShowCheckedModeBanner: false,
-                title: 'Holo Cart',
-                theme: AppTheme.lightMode,
-              ),
-            );
-          }
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            child: MaterialApp.router(
+              routerConfig: router,
+              debugShowCheckedModeBanner: false,
+              title: 'Holo Cart',
+              theme:
+                  state is AppModeDark ? AppTheme.darkMode : AppTheme.lightMode,
+            ),
+          );
+
+          // if (state is AppModeDark) {
+          //   return ScreenUtilInit(
+          //     designSize: const Size(360, 690),
+          //     minTextAdapt: true,
+          //     splitScreenMode: true,
+          //     child: MaterialApp.router(
+          //       routerConfig: router,
+          //       debugShowCheckedModeBanner: false,
+          //       title: 'Holo Cart',
+          //       theme: AppTheme.darkMode,
+          //     ),
+          //   );
+          // } else if (state is AppModeLight) {
+          //   return ScreenUtilInit(
+          //     designSize: const Size(360, 690),
+          //     minTextAdapt: true,
+          //     splitScreenMode: true,
+          //     child: MaterialApp.router(
+          //       routerConfig: router,
+          //       debugShowCheckedModeBanner: false,
+          //       title: 'Holo Cart',
+          //       theme: AppTheme.lightMode,
+          //     ),
+          //   );
+          // } else {
+          //   return ScreenUtilInit(
+          //     designSize: const Size(360, 690),
+          //     minTextAdapt: true,
+          //     splitScreenMode: true,
+          //     child: MaterialApp.router(
+          //       routerConfig: router,
+          //       debugShowCheckedModeBanner: false,
+          //       title: 'Holo Cart',
+          //       theme: AppTheme.lightMode,
+          //     ),
+          //   );
+          // }
         },
       ),
     );

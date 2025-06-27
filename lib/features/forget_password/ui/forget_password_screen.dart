@@ -17,7 +17,6 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryOrangeColor,
-      
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -35,7 +34,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         child: SafeArea(
           child: Stack(
             children: [
-              const AuthBackround(),
+              const AuthBackGround(),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SingleChildScrollView(
@@ -53,7 +52,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 60),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -66,7 +66,6 @@ class ForgetPasswordScreen extends StatelessWidget {
                                 },
                               ),
                               const BlocListenerForgetPassword(),
-                             
                             ],
                           ),
                         ),
@@ -86,9 +85,9 @@ class ForgetPasswordScreen extends StatelessWidget {
 void validateThenDoLogin(BuildContext context) {
   if (context.read<ForgetPasswordCubit>().formKey.currentState!.validate()) {
     context.read<ForgetPasswordCubit>().sendResetPasswordCode(
-      ForgetPasswordRequest(
-        email: context.read<ForgetPasswordCubit>().emailController.text,
-      ),
-    );
+          ForgetPasswordRequest(
+            email: context.read<ForgetPasswordCubit>().emailController.text,
+          ),
+        );
   }
 }

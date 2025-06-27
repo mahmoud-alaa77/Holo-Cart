@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
 import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
+import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/favourites/data/models/add_or_delete_fav_body.dart';
@@ -21,7 +23,8 @@ class FavouritCartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // context.push(AppRoutes.productDetails ,extra: );
+        context.push(AppRoutes.productDetails,
+            extra: favouriteProductData.productId);
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
@@ -92,7 +95,7 @@ class FavouritCartItem extends StatelessWidget {
                                 SharedPrefKeys.userId),
                           );
                           BlocProvider.of<FavouriteCubit>(context)
-                              .deleteProductToFavorite(body: product);
+                              .deleteProductFromFavorite(body: product);
                         },
                         icon: const Icon(
                           Icons.favorite,

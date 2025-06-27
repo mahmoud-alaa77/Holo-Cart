@@ -20,6 +20,7 @@ import 'package:holo_cart/features/home/logic/product_by_id/get_product_by_id_cu
 import 'package:holo_cart/features/login/data/repo/login_repo.dart';
 import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/product_details/data/repo/product_details_repo.dart';
+import 'package:holo_cart/features/product_details/logic/cubit/add_review_cubit.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/profile/data/repo/get_profile/user_profile_repo.dart';
 import 'package:holo_cart/features/profile/data/repo/update_profile/update_profile_repo.dart.dart';
@@ -118,4 +119,6 @@ Future<void> setupGetIt() async {
 //SEARCH
   getIt.registerLazySingleton<SearchRepo>(() => SearchRepo(getIt()));
   getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
+  //review
+  getIt.registerFactory<AddReviewCubit>(() => AddReviewCubit(getIt()));
 }

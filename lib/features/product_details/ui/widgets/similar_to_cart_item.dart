@@ -15,7 +15,7 @@ class SimilarToCartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(AppRoutes.productDetails, extra: product);
+        context.push(AppRoutes.productDetails, extra: product.productId);
       },
       child: Container(
         width: 150.w,

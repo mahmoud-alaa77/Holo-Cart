@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          const AuthBackround(),
+          const AuthBackGround(),
           Positioned(
             top: 80.h,
             child: Container(

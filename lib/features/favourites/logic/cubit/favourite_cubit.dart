@@ -11,25 +11,41 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   final FavouriteRepo favRepo;
   FavouriteCubit(this.favRepo) : super(FavouriteInitial());
 
+  List<int> favProductIds = [];
+
   getAllFavouriteProducts() async {
     emit(FavouriteLoading());
     final result = await favRepo.getAllFavouriteProducts(
-        id: await SharedPrefHelper.getInt(SharedPrefKeys.userId));
+      id: await SharedPrefHelper.getInt(SharedPrefKeys.userId),
+    );
     result.fold((error) {
       emit(FavouriteError(error.errorMessage));
     }, (favModel) {
+      favProductIds =
+          favModel.favouriteDataList!.map((e) => e.productId!).toList();
       emit(FavouriteLoaded(favModel));
     });
   }
 
   addProductToFavorite({required AddOrDeleteFavBody body}) async {
     await favRepo.addFavouriteProducts(body: body);
-    emit(AddFavouriteSuccess("Product added to favourites"));
+
+    favProductIds = List.from(favProductIds)..add(body.productId);
+    emit(FavouriteUpdated(favProductIds));
   }
 
   deleteProductToFavorite({required AddOrDeleteFavBody body}) async {
     await favRepo.deleteFavouriteProducts(body: body);
-    emit(AddFavouriteSuccess("Product removed from favourites"));
+
+    favProductIds = List.from(favProductIds)..remove(body.productId);
+    emit(FavouriteUpdated(favProductIds));
+  }
+
+  deleteProductFromFavorite({required AddOrDeleteFavBody body}) async {
+    await favRepo.deleteFavouriteProducts(body: body);
+
+    favProductIds = List.from(favProductIds)..remove(body.productId);
+    emit(FavouriteUpdated(favProductIds));
     getAllFavouriteProducts();
   }
 }

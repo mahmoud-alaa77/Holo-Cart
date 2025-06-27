@@ -30,6 +30,7 @@ import 'package:holo_cart/features/login/logic/cubit/login_cubit.dart';
 import 'package:holo_cart/features/login/ui/login_screen.dart';
 import 'package:holo_cart/features/login_or_signup_guest/ui/login_signup_guest_screen.dart';
 import 'package:holo_cart/features/on_boarding/ui/on_boarding_screen.dart';
+import 'package:holo_cart/features/product_details/logic/cubit/add_review_cubit.dart';
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/product_details_page.dart';
 import 'package:holo_cart/features/profile/data/model/get_profile_model/profile_response_model.dart';
@@ -68,7 +69,8 @@ final router = GoRouter(
       ];
 
       if (!allowedPaths.contains(state.matchedLocation)) {
-        return AppRoutes.splash; // Redirect to splash if trying to access protected routes
+        return AppRoutes
+            .splash; // Redirect to splash if trying to access protected routes
       }
     } else {
       // If user is logged in, redirect from auth screens to main screen
@@ -80,7 +82,8 @@ final router = GoRouter(
       ];
 
       if (authPaths.contains(state.matchedLocation)) {
-        return AppRoutes.main; // Redirect to main screen if trying to access auth screens
+        return AppRoutes
+            .main; // Redirect to main screen if trying to access auth screens
       }
     }
 
@@ -171,6 +174,9 @@ final router = GoRouter(
               BlocProvider(
                 create: (context) => getIt<GetProductByIdCubit>(),
               ),
+              BlocProvider(
+                create: (context) => getIt<AddReviewCubit>(),
+              ),
             ],
             child: const MainScreen(),
           );
@@ -178,11 +184,14 @@ final router = GoRouter(
     GoRoute(
       path: AppRoutes.productDetails,
       builder: (context, state) {
-        final data = state.extra as ProductData;
+        final data = state.extra as int;
         return MultiBlocProvider(
           providers: [
             BlocProvider(
               create: (context) => getIt<GetProductColorsCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<AddReviewCubit>(),
             ),
             BlocProvider(
               create: (context) => getIt<GetProductsInCategoryCubit>(),
@@ -196,9 +205,12 @@ final router = GoRouter(
             BlocProvider(
               create: (context) => getIt<LoginCubit>(),
             ),
+            BlocProvider(
+              create: (context) => getIt<GetProductByIdCubit>(),
+            ),
           ],
           child: ProductDetailsPage(
-            product: data,
+            productId: data,
           ),
         );
       },
@@ -218,25 +230,24 @@ final router = GoRouter(
     //   path: AppRoutes.cartScreen,
     //   builder: (context, state) => const CartScreen(),
     // ),
-    
+
     GoRoute(
       path: AppRoutes.emptycartScreen,
       builder: (context, state) => CartScreenBody(),
     ),
-  GoRoute(
-  path: AppRoutes.checkout,
-  builder: (context, state) {
-    final extra = state.extra as Map<String, dynamic>;
-    final total = extra['total'] as double;
-    final currency = extra['currency'] as String;
+    GoRoute(
+      path: AppRoutes.checkout,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        final total = extra['total'] as double;
+        final currency = extra['currency'] as String;
 
-    return BlocProvider(
-      create: (_) => StripePaymentCubit(StripeRepo()),
-      child: CheckoutScreen(total: total, currency: currency),
-    );
-  },
-),
-
+        return BlocProvider(
+          create: (_) => StripePaymentCubit(StripeRepo()),
+          child: CheckoutScreen(total: total, currency: currency),
+        );
+      },
+    ),
 
     GoRoute(
       path: AppRoutes.proccessingOrder,
