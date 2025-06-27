@@ -4,8 +4,9 @@ import 'package:holo_cart/core/themes/app_colors.dart';
 
 class BackItem extends StatelessWidget {
   const BackItem({
-    super.key,
+    super.key, this.onPressed,
   });
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class BackItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: IconButton(
-          onPressed: () {
+          onPressed: onPressed ?? () {
             // Navigate back to the previous screen
             GoRouter.of(context).pop();
           },

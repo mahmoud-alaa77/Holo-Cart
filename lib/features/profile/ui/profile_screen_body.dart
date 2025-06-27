@@ -38,14 +38,7 @@ class ProfileScreenBody extends StatelessWidget {
                GoRouter.of(context).push(AppRoutes.address);
               },
             ),
-            ProfileListButton(
-              title: "Payment",
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const PaymentScreen()),
-                );
-              },
-            ),
+            
             ProfileListButton(title: "Setting", onPressed: () {}),
             ProfileListButton(
               title: "About Shope",

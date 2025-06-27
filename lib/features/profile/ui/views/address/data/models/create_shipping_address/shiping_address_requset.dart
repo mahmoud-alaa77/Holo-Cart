@@ -5,7 +5,7 @@ part 'shiping_address_requset.g.dart';
 class ShippingAddressRequest {
 
   final int? id;
-  final int userId;
+  final int? userId;
   final String addressLine1;
   final String addressLine2;
   final String city;
@@ -15,7 +15,7 @@ class ShippingAddressRequest {
 
   ShippingAddressRequest({
     this.id,
-    required this.userId,
+     this.userId,
     required this.addressLine1,
     required this.addressLine2,
     required this.city,

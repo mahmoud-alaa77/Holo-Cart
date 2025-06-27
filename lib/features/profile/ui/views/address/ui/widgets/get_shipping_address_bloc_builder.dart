@@ -38,19 +38,17 @@ class GetShippingAddressBlocBuilder extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is GetShippingAddressLoaded ||
-            state is DeleteShippingAddressLoading) {
-          final addressResponseModel = state is GetShippingAddressLoaded
-              ? state.getAddressResponseModel
-              : (context.read<GetShippingAddressCubit>().state
-                      as GetShippingAddressLoaded)
-                  .getAddressResponseModel;
+        if (state is GetShippingAddressLoaded) {
           return ShippingAddressListView(
-              addressResponseModel: addressResponseModel);
+            addressResponseModel: state.getAddressResponseModel,
+          );
         } else if (state is GetShippingAddressLoading) {
           return const Center(
-              child: Align(
-                  alignment: Alignment.center, child: CustomLoadingWidget()));
+            child: Align(
+              alignment: Alignment.center,
+              child: CustomLoadingWidget(),
+            ),
+          );
         } else if (state is GetShippingAddressEmpty) {
           return const Center(child: Emptyitem());
         } else if (state is GetShippingAddressError) {

@@ -11,12 +11,15 @@ class UserProfileCubit extends Cubit<UserprofileState> {
   final ProfileRepo profileRepo;
 
   UserProfileCubit(this.profileRepo) : super(UserprofileInitial());
+
   Future<void> getUserProfile() async {
     String token = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
-     if (token.isEmpty) {
-    emit(UserProfileGuestState()); // لا تجلب بيانات
-    return;
-  }
+
+    if (token.isEmpty) {
+      emit(UserProfileGuestState());
+      return;
+    }
+
     emit(UserprofileLoading());
 
     try {
@@ -25,7 +28,17 @@ class UserProfileCubit extends Cubit<UserprofileState> {
       final result = await profileRepo.getUserProfile(userId.toString());
       result.fold(
         (failure) => emit(UserprofileError(failure.errorMessage)),
-        (userProfileResponse) =>emit(UserprofileLoaded(userProfileResponse.data)),
+        (userProfileResponse) {
+          
+          if (userProfileResponse == null ||
+              userId == 0 ||
+              userProfileResponse.data.fullName.isEmpty ||
+              userProfileResponse.data.email.isEmpty) {
+            emit(GuestProfileState());
+            return;
+          }
+          emit(UserprofileLoaded(userProfileResponse.data));
+        },
       );
     } catch (e) {
       emit(UserprofileError(e.toString()));

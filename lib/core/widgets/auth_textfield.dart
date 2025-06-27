@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:holo_cart/core/themes/app_colors.dart';
 
 class AuthTextfield extends StatelessWidget {
   const AuthTextfield({
@@ -48,7 +47,7 @@ final String? initialValue;
         suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: const TextStyle(
-          color: AppColors.customLightGrayColor,
+          
           fontSize: 15,
           fontWeight: FontWeight.w300,
         ),

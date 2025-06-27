@@ -9,28 +9,15 @@ import 'package:holo_cart/features/profile/ui/views/address/data/models/display_
 class GetShippingAddressRepo {
   final ApiService _apiService;
   GetShippingAddressRepo(this._apiService);
-  Future<Either<Failure, GetAddressResponseModel>> getShippingAddress(String id) async {
+  Future<Either<Failure, GetAddressResponseModel?>> getShippingAddress(String id) async {
     try {
       final response = await _apiService.getShippingAddress(id);
       return right(response);
     } catch (error) {
       if (error is DioException) {
-        // التحقق من حالة عدم وجود عناوين (404 مع رسالة محددة)
+        // إذا كان 404 - إرجاع null بدلاً من error (بغض النظر عن الرسالة)
         if (error.response?.statusCode == 404) {
-          final responseData = error.response?.data;
-          if (responseData != null && 
-              responseData['message'] == "No ShippingAddresses Created yet") {
-            // إنشاء response فارغ بدلاً من error
-            final emptyResponse = GetAddressResponseModel(
-              statusCode: 200,
-             
-              succeeded: true,
-              message: "No addresses found",
-             
-              data: [], // قائمة فارغة
-            );
-            return right(emptyResponse);
-          }
+          return right(null); // لا توجد عناوين
         }
         return left(ServerFailure.fromDioError(error));
       }

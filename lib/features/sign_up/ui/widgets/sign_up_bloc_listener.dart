@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
-import 'package:holo_cart/core/themes/app_text_styles.dart';
+import 'package:holo_cart/features/forget_password/ui/widgets/bloc_listener_forget_password.dart';
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 
 class SignupBlocListener extends StatelessWidget {
@@ -68,31 +68,4 @@ class SignupBlocListener extends StatelessWidget {
     );
   }
 
-  void setupErrorState(BuildContext context,  String errorMessage) {
-  
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      icon: const Icon(
-        Icons.error,
-        color: Colors.red,
-        size: 32,
-      ),
-      content: Text(
-        errorMessage,
-        style: AppTextStyles.font15W500
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            context.pop();
-          },
-          child: Text(
-            'Got it',
-            style: AppTextStyles.font14W600,
-          ),
-        ),
-      ],
-    ),
-  );
-}}
+}
