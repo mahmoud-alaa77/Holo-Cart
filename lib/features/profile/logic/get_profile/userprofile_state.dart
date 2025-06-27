@@ -18,3 +18,4 @@ final class UserprofileError extends UserprofileState {
 final class UserProfileGuestState extends UserprofileState {
   
 }
+final class GuestProfileState extends UserprofileState {}

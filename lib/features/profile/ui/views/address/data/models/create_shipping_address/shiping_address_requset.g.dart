@@ -10,7 +10,7 @@ ShippingAddressRequest _$ShippingAddressRequestFromJson(
         Map<String, dynamic> json) =>
     ShippingAddressRequest(
       id: (json['id'] as num?)?.toInt(),
-      userId: (json['userId'] as num).toInt(),
+      userId: (json['userId'] as num?)?.toInt(),
       addressLine1: json['addressLine1'] as String,
       addressLine2: json['addressLine2'] as String,
       city: json['city'] as String,

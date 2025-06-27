@@ -28,7 +28,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _buildPaymentItem(PaymentType.stripe, "assets/images/google_pay.png"),
+        _buildPaymentItem(PaymentType.stripe, "assets/images/Card.png"),
         horizontalSpace(10),
         _buildPaymentItem(PaymentType.paypal, "assets/images/paypal.png"),
       ],

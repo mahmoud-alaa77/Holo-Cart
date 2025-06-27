@@ -5,10 +5,17 @@ import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/widgets/auth_textfield.dart';
 import 'package:holo_cart/features/profile/ui/views/address/logic/creat_shipping_address/shipping_address_cubit.dart';
 
-class AddressTextFields extends StatelessWidget {
+class AddressTextFields extends StatefulWidget {
   const AddressTextFields({
     super.key,
   });
+
+  @override
+  State<AddressTextFields> createState() => _AddressTextFieldsState();
+}
+
+class _AddressTextFieldsState extends State<AddressTextFields> {
+  String selectedCountry = '';
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +55,16 @@ class AddressTextFields extends StatelessWidget {
                     showCountryPicker(
                       context: context,
                       onSelect: (Country country) {
+                        // تحديث الـ controller
                         context
                             .read<ShippingAddressCubit>()
                             .countryController
                             .text = country.name;
+                        
+                        
+                        setState(() {
+                          selectedCountry = country.name;
+                        });
                       },
                     );
                   },
@@ -66,20 +79,22 @@ class AddressTextFields extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        Text(
-                          context
-                                  .watch<ShippingAddressCubit>()
-                                  .countryController
-                                  .text
-                                  .isNotEmpty
-                              ? context
-                                  .watch<ShippingAddressCubit>()
-                                  .countryController
-                                  .text
-                              : 'Select Country',
-                          style: const TextStyle(color: Colors.black54),
+                        Expanded(
+                          child: Text(
+                            selectedCountry.isNotEmpty
+                                ? selectedCountry
+                                : 'Select Country',
+                            style: TextStyle(
+                              color: selectedCountry.isNotEmpty
+                                  ? Colors.black
+                                  : Colors.black54,
+                            ),
+                          ),
                         ),
-                        
+                        const Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black54,
+                        ),
                       ],
                     ),
                   ),
@@ -122,6 +137,7 @@ class AddressTextFields extends StatelessWidget {
               horizontalSpace(12),
               Expanded(
                 child: AuthTextfield(
+                  keyboardType: TextInputType.number,
                   controller:
                       context.read<ShippingAddressCubit>().zipCodeController,
                   hintText: 'Zip Code',

@@ -7,40 +7,74 @@ import 'package:holo_cart/features/profile/ui/views/address/data/repo/get_shippi
 import 'package:meta/meta.dart';
 
 part 'get_shipping_address_state.dart';
-
 class GetShippingAddressCubit extends Cubit<GetShippingAddressState> {
   final GetShippingAddressRepo getShippingAddressRepo;
-  
-  GetShippingAddressCubit(this.getShippingAddressRepo) : super(GetShippingAddressInitial());
+
+  GetShippingAddressCubit(this.getShippingAddressRepo)
+      : super(GetShippingAddressInitial());
 
   Future<void> fetchShippingAddress() async {
-    final userId = (await SharedPrefHelper.getInt(SharedPrefKeys.userId)).toString();
+    final userId =
+        (await SharedPrefHelper.getInt(SharedPrefKeys.userId)).toString();
     emit(GetShippingAddressLoading());
-    final result = await getShippingAddressRepo.getShippingAddress(userId);
-    result.fold(
-      (failure) => emit(GetShippingAddressError(failure.errorMessage)),
-      (data) => emit(GetShippingAddressLoaded(data)),
-    );
+
+    try {
+      final result = await getShippingAddressRepo.getShippingAddress(userId);
+      result.fold(
+        (failure) => emit(GetShippingAddressError(failure.errorMessage)),
+        (data) {
+          // التحقق من null أو البيانات الفارغة
+          if (data == null || data.data.isEmpty) {
+            emit(GetShippingAddressEmpty());
+          } else {
+            emit(GetShippingAddressLoaded(data));
+          }
+        },
+      );
+    } catch (e) {
+      emit(GetShippingAddressError(e.toString()));
+    }
   }
 
-  // حذف بدون تغيير الـ state للـ loading
   Future<void> deleteShippingAddress(int id) async {
-  final result = await getShippingAddressRepo.deleteShippingAddress(id);
-  result.fold(
-    (failure) => emit(DeleteShippingAddressError(failure.errorMessage)),
-    (data) {
-      if (state is GetShippingAddressLoaded) {
-        final currentData = (state as GetShippingAddressLoaded).getAddressResponseModel;
-        final updatedList = currentData.data.where((e) => e.shippingAddressId != id).toList();
-        final updatedModel = currentData.copyWith(data: updatedList);
-        emit(GetShippingAddressLoaded(updatedModel));
-      }
-      
-    },
-  );
+    emit(DeleteShippingAddressLoading());
+    
+    try {
+      final result = await getShippingAddressRepo.deleteShippingAddress(id);
+      result.fold(
+        (failure) => emit(DeleteShippingAddressError(failure.errorMessage)),
+        (data) {
+          emit(DeleteShippingAddressSuccess(data));
+          
+          // تحديث الحالة الحالية بعد الحذف الناجح
+          if (state is GetShippingAddressLoaded) {
+            final currentData =
+                (state as GetShippingAddressLoaded).getAddressResponseModel;
+            final updatedList = currentData.data
+                .where((e) => e.shippingAddressId != id)
+                .toList();
+
+            if (updatedList.isEmpty) {
+              emit(GetShippingAddressEmpty());
+            } else {
+              final updatedModel = currentData.copyWith(data: updatedList);
+              emit(GetShippingAddressLoaded(updatedModel));
+            }
+          }
+        },
+      );
+    } catch (e) {
+      emit(DeleteShippingAddressError(e.toString()));
+    }
+  }
+
+  // إضافة method لإعادة تحميل البيانات بعد إضافة عنوان جديد
+  Future<void> refreshShippingAddresses() async {
+    await fetchShippingAddress();
+  }
 }
 
-}
+// Extension للـ copyWith
 extension GetAddressResponseModelCopyWith on GetAddressResponseModel {
   GetAddressResponseModel copyWith({
     int? statusCode,

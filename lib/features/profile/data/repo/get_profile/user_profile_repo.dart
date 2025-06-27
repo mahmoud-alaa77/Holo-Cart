@@ -9,12 +9,17 @@ class ProfileRepo {
 
   ProfileRepo(this._apiService);
 
-  Future<Either<Failure, UserProfileResponseModel>> getUserProfile(String userId) async {
+  Future<Either<Failure, UserProfileResponseModel?>> getUserProfile(
+      String userId) async {
     try {
       final response = await _apiService.getUserById(userId);
       return right(response);
     } catch (error) {
       if (error is DioException) {
+        // إذا كان 404 - إرجاع null بدلاً من error
+        if (error.response?.statusCode == 404) {
+          return right(null); 
+        }
         return left(ServerFailure.fromDioError(error));
       }
       return left(ServerFailure(error.toString()));

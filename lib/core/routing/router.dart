@@ -6,8 +6,6 @@ import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
-import 'package:holo_cart/features/checkout/data/repo/stripe_repo.dart';
-import 'package:holo_cart/features/checkout/logic/cubit/stripe_payment_cubit.dart';
 import 'package:holo_cart/features/checkout/ui/checkout_screen.dart';
 import 'package:holo_cart/features/checkout/ui/done_screen.dart';
 import 'package:holo_cart/features/checkout/ui/proccessing_order_screen.dart';
@@ -242,10 +240,7 @@ final router = GoRouter(
         final total = extra['total'] as double;
         final currency = extra['currency'] as String;
 
-        return BlocProvider(
-          create: (_) => StripePaymentCubit(StripeRepo()),
-          child: CheckoutScreen(total: total, currency: currency),
-        );
+        return CheckoutScreen(total: total, currency: currency);
       },
     ),
 
