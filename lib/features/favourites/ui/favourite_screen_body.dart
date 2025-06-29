@@ -23,6 +23,11 @@ class FavouriteScreenBody extends StatefulWidget {
   State<FavouriteScreenBody> createState() => _FavouriteScreenBodyState();
 }
 
+int userId = 0;
+loadUserId() async {
+  userId = await SharedPrefHelper.getInt(SharedPrefKeys.userId) ?? 0;
+}
+
 class _FavouriteScreenBodyState extends State<FavouriteScreenBody> {
   @override
   void initState() {

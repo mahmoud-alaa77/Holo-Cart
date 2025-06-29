@@ -16,7 +16,6 @@ import 'package:holo_cart/features/forget_password/logic/verify/verification_cod
 import 'package:holo_cart/features/forget_password/ui/forget_password_screen.dart';
 import 'package:holo_cart/features/forget_password/ui/reset_password.dart';
 import 'package:holo_cart/features/forget_password/ui/verication_code_screen.dart';
-import 'package:holo_cart/features/home/data/models/get_all_products_model.dart';
 import 'package:holo_cart/features/home/logic/get_products_by_discount/get_products_by_discount_cubit.dart';
 import 'package:holo_cart/features/home/logic/discounts/discounts_cubit.dart';
 import 'package:holo_cart/features/home/logic/get_all_categories/get_categories_cubit.dart';
@@ -45,48 +44,45 @@ import 'package:holo_cart/features/profile/ui/views/update_information_user/upda
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
-import 'package:holo_cart/main.dart';
 
 import '../../features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 
 final router = GoRouter(
   initialLocation: AppRoutes.splash, // Always start from splash
-  redirect: (context, state) {
-    // If user is not logged in
-    if (!isLogedInUser) {
-      // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
-      final allowedPaths = [
-        AppRoutes.splash,
-        AppRoutes.onBoarding,
-        AppRoutes.login,
-        AppRoutes.signUp,
-        AppRoutes.mainAuth,
-        AppRoutes.forgetPassword,
-        AppRoutes.verificationCode,
-        AppRoutes.resetPassword,
-      ];
+  // redirect: (context, state) {
+  //   // If user is not logged in
+  //   if (!isLogedInUser) {
+  //     // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
+  //     final allowedPaths = [
+  //       AppRoutes.splash,
+  //       AppRoutes.onBoarding,
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //       AppRoutes.forgetPassword,
+  //       AppRoutes.verificationCode,
+  //       AppRoutes.resetPassword,
+  //     ];
 
-      if (!allowedPaths.contains(state.matchedLocation)) {
-        return AppRoutes
-            .splash; // Redirect to splash if trying to access protected routes
-      }
-    } else {
-      // If user is logged in, redirect from auth screens to main screen
-      final authPaths = [
-        AppRoutes.splash,
-        AppRoutes.login,
-        AppRoutes.signUp,
-        AppRoutes.mainAuth,
-      ];
+  //     if (!allowedPaths.contains(state.matchedLocation)) {
+  //       return AppRoutes
+  //           .splash; // Redirect to splash if trying to access protected routes
+  //     }
+  //   } else {
+  //     // If user is logged in, redirect from auth screens to main screen
+  //     final authPaths = [
+  //       AppRoutes.splash,
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //     ];
 
-      if (authPaths.contains(state.matchedLocation)) {
-        return AppRoutes
-            .main; // Redirect to main screen if trying to access auth screens
-      }
-    }
+  //     if (authPaths.contains(state.matchedLocation)) {
+  //       return AppRoutes
+  //           .main; // Redirect to main screen if trying to access auth screens
+  //     }
+  //   }
 
-    return null; // Allow access to the requested route
-  },
+  //   return null; // Allow access to the requested route
+  // },
   routes: [
     // Splash Route
     GoRoute(
@@ -123,6 +119,7 @@ final router = GoRouter(
     // Main Auth Route
     GoRoute(
       path: AppRoutes.mainAuth,
+      
       builder: (context, state) => const LoginORSignupORGuestScreen(),
     ),
     //signup route

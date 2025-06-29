@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:holo_cart/features/product_details/data/models/review_request_model.dart';
 import 'package:holo_cart/features/product_details/data/repo/product_details_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'add_review_state.dart';
 

@@ -14,7 +14,7 @@ import 'package:holo_cart/features/cart/ui/widgets/bag_and_button.dart';
 import 'package:holo_cart/features/cart/ui/widgets/cart_item.dart';
 
 class CartScreenBody extends StatelessWidget {
-  CartScreenBody({super.key});
+  const CartScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
