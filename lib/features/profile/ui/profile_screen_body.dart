@@ -7,7 +7,7 @@ import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/about/about_screen.dart';
@@ -16,6 +16,19 @@ import 'package:holo_cart/features/profile/ui/widgets/profile_list_button.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({super.key});
+  Future<void> launchFacebook() async {
+    final url = Uri.parse('https://www.facebook.com/mahmoud.alaa.581457');
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode
+            .externalApplication, // opens in Facebook app if installed, else browser
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +64,11 @@ class ProfileScreenBody extends StatelessWidget {
               },
             ),
 
-            ProfileListButton(title: "Help & Support", onPressed: () {}),
+            ProfileListButton(
+                title: "Help & Support",
+                onPressed: () async {
+                  await launchFacebook();
+                }),
             verticalSpace(24),
             GestureDetector(
               onTap: () {
