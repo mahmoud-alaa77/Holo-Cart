@@ -19,17 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
 void initState() {
   super.initState();
   Future.delayed(const Duration(seconds: 5), () async {
-    bool finished = await SharedPrefHelper.getBool('onBoardingFinished');
-    bool isGuest = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
-    String userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
+    // bool finished = await SharedPrefHelper.getBool('onBoardingFinished');
+    // bool isGuest = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
+    // String userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
 
-    if (!finished) {
+    // if (!finished) {
+    //   GoRouter.of(context).go(AppRoutes.onBoarding);
+    // } else if (userToken.isNotEmpty) {
+    //   GoRouter.of(context).go(AppRoutes.main);
+    // }  else {
       GoRouter.of(context).go(AppRoutes.onBoarding);
-    } else if (userToken.isNotEmpty) {
-      GoRouter.of(context).go(AppRoutes.main);
-    }  else {
-      GoRouter.of(context).go(AppRoutes.mainAuth);
-    }
+    
   });
 }
 

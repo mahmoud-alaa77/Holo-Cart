@@ -20,7 +20,7 @@ void main() async {
   await setupGetIt();
 
   Bloc.observer = SimpleBlocObserver();
-  await checkUserLogin();
+  // await checkUserLogin();
   Stripe.publishableKey = ApiConstants.publicKey;
 
   runApp(const MyApp());
