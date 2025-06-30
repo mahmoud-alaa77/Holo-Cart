@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holo_cart/core/helper/di.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
@@ -23,22 +25,43 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
+  bool? isGuest;
 
-  final List<Widget> bodies = [
-    const HomeScreenBody(),
-    const CategoriesScreenBody(),
-    BlocProvider(
-      create: (context) => getIt<FavouriteCubit>()..getAllFavouriteProducts(),
-      child: const FavouriteScreenBody(),
-    ),
-    CartScreenBody(),
-    BlocProvider(
-      create: (_) => getIt<UserProfileCubit>()..getUserProfile(),
-      child: const ProfileScreenBody(),
-    ),
-  ];
   @override
+  void initState() {
+    super.initState();
+    loadUserStatus();
+  }
+
+  loadUserStatus() async {
+    final value = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
+    setState(() {
+      isGuest = value;
+    });
+  }
+
   Widget build(BuildContext context) {
+    if (isGuest == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final List<Widget> bodies = [
+      const HomeScreenBody(),
+      const CategoriesScreenBody(),
+      BlocProvider(
+        create: (context) => getIt<FavouriteCubit>()..getAllFavouriteProducts(),
+        child: FavouriteScreenBody(
+          isGuest: isGuest!,
+        ),
+      ),
+      CartScreenBody(
+        isGuest: isGuest!,
+      ),
+      BlocProvider(
+        create: (_) => getIt<UserProfileCubit>()..getUserProfile(),
+        child: const ProfileScreenBody(),
+      ),
+    ];
     return SafeArea(
       child: Scaffold(
         body: bodies[selectedIndex],

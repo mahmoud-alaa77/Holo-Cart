@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/core/themes/app_text_styles.dart';
@@ -74,7 +76,10 @@ class SignUpScreen extends StatelessWidget {
                       verticalSpace(22),
                       ButtonItem(
                           text: "Sign Up",
-                          onPressed: () {
+                          onPressed: () async {
+                            await SharedPrefHelper.saveDataByKey(
+                                SharedPrefKeys.isGuest, false);
+
                             validateThenDoSignUp(context);
                           }),
                       SizedBox(

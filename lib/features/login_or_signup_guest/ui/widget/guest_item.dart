@@ -110,9 +110,12 @@ class GuestItem extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-                          await SharedPrefHelper.removeDataByKey(SharedPrefKeys.token);
-                          await SharedPrefHelper.removeDataByKey(SharedPrefKeys.userId);
-                         
+                          await SharedPrefHelper.removeDataByKey(
+                              SharedPrefKeys.token);
+                          await SharedPrefHelper.removeDataByKey(
+                              SharedPrefKeys.userId);
+                          await SharedPrefHelper.saveDataByKey(
+                              SharedPrefKeys.isGuest, true);
                           GoRouter.of(context).go(AppRoutes.main);
                         },
                         child: Container(

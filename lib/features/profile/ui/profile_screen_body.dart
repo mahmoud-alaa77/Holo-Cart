@@ -58,6 +58,8 @@ class ProfileScreenBody extends StatelessWidget {
                 context.read<CartCubit>().clearCart();
 
                 SharedPrefHelper.removeDataByKey(SharedPrefKeys.token);
+                SharedPrefHelper.removeDataByKey(SharedPrefKeys.isGuest);
+
                 context.go(AppRoutes.mainAuth);
               },
               child: Container(

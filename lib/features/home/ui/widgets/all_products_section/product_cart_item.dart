@@ -88,6 +88,8 @@ class ProductCartItem extends StatelessWidget {
             verticalSpace(6),
             CustomRatingWidget(
               numberOfRatings: product.reviews?.length ?? 0,
+              rateValue:
+                  product.reviews!.isNotEmpty ? product.reviews![0].rating! : 0,
             ),
           ],
         ),

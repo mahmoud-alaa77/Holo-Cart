@@ -16,7 +16,6 @@ import 'package:holo_cart/core/themes/app_text_styles.dart';
 import 'package:holo_cart/core/widgets/app_text_field.dart';
 import 'package:holo_cart/core/widgets/button_item.dart';
 import 'package:holo_cart/core/widgets/custom_loading_widget.dart';
-import 'package:holo_cart/core/widgets/custom_rating_widget.dart';
 import 'package:holo_cart/core/widgets/shimmer_loading_contianer.dart';
 import 'package:holo_cart/features/cart/data/models/cart_item_model.dart';
 import 'package:holo_cart/features/categories/logic/cubit/get_products_in_category_cubit.dart';
@@ -30,6 +29,7 @@ import 'package:holo_cart/features/product_details/logic/cubit/add_review_cubit.
 import 'package:holo_cart/features/product_details/logic/cubit/get_product_colors_cubit.dart';
 import 'package:holo_cart/features/product_details/ui/3d_view.dart';
 import 'package:holo_cart/features/product_details/ui/widgets/silimilar_to_list_view.dart';
+import 'package:holo_cart/features/profile/ui/widgets/guest_item.dart';
 import 'package:lottie/lottie.dart';
 import 'package:readmore/readmore.dart';
 
@@ -57,7 +57,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   final formKey = GlobalKey<FormState>();
   int yourRate = 0;
   String yourComment = '';
-
+  bool? isGuest;
   void onButtonPressed() {
     setState(() {
       showImage = true;
@@ -72,6 +72,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   loadUserId() async {
     currentUserId = await SharedPrefHelper.getInt(SharedPrefKeys.userId);
+    isGuest = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
   }
 
   @override
@@ -243,22 +244,51 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           color: Colors.redAccent,
                                         ),
                                         onPressed: () {
-                                          if (isFav) {
-                                            cubit.deleteProductToFavorite(
-                                              body: AddOrDeleteFavBody(
-                                                productId:
-                                                    product.productId!.toInt(),
-                                                userId: currentUserId,
-                                              ),
-                                            );
+                                          if (isGuest! == true) {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) => Center(
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                        ),
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width -
+                                                                100,
+                                                        height: 300.h,
+                                                        child: const Expanded(
+                                                            child:
+                                                                GuestWidget()),
+                                                      ),
+                                                    ));
+                                            Future.delayed(
+                                                const Duration(seconds: 2), () {
+                                              Navigator.of(context).pop();
+                                            });
                                           } else {
-                                            cubit.addProductToFavorite(
-                                              body: AddOrDeleteFavBody(
-                                                productId:
-                                                    product.productId!.toInt(),
-                                                userId: currentUserId,
-                                              ),
-                                            );
+                                            if (isFav) {
+                                              cubit.deleteProductToFavorite(
+                                                body: AddOrDeleteFavBody(
+                                                  productId: product.productId!
+                                                      .toInt(),
+                                                  userId: currentUserId,
+                                                ),
+                                              );
+                                            } else {
+                                              cubit.addProductToFavorite(
+                                                body: AddOrDeleteFavBody(
+                                                  productId: product.productId!
+                                                      .toInt(),
+                                                  userId: currentUserId,
+                                                ),
+                                              );
+                                            }
                                           }
                                         },
                                       );
@@ -294,7 +324,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           color: Colors.amber, size: 20.sp),
                                       SizedBox(width: 4.w),
                                       Text(
-                                        "4.8",
+                                        "${product.reviews!.isNotEmpty ? product.reviews![0].rating!.toDouble() : 0}",
                                         style: AppTextStyles.font18W600,
                                       ),
                                       SizedBox(width: 4.w),
@@ -503,9 +533,34 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                         product.mainImageUrl.toString(),
                                   );
 
-                                  DBHelper().insertCartItem(cartItem.toMap());
+                                  if (isGuest! == true) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Center(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width -
+                                                        100,
+                                                height: 300.h,
+                                                child: const Expanded(
+                                                    child: GuestWidget()),
+                                              ),
+                                            ));
+                                    Future.delayed(const Duration(seconds: 2),
+                                        () {
+                                      Navigator.of(context).pop();
+                                    });
+                                  } else {
+                                    DBHelper().insertCartItem(cartItem.toMap());
 
-                                  showSuccessDialog(context);
+                                    showSuccessDialog(context);
+                                  }
                                 },
                                 text: "Add to cart",
                                 radius: 30,
@@ -629,44 +684,71 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   ButtonItem(
                                     color: AppColors.customRedColor,
                                     onPressed: () async {
-                                      if (formKey.currentState!.validate()) {
-                                        if (yourRate == 0) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                                content: Text(
-                                                    "Please provide a rating")),
+                                      if (isGuest! == true) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => Center(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width -
+                                                        100,
+                                                    height: 300.h,
+                                                    child: const Expanded(
+                                                        child: GuestWidget()),
+                                                  ),
+                                                ));
+                                        Future.delayed(
+                                            const Duration(seconds: 2), () {
+                                          Navigator.of(context).pop();
+                                        });
+                                      } else {
+                                        if (formKey.currentState!.validate()) {
+                                          if (yourRate == 0) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      "Please provide a rating")),
+                                            );
+                                            return;
+                                          }
+
+                                          Review review = Review(
+                                            userId: currentUserId,
+                                            productId: product.productId!,
+                                            comment: commentController.text,
+                                            rating: yourRate,
                                           );
-                                          return;
-                                        }
 
-                                        Review review = Review(
-                                          userId: currentUserId,
-                                          productId: product.productId!,
-                                          comment: commentController.text,
-                                          rating: yourRate,
-                                        );
-
-                                        final success = await BlocProvider.of<
-                                                AddReviewCubit>(context)
-                                            .addReview(review: review);
-                                        Reviews r = Reviews(
-                                          rating: review.rating,
-                                          comment: review.comment,
-                                          userName: "",
-                                        );
-                                        if (success == true) {
-                                          setState(() {
-                                            localReviews.insert(0, r);
-                                            commentController.clear();
-                                            yourRate = 0;
-                                          });
+                                          final success = await BlocProvider.of<
+                                                  AddReviewCubit>(context)
+                                              .addReview(review: review);
+                                          Reviews r = Reviews(
+                                            rating: review.rating,
+                                            comment: review.comment,
+                                            userName: "",
+                                          );
+                                          if (success == true) {
+                                            setState(() {
+                                              localReviews.insert(0, r);
+                                              commentController.clear();
+                                              yourRate = 0;
+                                            });
+                                          }
+                                          BlocProvider.of<GetProductByIdCubit>(
+                                                  context)
+                                              .getProductById(
+                                                  productId:
+                                                      product.productId!);
+                                          showSuccessDialog(context);
                                         }
-                                        BlocProvider.of<GetProductByIdCubit>(
-                                                context)
-                                            .getProductById(
-                                                productId: product.productId!);
-                                        showSuccessDialog(context);
                                       }
                                     },
                                     text: "Submit",

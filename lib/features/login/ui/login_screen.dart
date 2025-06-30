@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
@@ -96,7 +98,8 @@ class LoginScreen extends StatelessWidget {
                     verticalSpace(22),
                     ButtonItem(
                         text: "Login",
-                        onPressed: () {
+                        onPressed: () async{
+                          await SharedPrefHelper.saveDataByKey(SharedPrefKeys.isGuest, false);
                           validateThenDoLogin(context);
                         }),
                     const LoginBlocListner(),

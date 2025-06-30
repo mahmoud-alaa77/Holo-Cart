@@ -226,10 +226,10 @@ final router = GoRouter(
     //   builder: (context, state) => const CartScreen(),
     // ),
 
-    GoRoute(
-      path: AppRoutes.emptycartScreen,
-      builder: (context, state) => CartScreenBody(),
-    ),
+    // GoRoute(
+    //   path: AppRoutes.emptycartScreen,
+    //   builder: (context, state) => CartScreenBody(),
+    // ),
     GoRoute(
       path: AppRoutes.checkout,
       builder: (context, state) {
