@@ -15,7 +15,5 @@ final class UserprofileError extends UserprofileState {
 
   UserprofileError(this.error);
 }
-final class UserProfileGuestState extends UserprofileState {
-  
-}
+
 final class GuestProfileState extends UserprofileState {}

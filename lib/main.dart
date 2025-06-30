@@ -13,6 +13,7 @@ import 'package:holo_cart/core/themes/app_themes.dart';
 import 'package:holo_cart/features/dark_and_light_mode/cubit/app_mode_cubit.dart';
 
 bool isLogedInUser = false;
+bool isGuestUser = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
@@ -28,10 +29,16 @@ void main() async {
 checkUserLogin() async {
   String userToken =
       await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
+  isGuestUser = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
   if (userToken.isNotEmpty) {
     isLogedInUser = true;
+    isGuestUser = false;
+  } else if (isGuestUser) {
+    isLogedInUser = false;
+    isGuestUser = true;
   } else {
     isLogedInUser = false;
+    isGuestUser = false;
   }
 }
 

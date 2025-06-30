@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/di.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
+import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/cart/ui/cart_screen_body.dart';
@@ -44,47 +46,50 @@ import 'package:holo_cart/features/profile/ui/views/update_information_user/upda
 import 'package:holo_cart/features/sign_up/logic/cubit/sign_up_cubit.dart';
 import 'package:holo_cart/features/sign_up/ui/sign_up_screen.dart';
 import 'package:holo_cart/features/splash/splash_screen.dart';
+import 'package:holo_cart/main.dart';
 
 import '../../features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 
 final router = GoRouter(
-  initialLocation: AppRoutes.splash, // Always start from splash
-  // redirect: (context, state) {
-  //   // If user is not logged in
-  //   if (!isLogedInUser) {
-  //     // Allow access to splash, onboarding, login, signup, mainAuth, and forget password screens
-  //     final allowedPaths = [
-  //       AppRoutes.splash,
-  //       AppRoutes.onBoarding,
-  //       AppRoutes.login,
-  //       AppRoutes.signUp,
-  //       AppRoutes.forgetPassword,
-  //       AppRoutes.verificationCode,
-  //       AppRoutes.resetPassword,
-  //     ];
+ initialLocation: '/',
+  redirect: (context, state) async {
+    final finished = await SharedPrefHelper.getBool('onBoardingFinished');
+    final isGuest = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
+    final userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
 
-  //     if (!allowedPaths.contains(state.matchedLocation)) {
-  //       return AppRoutes
-  //           .splash; // Redirect to splash if trying to access protected routes
-  //     }
-  //   } else {
-  //     // If user is logged in, redirect from auth screens to main screen
-  //     final authPaths = [
-  //       AppRoutes.splash,
-  //       AppRoutes.login,
-  //       AppRoutes.signUp,
-  //     ];
+    final path = state.matchedLocation;
 
-  //     if (authPaths.contains(state.matchedLocation)) {
-  //       return AppRoutes
-  //           .main; // Redirect to main screen if trying to access auth screens
-  //     }
-  //   }
+    if (!finished) {
+      if (path != AppRoutes.splash && path != AppRoutes.onBoarding) {
+        return AppRoutes.splash;
+      }
+    } else if (userToken.isEmpty && !isGuest) {
+      final allowedPaths = [
+        AppRoutes.login,
+        AppRoutes.signUp,
+        AppRoutes.splash,
+        AppRoutes.onBoarding,
+        AppRoutes.forgetPassword,
+        AppRoutes.verificationCode,
+        AppRoutes.resetPassword,
+      ];
+      if (!allowedPaths.contains(path)) {
+        return AppRoutes.mainAuth;
+      }
+    } else if (isGuest || userToken.isNotEmpty) {
+      if (path == AppRoutes.splash || path == AppRoutes.onBoarding) {
+        return AppRoutes.main;
+      }
+    }
 
-  //   return null; // Allow access to the requested route
-  // },
+    return null;
+  },
   routes: [
     // Splash Route
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const SplashScreen(),
+    ),
     GoRoute(
       path: AppRoutes.splash,
       builder: (context, state) => const SplashScreen(),
