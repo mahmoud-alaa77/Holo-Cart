@@ -51,45 +51,45 @@ import 'package:holo_cart/main.dart';
 import '../../features/profile/ui/views/address/data/models/display_shipping_address/get_address_response_model.dart';
 
 final router = GoRouter(
- initialLocation: '/',
-  redirect: (context, state) async {
-    final finished = await SharedPrefHelper.getBool('onBoardingFinished');
-    final isGuest = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
-    final userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
+ initialLocation: AppRoutes.splash,
+  // redirect: (context, state) async {
+  //   final finished = await SharedPrefHelper.getBool('onBoardingFinished');
+  //   final isGuest = await SharedPrefHelper.getBool(SharedPrefKeys.isGuest);
+  //   final userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
 
-    final path = state.matchedLocation;
+  //   final path = state.matchedLocation;
 
-    if (!finished) {
-      if (path != AppRoutes.splash && path != AppRoutes.onBoarding) {
-        return AppRoutes.splash;
-      }
-    } else if (userToken.isEmpty && !isGuest) {
-      final allowedPaths = [
-        AppRoutes.login,
-        AppRoutes.signUp,
-        AppRoutes.splash,
-        AppRoutes.onBoarding,
-        AppRoutes.forgetPassword,
-        AppRoutes.verificationCode,
-        AppRoutes.resetPassword,
-      ];
-      if (!allowedPaths.contains(path)) {
-        return AppRoutes.mainAuth;
-      }
-    } else if (isGuest || userToken.isNotEmpty) {
-      if (path == AppRoutes.splash || path == AppRoutes.onBoarding) {
-        return AppRoutes.main;
-      }
-    }
+  //   if (!finished) {
+  //     if (path != AppRoutes.splash && path != AppRoutes.onBoarding) {
+  //       return AppRoutes.splash;
+  //     }
+  //   } else if (userToken.isEmpty && !isGuest) {
+  //     final allowedPaths = [
+  //       AppRoutes.login,
+  //       AppRoutes.signUp,
+  //       AppRoutes.splash,
+  //       AppRoutes.onBoarding,
+  //       AppRoutes.forgetPassword,
+  //       AppRoutes.verificationCode,
+  //       AppRoutes.resetPassword,
+  //     ];
+  //     if (!allowedPaths.contains(path)) {
+  //       return AppRoutes.mainAuth;
+  //     }
+  //   } else if (isGuest || userToken.isNotEmpty) {
+  //     if (path == AppRoutes.splash || path == AppRoutes.onBoarding) {
+  //       return AppRoutes.main;
+  //     }
+  //   }
 
-    return null;
-  },
+  //   return null;
+  // },
   routes: [
     // Splash Route
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const SplashScreen(),
-    ),
+    // GoRoute(
+    //   path: '/',
+    //   builder: (context, state) => const SplashScreen(),
+    // ),
     GoRoute(
       path: AppRoutes.splash,
       builder: (context, state) => const SplashScreen(),

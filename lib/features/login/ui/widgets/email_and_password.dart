@@ -29,6 +29,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
                       verticalSpace(15),
                        
                        AuthTextfield(
+                        obscureText: _obscureText,
                     controller: context.read<LoginCubit>().passwordController,
                 validator: (data) {
                   if (data == null || data.isEmpty) {
