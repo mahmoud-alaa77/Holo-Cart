@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
 import 'package:holo_cart/features/on_boarding/ui/widgets/custom_indicator.dart';
@@ -102,7 +103,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 buttonBackgroundColor: onBoardingScreenColor(index),
                 buttonColor: Colors.white,
                 isLast: true,
-                onTap: () {
+                onTap: () async {
+                  await SharedPrefHelper.setBool('onBoardingFinished', true);
+
                   GoRouter.of(context).go(AppRoutes.mainAuth);
                 },
               ),

@@ -13,6 +13,7 @@ import 'package:holo_cart/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:holo_cart/features/profile/ui/views/about/about_screen.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_bloc_builder.dart';
 import 'package:holo_cart/features/profile/ui/widgets/profile_list_button.dart';
+import 'package:holo_cart/main.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({super.key});
@@ -54,12 +55,16 @@ class ProfileScreenBody extends StatelessWidget {
             ProfileListButton(title: "Help & Support", onPressed: () {}),
             verticalSpace(24),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 context.read<CartCubit>().clearCart();
 
-                SharedPrefHelper.removeDataByKey(SharedPrefKeys.token);
-                SharedPrefHelper.removeDataByKey(SharedPrefKeys.isGuest);
+                await SharedPrefHelper.removeDataByKey(SharedPrefKeys.token);
+                await SharedPrefHelper.removeDataByKey(SharedPrefKeys.isGuest);
 
+                // تحديث الحالة العالمية
+                await checkUserLogin();
+
+                // إعادة التوجيه
                 context.go(AppRoutes.mainAuth);
               },
               child: Container(

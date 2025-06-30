@@ -6,6 +6,7 @@ import 'package:holo_cart/core/helper/shared_pref_keys.dart';
 import 'package:holo_cart/core/helper/spacing.dart';
 import 'package:holo_cart/core/routing/app_routes.dart';
 import 'package:holo_cart/core/themes/app_colors.dart';
+import 'package:holo_cart/main.dart';
 
 class GuestItem extends StatelessWidget {
   const GuestItem({
@@ -116,6 +117,7 @@ class GuestItem extends StatelessWidget {
                               SharedPrefKeys.userId);
                           await SharedPrefHelper.saveDataByKey(
                               SharedPrefKeys.isGuest, true);
+                          await checkUserLogin();
                           GoRouter.of(context).go(AppRoutes.main);
                         },
                         child: Container(

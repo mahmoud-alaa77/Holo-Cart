@@ -16,7 +16,7 @@ class UserProfileCubit extends Cubit<UserprofileState> {
     String token = await SharedPrefHelper.getSecuredString(SharedPrefKeys.token);
 
     if (token.isEmpty) {
-      emit(UserProfileGuestState());
+      emit(GuestProfileState());
       return;
     }
 

@@ -14,9 +14,15 @@ class GetShippingAddressCubit extends Cubit<GetShippingAddressState> {
       : super(GetShippingAddressInitial());
 
   Future<void> fetchShippingAddress() async {
+
     final userId =
         (await SharedPrefHelper.getInt(SharedPrefKeys.userId)).toString();
     emit(GetShippingAddressLoading());
+    // التحقق من userId
+    if (userId.isEmpty || userId == '0') {
+      emit(GetShippingAddressEmpty());
+      return;
+    }
 
     try {
       final result = await getShippingAddressRepo.getShippingAddress(userId);

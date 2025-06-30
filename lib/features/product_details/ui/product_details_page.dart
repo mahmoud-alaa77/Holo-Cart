@@ -5,7 +5,6 @@ import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holo_cart/core/helper/local_db_helper.dart';
 import 'package:holo_cart/core/helper/sharded_pref_helper.dart';
